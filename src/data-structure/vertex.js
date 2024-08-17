@@ -12,7 +12,9 @@ export default class Vertex {
         // Initialise Variables
         this.x = x;
         this.y = y;
-        this.opposites = [];
+        this.visited = false;
+        this.cost = 0;
+        this.neighbours = [];
     }
 
     get x () { return this._x; }
@@ -23,9 +25,17 @@ export default class Vertex {
 
     set y (y) { this._y = y; }
 
-    get opposites () { return this._opposites; }
+    get visited () { return this._visited; }
 
-    set opposites (arr) { this._opposites = arr; }
+    set visited (bool) { this._visited = bool; }
+
+    get cost () { return this._cost; }
+
+    set cost (num) { this._cost = num; }
+
+    get neighbours () { return this._neighbours; }
+
+    set neighbours (arr) { this._neighbours = arr; }
 
     /**
      * Same Vertex Function
@@ -38,25 +48,25 @@ export default class Vertex {
     sameVertex (v) { return v.x === this.x && v.y === this.y; }
 
     /**
-     * Insert Opposite Function
+     * Insert Neighbour Function
      * 
-     * Adds a new Vertex that is Opposite this Vertex in 
+     * Adds a new Vertex that is Neighbour this Vertex in 
      * the Graph.
      * 
      * @param {Vertex} vertex Vertex
      */
-    insertOpposite (vertex) { this.opposites.push(vertex); }
+    insertNeighbour (vertex) { this.neighbours.push(vertex); }
 
-    removeOpposite (vertex) {
-        // Find Vertex if Present in Opposites Array
+    removeNeighbour (vertex) {
+        // Find Vertex if Present in neighbours Array
         let idx = -1;
-        for (let i = 0; i < this.opposites.length; i++) {
-            if (this.opposites[i].sameVertex(vertex))
+        for (let i = 0; i < this.neighbours.length; i++) {
+            if (this.neighbours[i].sameVertex(vertex))
                 idx = i;
         }
 
-        // Remove from Opposites if Present
+        // Remove from neighbours if Present
         if (idx >= 0)
-            this.opposites.splice(idx, 1);
+            this.neighbours.splice(idx, 1);
     }
 }

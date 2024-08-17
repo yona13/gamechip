@@ -45,16 +45,16 @@ export default class Edge {
     }
 
     /**
-     * Get Opposite Function
+     * Get Neighbour Function
      * 
      * For a given vertex, if it exists in the edge, the
-     * function will return the opposite vertex, otherwise
+     * function will return the neighbour vertex, otherwise
      * it will return null;
      * 
      * @param {Vertex} v Vertex
-     * @returns Opposite Vertex, or Null
+     * @returns Neighbour Vertex, or Null
      */
-    getOpposite (v) {
+    getNeighbour (v) {
         let u = null;
         this.vertices.forEach(vertex => {
             if (v.x === vertex.x && v.y === vertex.y)

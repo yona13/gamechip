@@ -1,5 +1,7 @@
 import Edge from "./edge.js";
 import Vertex from "./vertex.js";
+import Queue from "./queue.js";
+import Stack from "./stack.js";
 
 export default class Graph {
     /**
@@ -11,6 +13,57 @@ export default class Graph {
         // Initialise Variables
         this._vertices = []; 
         this._edges = [];
+    }
+
+    bfs (rx, ry, gx, gy) {
+        const root = this.getVertex(rx, ry);
+        const goal = this.getVertex(gx, gy);
+        for (let v of this.vertices())
+            v.visited = false;
+        root.visited = true;
+        let dist = [{vertex: root, cost: 0}];
+        let parent = [];
+        const queue = new Queue();
+        queue.enqueue(root);
+        
+        while (!queue.isEmpty()) {
+            let vertex = queue.dequeue();
+            if (vertex.sameVertex(goal))
+                break;
+
+            vertex.neighbours.forEach(v => {
+                if (!v.visited) {
+                    v.visited = true;
+                    let cost = 0;
+                    for (let i = 0; i < dist.length; i++)
+                        if (dist[i].vertex.sameVertex(vertex)) {
+                            cost = dist[i].cost;
+                            break;
+                        }
+                    dist.push({vertex: v, cost: cost + 1});
+                    parent.push({vertex: v, parent: vertex});
+                    queue.enqueue(v);
+                }
+            });
+        }
+        let stack = new Stack();
+        stack.push(goal);
+        let current = goal;
+        while (true) {
+            let idx = -1;
+            for (let i = 0; i < parent.length; i++)
+                if (parent[i].vertex.sameVertex(current)) {
+                    idx = i;
+                    break;
+                }
+            
+            stack.push(parent[idx].parent);
+            current = parent[idx].parent;
+            if (current.sameVertex(root))
+                break;
+        }
+        stack.pop();
+        return stack;
     }
 
     /**
@@ -27,7 +80,7 @@ export default class Graph {
                 let i = 0;
                 return {
                     next: () => {
-                        if (i > this._vertices.length) {
+                        if (i >= this._vertices.length) {
                             return { done: true };
                         } else {
                             return { value: this._vertices[i++], done: false };
@@ -52,7 +105,7 @@ export default class Graph {
                 let i = 0;
                 return {
                     next: () => {
-                        if (i > this._edges.length) {
+                        if (i >= this._edges.length) {
                             return { done: true };
                         } else {
                             return { value: this._edges[i++], done: false };
@@ -112,10 +165,10 @@ export default class Graph {
 
         // Handle Removal of Edge
         if (idx >= 0) {
-            // Remove Opposite References for Vertices
+            // Remove Neighbour References for Vertices
             let edge = this._edges[i];
-            edge.vertices[0].removeOpposite(edge.vertices[1]);
-            edge.vertices[1].removeOpposite(edge.vertices[0]);
+            edge.vertices[0].removeNeighbour(edge.vertices[1]);
+            edge.vertices[1].removeNeighbour(edge.vertices[0]);
 
             // Remove Edge
             this._edges.splice(idx, 1);
@@ -148,10 +201,8 @@ export default class Graph {
     getVertex (x, y) {
         let u = null;
         for (let vertex of this.vertices()) {
-            if (vertex !== undefined){
-                if (vertex.x === x && vertex.y === y)
-                    u = vertex;
-            }
+            if (vertex.x === x && vertex.y === y)
+                u = vertex;
         }
 
         return u;
@@ -170,8 +221,8 @@ export default class Graph {
     insertEdge (u, v) {
         if (this.getEdge(u, v) === null) {
             const edge = new Edge(u, v);
-            u.insertOpposite(v);
-            v.insertOpposite(u);
+            u.insertNeighbour(v);
+            v.insertNeighbour(u);
             this._edges.push(edge);
         }
     }
@@ -184,24 +235,38 @@ export default class Graph {
      * @param {Edge} e Edge
      */
     removeEdge (e) {
-        if (e !== undefined) {
-            // Check if Edge exists in Graph
-            let idx = -1;
-            for (let i = 0; i < this._edges.length; i++) {
-                if (this._edges[i].sameEdge(e))
-                    idx = i;
-            }
+        // Check if Edge exists in Graph
+        let idx = -1;
+        for (let i = 0; i < this._edges.length; i++) {
+            if (this._edges[i].sameEdge(e))
+                idx = i;
+        }
 
-            // Remove if Edge exists
-            if (idx >= 0) {
-                // Remove Opposite References for Vertices
-                let edge = this._edges[idx];
-                edge.vertices[0].removeOpposite(edge.vertices[1]);
-                edge.vertices[1].removeOpposite(edge.vertices[0]);
+        // Remove if Edge exists
+        if (idx >= 0) {
+            // Remove Neighbour References for Vertices
+            let edge = this._edges[idx];
+            edge.vertices[0].removeNeighbour(edge.vertices[1]);
+            edge.vertices[1].removeNeighbour(edge.vertices[0]);
 
-                // Remove Edge
-                this._edges.splice(idx, 1);
-            }
+            // Remove Edge
+            this._edges.splice(idx, 1);
+        }
+    }
+
+    /**
+     * Clear Edges
+     * 
+     * Removes all known edges in the Graph.
+     */
+    clearEdges () {
+        // Iterate through edges
+        for (let edge of this.edges()) {
+            // Remove References to Neighbour Vertices
+            edge.vertices[0].removeNeighbour(edge.vertices[1]);
+            edge.vertices[1].removeNeighbour(edge.vertices[0]);
+
+            this._edges.pop();
         }
     }
 
@@ -219,12 +284,26 @@ export default class Graph {
     getEdge (u, v) {
         let e = null;
         for (let edge of this.edges()) {
-            if (edge !== undefined) {
-                if (edge.hasVertices(u, v))
-                    e = edge;
-            }
+            if (edge.hasVertices(u, v))
+                e = edge;
         }
 
         return e;
+    }
+
+    /**
+     * Cost Function
+     * 
+     * Calculates the Pythagorean Distance between the two
+     * vertices given.
+     * 
+     * @param {Vertex} u One Vertex
+     * @param {Vertex} v Another Vertex
+     * @returns Distance between two Vertices
+     */
+    #cost (u, v) {
+        const delX = Math.pow(u.x - v.x, 2);
+        const delY = Math.pow(u.y - v.y, 2);
+        return Math.sqrt(delX + delY);
     }
 }

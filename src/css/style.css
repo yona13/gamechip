@@ -1,13 +1,15 @@
 /* Root Variables */
 :root {
     --white: #f5f5f5;
-    --light-selected: #e6f2ee;
+    --light-selected: #c1dfd4;
     --onyx: #454545;
     --dark-selected: #314f3e;
     --magenta: #d67ab1;
-    --blue: #9dcbba;
-    --dark-blue: #406b56;
+    --green: #9dcbba;
+    --dark-green: #406b56;
+    --blue: #b4e4fc;
     --orange: #ffb140;
+    --dark-orange: #fa8100;
     --mobile-tile-size: 2rem;
     --regular-tile-size: 5rem;
 }
@@ -18,13 +20,18 @@
     src: url("../fonts/Kaligrafica.ttf");
 }
 
+@font-face {
+    font-family: "Dogica";
+    src: url("../fonts/dogica.ttf");
+}
+
 /* Body Styling */
 body {
     font-family: "Kaligrafica";
     font-size: 1rem;
     height: 100vh;
     color: var(--onyx);
-    background-color: var(--blue);
+    background-color: var(--green);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

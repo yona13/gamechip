@@ -1,0 +1,72 @@
+.puzzle-controller {
+    border: 0.2rem solid var(--orange);
+    border-radius: 0.5rem;
+    background-color: var(--dark-green);
+    padding: 0.2rem;
+    display: grid;
+    grid-template-areas:
+        "random-pos display"
+        "full-board display";
+}
+
+.puzzle-controller > div > h2 {
+    margin: 0;
+    color: var(--white);
+}
+
+[class*="-btn"] {
+    width: fit-content;
+    height: 2rem;
+    border-radius: 1rem;
+    border: none;
+    color: var(--white);
+    background-color: var(--orange);
+}
+
+[class*="-btn"]:hover { background-color: var(--dark-orange); }
+
+.controller-display {
+    grid-area: display;
+    font-family: "Dogica";
+    font-size: 0.5rem;
+    border: 0.1rem solid var(--onyx);
+    width: 8rem;
+    margin-left: 0.5rem;
+    color: var(--onyx);
+    background-color: var(--blue);
+    white-space: pre-wrap;
+    overflow-y: scroll;
+}
+
+.controller-display.alert {
+    color: var(--white);
+    background-color: var(--magenta);
+}
+
+.random-location-buttons {
+    grid-area: random-pos;
+    display: grid;
+    grid-template-areas:
+        "rp-title rp-title"
+        "rp-human rp-comp";
+}
+
+.random-location-buttons > h2 { grid-area: rp-title; }
+
+.attempt-random-location-btn { grid-area: rp-human; }
+
+.prompt-random-location-btn { grid-area: rp-comp; }
+
+.full-board-buttons {
+    grid-area: full-board;
+    display: grid;
+    grid-template-areas:
+        "fb-title fb-title"
+        "fb-human fb-comp";
+}
+
+.full-board-buttons > h2 { grid-area: fb-title; }
+
+.attempt-full-board-btn { grid-area: fb-human; }
+
+.prompt-full-board-btn { grid-area: fb-comp; }
