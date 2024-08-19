@@ -22,6 +22,7 @@ const board = new Board(
 
 controller.setRandomLocationCallback(
     board.randomLocationCallback.bind(board),
+    controller.updateCallback.bind(controller),
     board.randomStartCallback.bind(board)
 );
 

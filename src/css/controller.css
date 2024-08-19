@@ -1,7 +1,7 @@
 .puzzle-controller {
     border: 0.2rem solid var(--orange);
     border-radius: 0.5rem;
-    background-color: var(--dark-green);
+    background-color: var(--dark-blue);
     padding: 0.2rem;
     display: grid;
     grid-template-areas:
@@ -11,6 +11,7 @@
 
 .puzzle-controller > div > h2 {
     margin: 0;
+    font-family: "Gothica-Bold";
     color: var(--white);
 }
 
@@ -19,6 +20,8 @@
     height: 2rem;
     border-radius: 1rem;
     border: none;
+    font-family: "Gothica-Italic";
+    font-size: 0.7rem;
     color: var(--white);
     background-color: var(--orange);
 }
@@ -31,9 +34,10 @@
     font-size: 0.5rem;
     border: 0.1rem solid var(--onyx);
     width: 8rem;
+    height: 8rem;
     margin-left: 0.5rem;
     color: var(--onyx);
-    background-color: var(--blue);
+    background-color: var(--light-blue);
     white-space: pre-wrap;
     overflow-y: scroll;
 }
@@ -47,13 +51,15 @@
     grid-area: random-pos;
     display: grid;
     grid-template-areas:
-        "rp-title rp-title"
-        "rp-human rp-comp";
+        "rp-title rp-title rp-title"
+        "rp-human rp-info rp-comp";
 }
 
 .random-location-buttons > h2 { grid-area: rp-title; }
 
-.attempt-random-location-btn { grid-area: rp-human; }
+.select-start-random-location-btn { grid-area: rp-human; }
+
+.info-random-location-btn { grid-area: rp-info; }
 
 .prompt-random-location-btn { grid-area: rp-comp; }
 
@@ -61,12 +67,32 @@
     grid-area: full-board;
     display: grid;
     grid-template-areas:
-        "fb-title fb-title"
-        "fb-human fb-comp";
+        "fb-title fb-title fb-title"
+        "fb-human fb-info fb-comp";
 }
 
 .full-board-buttons > h2 { grid-area: fb-title; }
 
-.attempt-full-board-btn { grid-area: fb-human; }
+.select-start-full-board-btn { grid-area: fb-human; }
+
+.info-full-board-btn { grid-area: fb-info; }
 
 .prompt-full-board-btn { grid-area: fb-comp; }
+
+@media only screen and (min-width: 700px) {
+    .puzzle-controller {
+        grid-area: controller;
+        display: grid;
+        grid-template-areas:
+            "display"
+            "display"
+            "random-pos"
+            "full-board";
+    }
+
+    .controller-display {
+        width: 16rem;
+        height: 16rem;
+        margin-left: 0;
+    }
+}

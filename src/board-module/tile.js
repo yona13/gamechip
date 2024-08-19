@@ -27,8 +27,7 @@ export default class Tile {
 
         this.element.addEventListener("click", (e) => {
             clickCallback(x, y);
-            if (!this.element.classList.contains("selected") && this.highlight)
-                this.element.classList.add("selected");
+            this.highlightTile();
         });
     }
 
@@ -76,6 +75,11 @@ export default class Tile {
     placeKnight (elem) {
         this.element.appendChild(elem);
         this.knighted = true;
+        if (!this.element.classList.contains("selected") && this.highlight)
+            this.element.classList.add("selected");
+    }
+
+    highlightTile () {
         if (!this.element.classList.contains("selected") && this.highlight)
             this.element.classList.add("selected");
     }

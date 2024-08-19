@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100vw;
-    background-color: var(--dark-green);
+    background-color: var(--dark-blue);
 }
 
 .nav-bar > * {
@@ -12,6 +12,8 @@
 }
 
 .nav-bar > h1 {
+    font-family: "Gothica-Bold";
+    color: var(--white);
     margin: 0;
 }
 
@@ -21,4 +23,10 @@
     background-color: var(--orange);
     border-radius: 0.2rem;
     margin-right: 0.5rem;
+}
+
+@media only screen and (min-width: 700px) {
+    .nav-bar { grid-area: header; }
+
+    .footer { grid-area: footer; }
 }

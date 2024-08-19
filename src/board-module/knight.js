@@ -1,5 +1,4 @@
 import Graph from "../data-structure/graph.js";
-import Stack from "../data-structure/stack.js";
 import Icon from "../images/knight.png";
 
 export default class Knight {
@@ -34,6 +33,7 @@ export default class Knight {
         this.#moveCallback = moveCallback;
         this.tiles = tiles;
         this.legal = [];
+        this.path = [];
 
         // Generate Graph for Tiles
         this.graph = new Graph();
@@ -42,12 +42,6 @@ export default class Knight {
         });
         this.fill();
         this.currentLegalMoves();
-        this.path = new Stack();
-        // let path = this.graph.bfs(x, y, 7, 0); // TESTING BFS
-        // while (!path.isEmpty()) {
-        //     let v = path.pop();
-        //     console.log(`V: (${v.x}, ${v.y});`);
-        // }
     }
 
     get element () { return this._element; }
@@ -76,24 +70,39 @@ export default class Knight {
 
     get path () { return this._path; }
 
-    set path (stack) { this._path = stack;}
+    set path (arr) { this._path = arr;}
 
-    get timeoutID () { return this._timeout_id; }
-
-    set timeoutID (id) { this._timeout_id = id; }
-
+    /**
+     * Shortest Path Function
+     * 
+     * Generate the Shortest Path to the Goal from the 
+     * Knight's current Tile using the Breadth First Search
+     * Algorithm.
+     * 
+     * @param {number} x Goal X-Coordinate
+     * @param {number} y Goal Y-Coordinate
+     */
     shortestPath (x, y) { this.path = this.graph.bfs(this.x, this.y, x, y); }
 
-    start () { this.timeoutID = setTimeout(this.nextStep.bind(this), 100); }
+    /**
+     * Prompt Function
+     * 
+     * Using an Interval, the function will iterate through
+     * the Path Generated to make the Knight Traverse the
+     * Chessboard.
+     */
+    prompt () {
+        // First Vertex is the Current Position
+        this.path.pop();
+        var self = this;
 
-    nextStep () {
-        if (this.path.isEmpty()) 
-            clearTimeout(this.timeoutID);
-        else {
-            let nextVertex = this.path.pop();
-            console.log(nextVertex);
-            this.#moveCallback(nextVertex.x, nextVertex.y);
-        }
+        // Every Second, Knight executes the next move
+        var x = setInterval(function () {
+            let vertex = self.path.pop();
+            self.#moveCallback(vertex.x, vertex.y);
+            if (self.path.length === 0)
+                clearInterval(x);
+        }, 1000);
     }
 
     /**

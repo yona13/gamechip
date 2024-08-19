@@ -1,13 +1,13 @@
 /* Root Variables */
 :root {
     --white: #f5f5f5;
-    --light-selected: #c1dfd4;
+    --light-selected: #87d3ed;
     --onyx: #454545;
-    --dark-selected: #314f3e;
+    --dark-selected: #2277a9;
     --magenta: #d67ab1;
-    --green: #9dcbba;
-    --dark-green: #406b56;
-    --blue: #b4e4fc;
+    --blue: #2589bd;
+    --dark-blue: #195787;
+    --light-blue: #b4e4fc;
     --orange: #ffb140;
     --dark-orange: #fa8100;
     --mobile-tile-size: 2rem;
@@ -16,8 +16,18 @@
 
 /* Regular Font */
 @font-face {
-    font-family: "Kaligrafica";
-    src: url("../fonts/Kaligrafica.ttf");
+    font-family: "Gothica";
+    src: url("../fonts/Gothica-Book.ttf");
+}
+
+@font-face {
+    font-family: "Gothica-Bold";
+    src: url("../fonts/Gothica-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Gothica-Italic";
+    src: url("../fonts/Gothica-BookOblique.ttf");
 }
 
 @font-face {
@@ -27,15 +37,25 @@
 
 /* Body Styling */
 body {
-    font-family: "Kaligrafica";
+    font-family: "Gothica";
     font-size: 1rem;
     height: 100vh;
     color: var(--onyx);
-    background-color: var(--green);
+    background-color: var(--blue);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 700px) {
+    body {
+        display: grid;
+        justify-items: center;
+        align-items: start;
+        grid-template-areas:
+            "header header"
+            "board controller"
+            "footer footer";
+    }
+}

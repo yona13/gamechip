@@ -76,7 +76,7 @@ export default class Controller {
      */
     clearCallback () { this.display.clear(); }
 
-    setRandomLocationCallback (attemptCallback, promptCallback) { 
-        this.randomLocation.setCallback(attemptCallback, promptCallback); 
+    setRandomLocationCallback (attemptCallback, updateCallback, promptCallback) { 
+        this.randomLocation.setCallback(attemptCallback, updateCallback, promptCallback); 
     }
 }

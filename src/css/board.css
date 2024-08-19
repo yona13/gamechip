@@ -43,6 +43,8 @@
 }
 
 @media only screen and (min-width: 700px) {
+    .chessboard { grid-area: board; }
+
     [class*="-tile"] {
         width: var(--regular-tile-size);
         height: var(--regular-tile-size);

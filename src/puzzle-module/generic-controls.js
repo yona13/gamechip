@@ -4,7 +4,7 @@ export default class GenericControls {
      * 
      * Used as a Base Class, this class will generate the 
      * DOM Elements associated with the controllers that 
-     * include the User Attempt button, and the Controller
+     * include the User start button, and the Controller
      * Algorithm button, which is represented by the Show
      * Button.
      * 
@@ -22,10 +22,15 @@ export default class GenericControls {
         const title = document.createElement("h2");
         title.textContent = `${names[0]} ${names[1]}`;
 
-        // Create Attempt Button DOM Element
-        this.attempt = document.createElement("button");
-        this.attempt.classList.add(`attempt-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
-        this.attempt.textContent = "Attempt";
+        // Create start Button DOM Element
+        this.start = document.createElement("button");
+        this.start.classList.add(`select-start-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
+        this.start.textContent = "Select Start";
+
+        // Create Information Button DOM Element
+        this.info = document.createElement("button");
+        this.info.classList.add(`info-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
+        this.info.textContent = "Info";
 
         // Create Show Button DOM Element
         this.show = document.createElement("button");
@@ -34,7 +39,8 @@ export default class GenericControls {
 
         // Append Element into Module
         this.module.appendChild(title);
-        this.module.appendChild(this.attempt);
+        this.module.appendChild(this.start);
+        this.module.appendChild(this.info);
         this.module.appendChild(this.show);
 
         // Initialise Variables
@@ -47,9 +53,13 @@ export default class GenericControls {
 
     set module (elem) { this._module = elem; }
 
-    get attempt () { return this._attempt; }
+    get start () { return this._start; }
 
-    set attempt (elem) { this._attempt = elem; }
+    set start (elem) { this._start = elem; }
+
+    get info () { return this._info; }
+
+    set info (elem) { this._info = elem; }
 
     get show () { return this._show; }
 

@@ -22,12 +22,23 @@ export default class RandomLocationControls extends GenericControls {
     /**
      * 
      * @callback attemptCallback 
+     * @callback updateCallback
      * @callback promptCallback 
      */
-    setCallback (attemptCallback, promptCallback) {
-        this.attempt.addEventListener("click", (e) => {
+    setCallback (attemptCallback, updateCallback, promptCallback) {
+        this.start.addEventListener("click", (e) => {
             const pos = this.generate();
             attemptCallback(pos.x, pos.y);
+        });
+        this.info.addEventListener("click", (e) => {
+            updateCallback(
+                "Use the Select Start Button to choose your " +
+                "initial Tile. Once selected, a Goal tile will" +
+                " become highlighted, and you have to try to reach" +
+                " that tile in as few moves as possible.\nBy clicking" +
+                " the Show button, the knight will automatically move" +
+                " to the Goal tile in the fewest possible moves."
+            );
         });
         this.show.addEventListener("click", (e) => {
             promptCallback();
