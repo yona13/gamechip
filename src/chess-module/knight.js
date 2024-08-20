@@ -3,7 +3,6 @@ import Icon from "../images/knight.png";
 
 export default class Knight {
     #BOARD_SIZE;
-    #moveCallback
 
     /**
      * Knight Class
@@ -11,14 +10,14 @@ export default class Knight {
      * Class that Generates the DOM element that represents
      * the Knight Object, and also controls the Knight as 
      * it moves across the Chessboard, either by the User
-     * or by the Controller Algorithm.
+     * or by the Search Algorithm.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
-     * @param {number} size Chessboard Size
+     * @param {number} board Chessboard Size
      * @param {Array} tiles Array of Chessboard Tiles
      */
-    constructor (x, y, size, tiles, moveCallback) {
+    constructor (x, y, board, tiles) {
         // Create DOM Element
         this.element = document.createElement("div");
         const icon = new Image();
@@ -29,17 +28,13 @@ export default class Knight {
         // Initialise Variables
         this.x = x;
         this.y = y;
-        this.#BOARD_SIZE = size;
-        this.#moveCallback = moveCallback;
+        this.#BOARD_SIZE = board;
         this.tiles = tiles;
         this.legal = [];
         this.path = [];
 
         // Generate Graph for Tiles
         this.graph = new Graph();
-        this.tiles.forEach(tile => {
-            this.graph.insertVertex(tile.x, tile.y);
-        });
         this.fill();
         this.currentLegalMoves();
     }
@@ -70,19 +65,53 @@ export default class Knight {
 
     get path () { return this._path; }
 
-    set path (arr) { this._path = arr;}
+    set path (arr) { this._path = arr; }
+
+    get steps () { return this._steps; }
+
+    set steps (num) { this._steps = num; }
 
     /**
-     * Shortest Path Function
+     * Prime Function
      * 
-     * Generate the Shortest Path to the Goal from the 
-     * Knight's current Tile using the Breadth First Search
-     * Algorithm.
-     * 
-     * @param {number} x Goal X-Coordinate
-     * @param {number} y Goal Y-Coordinate
+     * Prime the Knight for a Fair Traversal.
      */
-    shortestPath (x, y) { this.path = this.graph.bfs(this.x, this.y, x, y); }
+    prime () {
+        for (let vertex of this.graph.vertices())
+            vertex.visited = false;
+    }
+
+    /**
+     * Update Board Function
+     * 
+     * For a newly selected Board Size by the User, the 
+     * Knight's variables must also be updated.
+     * 
+     * @param {number} size New Board Size
+     * @param {Array} tiles Array of Tiles
+     */
+    updateBoard (size, tiles) {
+        // Reset Graph
+        this.graph.clearEdges();
+        this.graph.clearVertices();
+
+        // Update Variables
+        this.#BOARD_SIZE = size;
+        this.tiles = tiles;
+
+        // Fill Graph and update Legal Moves
+        this.fill();
+        this.currentLegalMoves();
+    }
+
+    /**
+     * Set Path Function
+     * 
+     * Assign new Path for the Knight to Traverse through.
+     * 
+     * @param {Array} path Path for Knight 
+     */
+    setPath (path) { this.path = path; }
 
     /**
      * Prompt Function
@@ -90,17 +119,35 @@ export default class Knight {
      * Using an Interval, the function will iterate through
      * the Path Generated to make the Knight Traverse the
      * Chessboard.
+     * 
+     * @callback moveCallback Move Knight Callback
+     * @param {boolean} tour True if Knight's Tour
      */
-    prompt () {
-        // First Vertex is the Current Position
-        this.path.pop();
-        var self = this;
+    prompt (moveCallback, tour=false) {
+        // // First Vertex is the Current Position
+        this.steps = this.path.length;
+        var aux = [...this.path];
+
+        // For tours, first Vertex is Initial Position
+        if (tour)
+            aux.splice(0, 1);
 
         // Every Second, Knight executes the next move
         var x = setInterval(function () {
-            let vertex = self.path.pop();
-            self.#moveCallback(vertex.x, vertex.y);
-            if (self.path.length === 0)
+            let vertex;
+
+            // Tours are stored from the Front of Array
+            if (tour) {
+                vertex = aux[0];
+                aux.splice(0, 1);
+            } 
+            // Shortest Path are stored from Back of Array
+            else 
+                vertex = aux.pop();
+
+            // Step Forward
+            moveCallback(vertex.x, vertex.y);
+            if (aux.length === 0)
                 clearInterval(x);
         }, 1000);
     }
@@ -114,6 +161,12 @@ export default class Knight {
      * knight can make at each square on the board.
      */
     fill () {
+        // Add a Vertex for each Tile
+        this.tiles.forEach(tile => {
+            this.graph.insertVertex(tile.x, tile.y);
+        });
+
+        // Add an Edge for Traversing with Knight
         for (let x = 0; x < this.#BOARD_SIZE; x++)
             for (let y = 0; y < this.#BOARD_SIZE; y++)
                 this.getLegalMoves(x, y);
@@ -147,6 +200,41 @@ export default class Knight {
         this.legal = [];
         this.currentLegalMoves();
     }
+
+    /**
+     * Been Visited Function
+     * 
+     * Checks if Vertex has been Visited, updating it if it
+     * has not been.
+     * 
+     * @param {number} x Vertex X-Coordinate
+     * @param {number} y Vertex Y-Coordinate
+     * @returns True if Vertex has been Visited
+     */
+    beenVisited (x, y) {
+        // Get Vertex from Graph
+        let vertex = this.graph.getVertex(x, y);
+
+        // Return True if it has been Visited
+        if (vertex.visited) 
+            return true;
+        
+        // Else, set Visited to be True and Return False
+        vertex.visited = true;
+        return false;
+    }
+
+    /**
+     * End of Tour Function
+     * 
+     * Checks if the Current Tile is the Final Tile in the
+     * Knight's Tour.
+     * 
+     * @param {number} x Current X-Coordinate
+     * @param {number} y Current Y-Coordinate
+     * @returns True if Current Tile is Last Tile in Tour
+     */
+    endOfTour (x, y) { return this.graph.getVertex(x, y).move === Math.pow(this.#BOARD_SIZE, 2); }
 
     /**
      * Is Legal Function

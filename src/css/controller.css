@@ -5,8 +5,9 @@
     padding: 0.2rem;
     display: grid;
     grid-template-areas:
-        "random-pos display"
-        "full-board display";
+        "board-builder display"
+        "shortest-path display"
+        "knights-tour display";
 }
 
 .puzzle-controller > div > h2 {
@@ -34,7 +35,7 @@
     font-size: 0.5rem;
     border: 0.1rem solid var(--onyx);
     width: 8rem;
-    height: 8rem;
+    height: 12rem;
     margin-left: 0.5rem;
     color: var(--onyx);
     background-color: var(--light-blue);
@@ -47,37 +48,53 @@
     background-color: var(--magenta);
 }
 
-.random-location-buttons {
-    grid-area: random-pos;
+.board-builder {
+    grid-area: board-builder;
     display: grid;
     grid-template-areas:
-        "rp-title rp-title rp-title"
-        "rp-human rp-info rp-comp";
+        "bb-title bb-title"
+        "bb-info bb-select";
 }
 
-.random-location-buttons > h2 { grid-area: rp-title; }
+.info-board-builder-btn { grid-area: bb-info; }
 
-.select-start-random-location-btn { grid-area: rp-human; }
+.board-builder-dropdown { grid-area: bb-select; }
 
-.info-random-location-btn { grid-area: rp-info; }
-
-.prompt-random-location-btn { grid-area: rp-comp; }
-
-.full-board-buttons {
-    grid-area: full-board;
+.shortest-path-buttons {
+    grid-area: shortest-path;
     display: grid;
     grid-template-areas:
-        "fb-title fb-title fb-title"
-        "fb-human fb-info fb-comp";
+        "sp-title sp-title sp-title sp-title"
+        "sp-human sp-info sp-undo sp-comp";
 }
 
-.full-board-buttons > h2 { grid-area: fb-title; }
+.shortest-path-buttons > h2 { grid-area: sp-title; }
 
-.select-start-full-board-btn { grid-area: fb-human; }
+.start-shortest-path-btn { grid-area: sp-human; }
 
-.info-full-board-btn { grid-area: fb-info; }
+.info-shortest-path-btn { grid-area: sp-info; }
 
-.prompt-full-board-btn { grid-area: fb-comp; }
+.undo-shortest-path.btn { grid-area: sp-undo; }
+
+.show-shortest-path-btn { grid-area: sp-comp; }
+
+.knights-tour-buttons {
+    grid-area: knights-tour;
+    display: grid;
+    grid-template-areas:
+        "kt-title kt-title kt-title kt-title"
+        "kt-human kt-info kt-undo kt-comp";
+}
+
+.knights-tour-buttons > h2 { grid-area: kt-title; }
+
+.start-knights-tour-btn { grid-area: kt-human; }
+
+.info-knights-tour-btn { grid-area: kt-info; }
+
+.undo-knights-tour-btn { grid-area: kt-undo; }
+
+.show-knights-tour-btn { grid-area: kt-comp; }
 
 @media only screen and (min-width: 700px) {
     .puzzle-controller {
@@ -86,8 +103,9 @@
         grid-template-areas:
             "display"
             "display"
-            "random-pos"
-            "full-board";
+            "board-builder"
+            "shortest-path"
+            "knights-tour";
     }
 
     .controller-display {

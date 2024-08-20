@@ -1,5 +1,13 @@
 # knight-travails
-Moving a Knight around a Chess Board
+Moving a Knight around a Chessboard.
+TODO: Test Undo Button for Controllers
+TODO: Handle Oriented Mobile View
+
+## Shortest Path Puzzle
+TODO: Write Description
+
+## Knight's Tour Puzzle
+TODO: Write Description
 
 ## Credits
  - Knight Icon by Good Ware - Flaticon. Retrieved from https://www.flaticon.com/packs/chess-3

@@ -1,10 +1,31 @@
 import "../css/controller.css";
+import BoardBuilder from "./board-builder.js";
 import Display from "./display.js";
-import FullBoardControls from "./full-board.js";
-import RandomLocationControls from "./random-location.js";
+import KnightsTourControls from "./knights-tour.js";
+import ShortestPathControls from "./shortest-path.js";
 
 export default class Controller {
-    constructor (initial, board) {
+    /**
+     * Controller Class
+     * 
+     * Generates the DOM Elements for the Puzzle Controller
+     * including the Display, and the two Puzzle Components
+     * specifically, the Shortest Path Puzzle and the 
+     * Knight's Tour Puzzle.
+     * 
+     * @param {number} x Initial X-Coordinate
+     * @param {number} y Initial Y-Coordinate
+     * @param {number} board Chessboard Size
+     * @callback selectCallback Select Board Size Callback
+     * @callback startCallback Start Puzzle Callback
+     * @callback undoCallback Undo Move Callback
+     * @callback showCallback Show Solution Callback
+     */
+    constructor (x, y, board, selectCallback, startCallback, undoCallback, showCallback) {
+        // Initialise Variables
+        this.board = board;
+        this.initial = {x: x, y: y};
+
         // Create Module DOM Element
         this.module = document.createElement("div");
         this.module.classList.add("puzzle-controller");
@@ -12,17 +33,29 @@ export default class Controller {
         // Create Display DOM Element
         this.display = new Display();
 
+        // Create Board-Builder Controls DOM ELement
+        this.builder = new BoardBuilder(this.update.bind(this), selectCallback);
+
         // Create Random Location Controls DOM Element
-        this.randomLocation = new RandomLocationControls(initial, initial, board);
+        this.shortest = new ShortestPathControls(x, y, board, startCallback, this.update.bind(this), undoCallback, showCallback);
 
         // Create Full-Board Controls DOM Element
-        this.fullBoard = new FullBoardControls(initial, initial, board);
+        this.tour = new KnightsTourControls(x, y, board, startCallback, this.update.bind(this), undoCallback, showCallback);
 
         // Append All To Module
         this.module.appendChild(this.display.module);
-        this.module.appendChild(this.randomLocation.module);
-        this.module.appendChild(this.fullBoard.module);
+        this.module.appendChild(this.builder.module);
+        this.module.appendChild(this.shortest.module);
+        this.module.appendChild(this.tour.module);
     }
+
+    get board () { return this._board; }
+
+    set board (num) { this._board = num; }
+
+    get initial () { return this._initial; }
+
+    set initial (dict) { this._initial = dict; }
 
     get module () { return this._module; }
 
@@ -32,51 +65,51 @@ export default class Controller {
 
     set display (obj) { this._display = obj; }
 
-    get randomLocation () { return this._random_location; }
+    get builder () { return this._builder; }
 
-    set randomLocation (obj) { this._random_location = obj; }
+    set builder (obj) { this._builder = obj; }
 
-    get fullBoard () { return this._full_board; }
+    get shortest () { return this._shortest; }
 
-    set fullBoard (obj) { this._full_board = obj; }
+    set shortest (obj) { this._shortest = obj; }
+
+    get tour () { return this._tour; }
+
+    set tour (obj) { this._tour = obj; }
 
     /**
-     * Update Callback Function
+     * Update Function
      * 
-     * Used by Chessboard Module to update the Puzzle-
+     * Used by Chessboard Class to update the Puzzle-
      * Controller Display with a New Message.
      * 
      * @param {string} msg New Message
      */
-    updateCallback (msg) { this.display.update(msg); }
+    update (msg) { this.display.update(msg); }
     
     /**
-     * Alert Callback Function
+     * Alert Function
      * 
-     * Used by Chessboard Module to alert the Puzzle-
+     * Used by Chessboard Class to alert the Puzzle-
      * Controller Display with an Alert.
      * 
      * @param {string} msg Alert Message
      */
-    alertCallback (msg) { this.display.alert(msg); }
+    alert (msg) { this.display.alert(msg); }
 
     /**
-     * Ease Callback Function
+     * Ease Function
      * 
-     * Used by Chessboard Module to update the Puzzle-
+     * Used by Chessboard Class to update the Puzzle-
      * Controller that any Alerts have been eased.
      */
-    easeCallback () { this.display.ease(); }
+    ease () { this.display.ease(); }
 
     /**
-     * Clear Callback Function
+     * Clear Function
      * 
-     * Used by Chessboard Module to clear the Puzzle-
+     * Used by Chessboard Class to clear the Puzzle-
      * Controller's display of all messages.
      */
-    clearCallback () { this.display.clear(); }
-
-    setRandomLocationCallback (attemptCallback, updateCallback, promptCallback) { 
-        this.randomLocation.setCallback(attemptCallback, updateCallback, promptCallback); 
-    }
+    clear () { this.display.clear(); }
 }

@@ -24,7 +24,7 @@ export default class GenericControls {
 
         // Create start Button DOM Element
         this.start = document.createElement("button");
-        this.start.classList.add(`select-start-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
+        this.start.classList.add(`start-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
         this.start.textContent = "Select Start";
 
         // Create Information Button DOM Element
@@ -32,15 +32,21 @@ export default class GenericControls {
         this.info.classList.add(`info-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
         this.info.textContent = "Info";
 
+        // Create Undo Button DOM Element
+        this.undo = document.createElement("button");
+        this.undo.classList.add(`undo-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
+        this.undo.textContent = "Undo";
+
         // Create Show Button DOM Element
         this.show = document.createElement("button");
-        this.show.classList.add(`prompt-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
+        this.show.classList.add(`show-${names[0].toLowerCase()}-${names[1].toLowerCase()}-btn`);
         this.show.textContent = "Show";
 
-        // Append Element into Module
+        // Append Elements into Module
         this.module.appendChild(title);
         this.module.appendChild(this.start);
         this.module.appendChild(this.info);
+        this.module.appendChild(this.undo);
         this.module.appendChild(this.show);
 
         // Initialise Variables
@@ -60,6 +66,10 @@ export default class GenericControls {
     get info () { return this._info; }
 
     set info (elem) { this._info = elem; }
+
+    get undo () { return this._undo; }
+
+    set undo (elem) { this._undo = elem; }
 
     get show () { return this._show; }
 

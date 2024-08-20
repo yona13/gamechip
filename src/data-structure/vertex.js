@@ -13,7 +13,7 @@ export default class Vertex {
         this.x = x;
         this.y = y;
         this.visited = false;
-        this.cost = 0;
+        this.move = 0;
         this.neighbours = [];
     }
 
@@ -29,9 +29,9 @@ export default class Vertex {
 
     set visited (bool) { this._visited = bool; }
 
-    get cost () { return this._cost; }
+    get move () { return this._move; }
 
-    set cost (num) { this._cost = num; }
+    set move (num) { this._move = num; }
 
     get neighbours () { return this._neighbours; }
 
@@ -57,6 +57,14 @@ export default class Vertex {
      */
     insertNeighbour (vertex) { this.neighbours.push(vertex); }
 
+    /**
+     * Remove Neighbour Function
+     * 
+     * Removes a Neighbour Vertex, if it exists from the
+     * Vertex's Neighbour List.
+     * 
+     * @param {Vertex} vertex Neighbour to Remove
+     */
     removeNeighbour (vertex) {
         // Find Vertex if Present in neighbours Array
         let idx = -1;

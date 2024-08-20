@@ -1,0 +1,32 @@
+/* Drop Down Styling */
+[class*="-dropdown"], [class*="-disabled"] {
+    user-select: none;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+    width: 4rem;
+    color: var(--onyx);
+    background-color: var(--white);
+}
+
+[class*="-dropdown"]:hover { background-color: var(--light-blue); }
+
+/* Options Styling */
+[class*="-options"] {
+    user-select: none;
+    position: absolute;
+    color: var(--onyx);
+    background-color: var(--white);
+    display: none;
+    margin-left: calc(-1 * 0.5rem);
+    height: 6rem;
+    width: 4rem;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.visible { display: block; }
+
+[class*="-option"] > div:hover { background-color: var(--light-blue); }
+
+[class*="-options"] > div { padding: 0.5rem; }

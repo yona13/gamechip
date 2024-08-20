@@ -1,94 +1,19 @@
 import Edge from "./edge.js";
 import Vertex from "./vertex.js";
-import Queue from "./queue.js";
 
 export default class Graph {
     /**
      * Graph Class
      * 
-     * TODO: write description
+     * Implementation of the Graph Data Structure, which
+     * utilises the Vertex and Edge Classes that are used
+     * to represent the data, and to connect the data to
+     * one another.
      */
     constructor () {
         // Initialise Variables
         this._vertices = []; 
         this._edges = [];
-    }
-
-    /**
-     * Breadth First Search Function
-     * 
-     * Modified Version of the Breadth First Search
-     * Algorithm, one that stores the parents of a given
-     * vertex during run. 
-     * 
-     * @param {number} rx Root X-Coordinate
-     * @param {number} ry Root Y-Coordinate
-     * @param {number} gx Goal X-Coordinate
-     * @param {number} gy Goal Y-Coordinate
-     * @returns Path from Root to Goal
-     */
-    bfs (rx, ry, gx, gy) {
-        // Get Root and Goal Vertices
-        const root = this.getVertex(rx, ry);
-        const goal = this.getVertex(gx, gy);
-
-        // Set All Vertices to be Unvisited
-        for (let v of this.vertices())
-            v.visited = false;
-
-        // Set Root to be Visited
-        root.visited = true;
-
-        // Set up Parent Array and Queue
-        let parent = [];
-        const queue = new Queue();
-        queue.enqueue(root);
-        
-        // Go through Queue
-        while (!queue.isEmpty()) {
-            let vertex = queue.dequeue();
-
-            // If Queue contains Goal, Break out
-            if (vertex.sameVertex(goal))
-                break;
-
-            // Else, Add Neighbours to Queue if Unvisted
-            vertex.neighbours.forEach(v => {
-                if (!v.visited) {
-                    v.visited = true;
-
-                    // Add Parent of Vertex
-                    parent.push({vertex: v, parent: vertex});
-                    queue.enqueue(v);
-                }
-            });
-        }
-
-        // Generate Shortest Path
-        let stack = [];
-        stack.push(goal);
-        let current = goal;
-
-        // Find Previous Vertices
-        while (true) {
-            // Search Parents for Previous Vertices
-            let idx = -1;
-            for (let i = 0; i < parent.length; i++)
-                if (parent[i].vertex.sameVertex(current)) {
-                    idx = i;
-                    break;
-                }
-            
-            // Add Parent to Path
-            // console.log(stack);
-            stack.push(parent[idx].parent);
-            current = parent[idx].parent;
-
-            // Break out if Root Found
-            if (current.sameVertex(root))
-                break;
-        }
-        return stack;
     }
 
     /**
@@ -176,27 +101,24 @@ export default class Graph {
     /**
      * Remove Vertex Function
      * 
-     * TODO: Write description
+     * For a given Vertex, if it is in the Graph, and if it
+     * has any Edges associated with it, then those Edges 
+     * would be removed, and finally the Vertex would then 
+     * be removed from the Graph.
      * 
      * @param {Vertex} v Vertex
      */
     removeVertex (v) {
         // Check if Vertex is Connected to Other Vertices
-        let idx = -1;
-        for (let i = 0; i < this._edges.length; i++) {
-            if (this._edges[i].hasVertex(v))
-                idx = i;
-        }
+        for (let edge of this.edges()) {
+            if (edge.hasVertex) {
+                // Remove Neighbour References for Vertiices
+                edge.vertices[0].removeNeighbour(edge.vertices[1]);
+                edge.vertices[1].removeNeighbour(edge.vertices[0]);
 
-        // Handle Removal of Edge
-        if (idx >= 0) {
-            // Remove Neighbour References for Vertices
-            let edge = this._edges[i];
-            edge.vertices[0].removeNeighbour(edge.vertices[1]);
-            edge.vertices[1].removeNeighbour(edge.vertices[0]);
-
-            // Remove Edge
-            this._edges.splice(idx, 1);
+                // Remove Edge
+                this.removeEdge(edge);
+            }
         }
 
         // Find Vertex in Array
@@ -209,6 +131,15 @@ export default class Graph {
         // Remove Vertex if Found
         if (idx >= 0)
             this._vertices.splice(idx, 1);
+    }
+
+    /**
+     * Clear Vertices Function
+     * 
+     * Clears all vertices in the Graph.
+     */
+    clearVertices () {
+        do { this._vertices.pop() } while (this._vertices.length > 0);
     }
 
     /**
@@ -255,7 +186,8 @@ export default class Graph {
     /**
      * Remove Edge Function
      * 
-     * TODO: Write description
+     * For a given Edge, if it is in the Graph, the Edge 
+     * would then be removed from the Graph.
      * 
      * @param {Edge} e Edge
      */
@@ -282,7 +214,7 @@ export default class Graph {
     /**
      * Clear Edges
      * 
-     * Removes all known edges in the Graph.
+     * Removes all edges in the Graph.
      */
     clearEdges () {
         // Iterate through edges

@@ -1,33 +1,14 @@
-import Board from "./board-module/board.js";
 import "./css/normalise.css";
 import "./css/style.css";
 import "./css/header.css";
 import { getHeader, getFooter } from "./layout-builder.js";
-import Controller from "./puzzle-module/controller.js";
+import Chessboard from "./chess-module/chessboard.js";
 
-// Chessboard Initial Parameters
-const boardSize = 8;
-const initialCoordinate = 3;
+// Generate Chessboard
+const chessboard = new Chessboard();
 
-// Create Chessboard
-const controller = new Controller(initialCoordinate, boardSize);
-const board = new Board(
-    initialCoordinate,
-    boardSize,
-    controller.updateCallback.bind(controller),
-    controller.alertCallback.bind(controller), 
-    controller.easeCallback.bind(controller),
-    controller.clearCallback.bind(controller)
-);
-
-controller.setRandomLocationCallback(
-    board.randomLocationCallback.bind(board),
-    controller.updateCallback.bind(controller),
-    board.randomStartCallback.bind(board)
-);
-
-// Add Elements to Body
-document.body.appendChild(getHeader(board.resetCallback.bind(board)));
-document.body.appendChild(board.module);
-document.body.appendChild(controller.module);
+// Add DOM Elements to Body
+document.body.appendChild(getHeader(chessboard.resetCallback.bind(chessboard)));
+document.body.appendChild(chessboard.module);
+document.body.appendChild(chessboard.controller.module);
 document.body.appendChild(getFooter());
