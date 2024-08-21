@@ -6,7 +6,7 @@
 .game-console {
     width: 100vw;
     height: 100vh;
-    border-radius: 0.5rem;
+    border-radius: 1.5rem;
     font-family: "Merom Sans";
     background-color: #f2ad26;
 }

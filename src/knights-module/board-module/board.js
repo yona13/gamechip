@@ -1,4 +1,5 @@
 import "./board-styling.css";
+import Cursor from "./cursor.js";
 import Knight from "./knight.js";
 import Tile from "./tile.js";
 
@@ -41,6 +42,7 @@ export default class Board {
             if (tile.x === this.#DEFAULT_POS.x && tile.y === this.#DEFAULT_POS.y) {
                 tile.placeKnight(this._knight.element);
                 this._current = tile;
+                this._cursor = new Cursor(tile, this.#BOARD, this._tiles);
             }
         });
         this._previous = [];
@@ -53,6 +55,10 @@ export default class Board {
     get knight () { return this._knight; }
 
     set knight (obj) { this._knight = obj; }
+
+    get cursor () { return this._cursor; }
+
+    set cursor (obj) { this._cursor = obj; }
 
     /**
      * Set Dimensions Function

@@ -3,6 +3,7 @@
     --white-selected: #87d3ed;
     --black: #020100;
     --black-selected: #2277a9;
+    --cursor: #e8c547;
     --num-colour: #e5b80b;
 }
 
@@ -30,6 +31,9 @@
     left: 0;
     z-index: 1;
 }
+
+[class*="-tile"].cursor,
+[class*="-tile"].selected.cursor { background-color: var(--cursor); }
 
 .black-tile { background-color: var(--black); }
 

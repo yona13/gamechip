@@ -39,28 +39,28 @@ export default class KnightsGame extends GameInterface {
      * 
      * Handles the Click of the Up Button on the Direction Pad.
      */
-    upCallback () {}
+    upCallback () { this._board.cursor.verticalMove(true); }
 
     /**
      * Right Callback Method
      * 
      * Handles the Click of the Right Button on the Direction Pad.
      */
-    rightCallback () {}
+    rightCallback () { this._board.cursor.horizontalMove(true); }
 
     /**
      * Down Callback Method
      * 
      * Handles the Click of the Down Button on the Direction Pad.
      */
-    downCallback () {}
+    downCallback () { this._board.cursor.verticalMove(false); }
 
     /**
      * Left Callback Method
      * 
      * Handles the Click of the Left Button on the Direction Pad.
      */
-    leftCallback () {}
+    leftCallback () { this._board.cursor.horizontalMove(false); }
 
     /**
      * A Callback Method

@@ -73,6 +73,20 @@ export default class Tile {
     }
 
     /**
+     * Place Cursor
+     * 
+     * Place or Remove the Cursor on the tile.
+     * 
+     * @param {boolean} on Place or Remove
+     */
+    placeCursor (on=true) {
+        if (on && !this._element.classList.contains("cursor"))
+            this._element.classList.add("cursor");
+        if (!on && this._element.classList.contains("cursor"))
+            this._element.classList.remove("cursor");
+    }
+
+    /**
      * Number Function
      * 
      * Number the Tile with a Desired Number.
