@@ -100,8 +100,8 @@ export default class Chessboard extends Board {
 
         // Display Tile Coordinate for the User
         this.controller.update(
-            tour ? `Knight's Tour Beginning at (${this._root.x}, ${this._root.y});` :
-            `Goal Tile: (${this._goal.x + 1}, ${this._goal.y + 1});`
+            tour ? `Knight's Tour Beginning at (${this._root.y}, ${this._root.x});` :
+            `Goal Tile: (${this._goal.y + 1}, ${this._goal.x + 1});`
         );
 
         // Start the Puzzle
@@ -145,7 +145,7 @@ export default class Chessboard extends Board {
 
         // Update Message Displaying the Current Position
         this.controller.update(
-            `Move from (${prev.x + 1}, ${prev.y + 1}) to (${x + 1}, ${y + 1});`
+            `Move from (${prev.y + 1}, ${prev.x + 1}) to (${y + 1}, ${x + 1});`
         );
     }
 
@@ -212,7 +212,7 @@ export default class Chessboard extends Board {
             this.current.placeKnight(this.knight.element);
 
             // Update Knight's Current Location
-            this.knight.update(x, y);
+            this.knight.update(this.current.x, this.current.y);
         }
     }
 
@@ -275,21 +275,21 @@ export default class Chessboard extends Board {
                         // Update User on Knight's Success and Path there
                         this.controller.update(
                             "The Knight's Tour was Completed using Warnsdorff's Algorith.\n" + 
-                            `The Path taken:\n(${this._root.x + 1}, ${this._root.y + 1})`
+                            `The Path taken:\n(${this._root.y + 1}, ${this._root.x + 1})`
                         );
                         do {
                             let step = this.knight.path[0];
                             this.knight.path.splice(0, 1);
-                            this.controller.update(`(${step.x + 1}, ${step.y + 1})`);
+                            this.controller.update(`(${step.y + 1}, ${step.x + 1})`);
                         } while (this.knight.path.length > 0);
                     } else {
                         // Update User on their Success and the Path there
                         this.controller.update(
                             "Congratulations for completing the Knight's Tour!\n" +
-                            `Path taken:\n(${this._root.x + 1}, ${this._root.y + 1})`
+                            `Path taken:\n(${this._root.y + 1}, ${this._root.x + 1})`
                         );
                         this._path.forEach(coord => {
-                            this.controller.update(`(${coord.x + 1}, ${coord.y + 1})`);
+                            this.controller.update(`(${coord.y + 1}, ${coord.x + 1})`);
                         });
                     }
 
@@ -317,21 +317,21 @@ export default class Chessboard extends Board {
                         // Update User on Knight's Success and path there
                         this.controller.update(
                             `The Search Algorithm has reached the goal in ${this.knight.steps};\n` +
-                            `Path taken:\n(${this._root.x + 1}, ${this._root.y + 1})`
+                            `Path taken:\n(${this._root.y + 1}, ${this._root.x + 1})`
                         );
                         do {
                             let step = this.knight.path.pop();
-                            this.controller.update(`(${step.x + 1}, ${step.y + 1})`)
+                            this.controller.update(`(${step.y + 1}, ${step.x + 1})`)
                         } while (this.knight.path.length > 0);
                     } else {
                         // Update User on their Success and the path there
                         this.controller.update(
                             `Congratulations for reaching the goal in ${this._path.length};\n` +
                             `Search Algorithm's Best: ${this.knight.path.length - 1};\n` + 
-                            `Path taken:\n(${this._root.x + 1}, ${this._root.y + 1})`
+                            `Path taken:\n(${this._root.y + 1}, ${this._root.x + 1})`
                         );
                         this._path.forEach(coord => {
-                            this.controller.update(`(${coord.x + 1}, ${coord.y + 1})`);
+                            this.controller.update(`(${coord.y + 1}, ${coord.x + 1})`);
                         });
                     }
 

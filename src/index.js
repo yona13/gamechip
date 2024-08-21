@@ -1,14 +1,11 @@
 import "./css/normalise.css";
-import "./css/style.css";
-import "./css/header.css";
-import { getHeader, getFooter } from "./layout-builder.js";
-import Chessboard from "./chess-module/chessboard.js";
+import GameConsole from "./game-console-module/console-module.js";
+import KnightsGame from "./knights-module/knights-game.js";
 
-// Generate Chessboard
-const chessboard = new Chessboard();
+const knightsGame = new KnightsGame();
+const gameConsole = new GameConsole(knightsGame);
 
-// Add DOM Elements to Body
-document.body.appendChild(getHeader(chessboard.resetCallback.bind(chessboard)));
-document.body.appendChild(chessboard.module);
-document.body.appendChild(chessboard.controller.module);
-document.body.appendChild(getFooter());
+document.body.appendChild(gameConsole.module);
+
+// Start Game
+gameConsole.start();

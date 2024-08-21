@@ -1,0 +1,205 @@
+@font-face {
+    font-family: "Merom Sans";
+    src: url("../fonts/MeromSans-Regular.ttf");
+}
+
+.game-console {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0.5rem;
+    font-family: "Merom Sans";
+    background-color: #f2ad26;
+}
+
+.game-console-display { 
+    display: flex;
+    padding: 0.3rem;
+    background-color: #020100;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-console-controller {
+    margin-bottom: 2rem;
+}
+
+.direction-pad {
+    grid-area: d-pad;
+    display: grid;
+    grid-template-areas:
+        ". up ."
+        "left central right"
+        ". down .";
+}
+
+[id*="-btn"], #central-pad { 
+    border: none;
+    background-color: #4d5061; 
+}
+
+.direction-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#up-btn { 
+    grid-area: up; 
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+
+#up-arrow {
+    width: 0; 
+    height: 0; 
+    border-left: 0.6rem solid transparent;
+    border-right: 0.6rem solid transparent;
+    border-bottom: 0.6rem solid #2a2e3d;
+}
+
+#right-btn { 
+    grid-area: right; 
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+
+#right-arrow {
+    width: 0; 
+    height: 0; 
+    border-top: 0.6rem solid transparent;
+    border-bottom: 0.6rem solid transparent;
+    border-left: 0.6rem solid #2a2e3d;
+}
+
+#down-btn { 
+    grid-area: down; 
+    border-bottom-left-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+
+#down-arrow {
+    width: 0; 
+    height: 0; 
+    border-left: 0.6rem solid transparent;
+    border-right: 0.6rem solid transparent;
+    border-top: 0.6rem solid #2a2e3d;
+}
+
+#left-btn { 
+    grid-area: left; 
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+}
+
+#left-arrow {
+    width: 0; 
+    height: 0; 
+    border-top: 0.6rem solid transparent;
+    border-bottom: 0.6rem solid transparent;
+    border-right: 0.6rem solid #2a2e3d;
+}
+
+#central-pad { grid-area: central; }
+
+.action-button {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+}
+
+#a-btn { grid-area: a-btn; }
+
+#b-btn { grid-area: b-btn; }
+
+.user-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+}
+
+.user-button > [class*="label"] { color: #f08d00; }
+
+.user-button > button {
+    width: 3rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+}
+
+#start-container { grid-area: start; }
+
+#select-container { grid-area: select; }
+
+@media (orientation: portrait) {
+    .game-console {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .game-console-display {
+        margin-top: 2rem;
+        width: 90vw;
+        height: 45vh;
+    }
+
+    .game-console-controller {
+        width: 90vw;
+        height: 35vh;
+        display: grid;
+        grid-template-areas:
+            "d-pad d-pad d-pad d-pad . b-btn"
+            "d-pad d-pad d-pad d-pad a-btn ."
+            "d-pad d-pad d-pad d-pad . ."
+            ". . . start select .";
+    }
+
+    .direction-pad {
+        margin-right: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (orientation: landscape) {
+    .game-console {
+        position: absolute;
+    }
+
+    .game-console-display {
+        position: relative;
+        width: 50vw;
+        height: 90vh;
+        left: 25vw;
+        top: 5vh;
+        z-index: 1;
+    }
+
+    .game-console-controller {
+        position: absolute;
+        top: 2.5vh;
+        left: 2.5vw;
+        width: 95vw;
+        height: 95vh;
+        z-index: 0;
+        display: grid;
+        grid-template-areas:
+            ". . . . . . . . . ."
+            "d-pad d-pad . . . . . . . ."
+            "d-pad d-pad . . . . . . . a-btn"
+            ". . . . . . . . . ."
+            "start . . . . . . . . b-btn"
+            "select . . . . . . . . .";
+    }
+
+    .direction-pad {
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .direction-button, #central-pad {
+        width: 3rem;
+        height: 3rem;
+    }
+}

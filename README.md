@@ -1,6 +1,5 @@
 # knight-travails
 Moving a Knight around a Chessboard.
-TODO: Test Undo Button for Controllers
 TODO: Handle Oriented Mobile View
 
 ## Shortest Path Puzzle
