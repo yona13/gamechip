@@ -19,6 +19,9 @@ export default class Cursor {
         this._tile = tile;
         this._tiles = tiles;
         this.#BOARD = board;
+
+        // Update Tile
+        this._tile.placeCursor(true);
     }
 
     get tile () { return this._tile; }

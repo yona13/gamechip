@@ -37,7 +37,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Knight Travails",
+            title: "ChipBoy",
         }),
     ],
 };

@@ -1,5 +1,6 @@
 import GameInterface from "../game-console-module/game-interface.js";
-import Board from "./board-module/board.js";
+import KnightsManager from "./manager-module/knights-manager.js";
+// import Board from "./board-module/board.js";
 
 export default class KnightsGame extends GameInterface {
     #showCallback;
@@ -8,8 +9,8 @@ export default class KnightsGame extends GameInterface {
     constructor () {
         super();
 
-        // Create Chessboard
-        this._board = new Board();
+        // Create Knight's Manager
+        this._km = new KnightsManager();
     }
 
     /**
@@ -28,10 +29,10 @@ export default class KnightsGame extends GameInterface {
 
         // Set Board Dimensions
         const dimensions = this.#dimensionsCallback();
-        this._board.setDimensions(dimensions.width, dimensions.height);
+        this._km.setup(dimensions.width, dimensions.height);
 
         // Set Board on Display
-        this.#showCallback(this._board.module);
+        this.#showCallback(this._km.module);
     }
 
     /**
@@ -39,28 +40,28 @@ export default class KnightsGame extends GameInterface {
      * 
      * Handles the Click of the Up Button on the Direction Pad.
      */
-    upCallback () { this._board.cursor.verticalMove(true); }
+    upCallback () { this._km.board.cursor.verticalMove(true); }
 
     /**
      * Right Callback Method
      * 
      * Handles the Click of the Right Button on the Direction Pad.
      */
-    rightCallback () { this._board.cursor.horizontalMove(true); }
+    rightCallback () { this._km.board.cursor.horizontalMove(true); }
 
     /**
      * Down Callback Method
      * 
      * Handles the Click of the Down Button on the Direction Pad.
      */
-    downCallback () { this._board.cursor.verticalMove(false); }
+    downCallback () { this._km.board.cursor.verticalMove(false); }
 
     /**
      * Left Callback Method
      * 
      * Handles the Click of the Left Button on the Direction Pad.
      */
-    leftCallback () { this._board.cursor.horizontalMove(false); }
+    leftCallback () { this._km.board.cursor.horizontalMove(false); }
 
     /**
      * A Callback Method

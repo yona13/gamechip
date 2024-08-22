@@ -1,4 +1,3 @@
-import "./board-styling.css";
 import Cursor from "./cursor.js";
 import Knight from "./knight.js";
 import Tile from "./tile.js";
@@ -8,7 +7,7 @@ export default class Board {
     #DEFAULT_POS = {x: 3, y:3};
 
     constructor () {
-        // Construct the Board DOM Element
+        // Generate the Board DOM Element
         this._module = document.createElement("div");
         this._module.classList.add("chessboard");
         
@@ -45,7 +44,6 @@ export default class Board {
                 this._cursor = new Cursor(tile, this.#BOARD, this._tiles);
             }
         });
-        this._previous = [];
     }
 
     get module () { return this._module; }
@@ -66,18 +64,15 @@ export default class Board {
      * For the Board, the width and height are dependent on
      * the scrreen size.
      * 
-     * @param {number} width Screen Width
-     * @param {number} height Screen Height
+     * @param {number} dimension Board Size (pixels)
      */
-    setDimensions (width, height) {
+    setDimensions (dimension) {
         // Set Board Dimensions
-        const dim = Math.floor(Math.min(width, height) * 0.95);
-        console.log(`Width: ${width}px;\nHeight: ${height}px;\nMin: ${dim}px;`);
-        this._module.style.width = `${dim}px`;
-        this._module.style.height = `${dim}px`;
+        this._module.style.width = `${dimension}px`;
+        this._module.style.height = `${dimension}px`;
 
         // Set Tile Dimensions
-        const tileDim = Math.floor(dim / this.#BOARD);
+        const tileDim = Math.floor(dimension / this.#BOARD);
         const fontSize = Math.floor(tileDim * 0.8);
         this._tiles.forEach(tile => {
             tile.element.style.width = `${tileDim}px`;
@@ -89,4 +84,13 @@ export default class Board {
         this._knight.icon.style.width = `${tileDim}px`;
         this._knight.icon.style.height = `${tileDim}px`;
     }
+
+    /**
+     * Set Theme Function
+     * 
+     * Update the Knight's Icon.
+     * 
+     * @param {string} theme Theme Name
+     */
+    setTheme (theme) { this._knight.changeIcon(theme); }
 }

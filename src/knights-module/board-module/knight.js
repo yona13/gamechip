@@ -1,8 +1,21 @@
 import Graph from "../../data-structure/graph.js";
-import Icon from "../../images/knight.png";
+import KnightNormal from "../../images/knight.png";
+import KnightRetro from "../../images/knight-retro.png";
+import KnightFuture from "../../images/knight-future.png";
+import KnightNeon from "../../images/knight-neon.png";
+import KnightTerminal from "../../images/knight-terminal.png";
+import KnightFantasy from "../../images/knight-fantasy.png";
 
 export default class Knight {
     #BOARD;
+    #THEMES = {
+        "normal": KnightNormal,
+        "retro": KnightRetro,
+        "future": KnightFuture,
+        "neon": KnightNeon,
+        "terminal": KnightTerminal,
+        "fantasy": KnightFantasy,
+    };
 
     /**
      * Knight Class
@@ -18,10 +31,10 @@ export default class Knight {
      * @param {Array} tiles Array of Chessboard Tiles
      */
     constructor (x, y, board, tiles) {
-        // Create DOM Element
+        // Generate Knight DOM Element
         this._element = document.createElement("div");
         this._icon = new Image();
-        this._icon.src= Icon;
+        this._icon.src= KnightNormal;
         this._element.appendChild(this._icon);
         this._element.classList.add("knight");
 
@@ -74,6 +87,23 @@ export default class Knight {
     get steps () { return this._steps; }
 
     set steps (num) { this._steps = num; }
+
+    /**
+     * Change Icon Function
+     * 
+     * Set the New Icon for the given Theme.
+     * 
+     * @param {string} theme New Theme
+     */
+    changeIcon (theme) {
+        // Ensure Theme Exists
+        if (Object.keys(this.#THEMES).includes(theme)) {
+            // Replace Icon
+            this._element.innerHTML = "";
+            this._icon.src = this.#THEMES[theme];
+            this._element.appendChild(this._icon);
+        }
+    }
 
     /**
      * Resize Function

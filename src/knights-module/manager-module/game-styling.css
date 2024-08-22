@@ -1,0 +1,132 @@
+:root {
+    --white: #fdfffc;
+    --black: #020100;
+}
+
+:root.normal {
+    --screen: #235789;
+    --white-selected: #87d3ed;
+    --black-selected: #2277a9;
+    --cursor: #e8c547;
+    --num-colour: #e5b80b;
+    --text-colour: #020100;
+}
+
+:root.retro {
+    --white: #aaaaaa;
+    --black: #0f380f;
+    --white-selected: #9bbc0f;
+    --black-selected: #306230;
+    --screen: #aaaaaa;
+    --cursor: #8bac0f;
+    --num-colour: #aaaaaa;
+    --text-colour: #0f380f;
+}
+
+:root.future {
+    --white: #d1e8e2;
+    --black: #2c3531;
+    --white-selected: #ffcb9a; 
+    --black-select: #bd5e27;
+    --screen: #116466;
+    --cursor: #ffcb9a;
+    --num-colour: #116466;
+    --text-colour: #2c3531;
+}
+
+:root.neon {
+    --white: #0abdc6;
+    --black: #133e7c;
+    --white-selected: #00797e; 
+    --black-select: #307cbf;
+    --screen: #091833;
+    --cursor: #ea00d9;
+    --num-colour: #711c91;
+    --text-colour: #ea00d9;
+}
+
+:root.terminal {
+    --white: cyan;
+    --black: black;
+    --black-selected: black;
+    --white-selected: cyan;
+    --screen: black;
+    --cursor: green;
+    --num-colour: green;
+    --text-colour: green;
+}
+
+:root.fantasy {
+    --white: #e4934c;
+    --black: #542b29;
+    --white-selected: #f1b872; 
+    --black-select: #431e1f;
+    --screen: #9a9a8e;
+    --cursor: #9c6b65;
+    --num-colour: #7c142c;
+    --text-colour: #7c142c;
+}
+
+@font-face {
+    font-family: "Gothica";
+    src: url("../../fonts/Gothica-Book.ttf");
+}
+
+@font-face {
+    font-family: "Dogica";
+    src: url("../../fonts/dogica.ttf");
+}
+
+@font-face {
+    font-family: "Dogica Bold";
+    src: url("../../fonts/dogicabold.ttf");
+}
+
+.knights-game-module { 
+    color: var(--text-colour);
+    background-color: var(--screen); 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-components {
+    font-family: "Dogica";
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 3rem;
+}
+
+.info-components > div { border-bottom: 2px solid var(--black); }
+
+.chessboard { 
+    font-family: "Gothica";
+    display: grid; 
+    border: 3px solid var(--num-colour);
+}
+
+[class*="-tile"] {
+    position: relative;
+    color: var(--num-colour);
+}
+
+[class*="-tile"] > .knight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+[class*="-tile"].cursor,
+[class*="-tile"].selected.cursor { background-color: var(--cursor); }
+
+.black-tile { background-color: var(--black); }
+
+.black-tile.selected { background-color: var(--black-selected); }
+
+.white-tile { background-color: var(--white); }
+
+.white-tile.selected { background-color: var(--white-selected); }

@@ -9,7 +9,7 @@ export default class Tile {
      * @param {string} colour "black" or "white"
      */
     constructor (x, y, colour="white") {
-        // Create DOM Element
+        // Generate Tile DOM Element
         this._element = document.createElement("div");
         this._element.classList.add(`${colour}-tile`);
         this._element.id = `${x}-${y}-tile`;
