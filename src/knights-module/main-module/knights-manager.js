@@ -1,5 +1,6 @@
 import "./game-styling.css";
 import Board from "../board-module/board.js";
+import Cursor from "./cursor.js";
 
 export default class KnightsManager {
     #GAME_TYPES = {
@@ -13,6 +14,10 @@ export default class KnightsManager {
         "Neon",
         "Terminal",
         "Fantasy"
+    ];
+    #MODE = [
+        "gameplay",
+        "menu"
     ];
 
     constructor () {
@@ -44,7 +49,8 @@ export default class KnightsManager {
         this._information.appendChild(this._current);
         this._information.appendChild(this._type);
 
-        // Create Chessboard
+        // Initialise Objects
+        this._cursor = new Cursor();
         this._board = new Board();
 
         // Append All Components to Module
@@ -56,6 +62,9 @@ export default class KnightsManager {
         this._game = this.#GAME_TYPES[this._type.textContent];
         this._path = [];
         this._steps = {human: 0, algorithm: 0};
+        this._msg = "";
+        this.#initialiseCallbacks();
+        this.setMode(this.#MODE[0]);
 
         // Set the Default Theme
         this.setTheme(this.#THEMES[0]);
@@ -64,6 +73,10 @@ export default class KnightsManager {
     get module () { return this._module; }
 
     set module (elem) { this._module = elem; }
+
+    get cursor () { return this._cursor; }
+
+    set cursor (obj) { this._cursor = obj; }
 
     get board () { return this._board; }
 
@@ -84,6 +97,18 @@ export default class KnightsManager {
     get steps () { return this._steps; }
 
     set steps (dict) { this._steps = dict; }
+    
+    get message () { return this._msg; }
+
+    set message (str) { this._msg = str; }
+
+    get mode () { return this._mode; }
+
+    set mode (str) { this._mode = str; }
+
+    get callbacks () { return this._callbacks; }
+
+    set callbacks (dict) { this._callbacks = dict; }
 
     /**
      * Setup Function
@@ -123,5 +148,78 @@ export default class KnightsManager {
 
         // Update Knight's Icon
         this._board.setTheme(theme.toLowerCase());
+    }
+
+    /**
+     * Set Mode Function
+     * 
+     * The game should either be in Gameplay or Menu mode.
+     * 
+     * @param {string} mode Mode to be Set
+     */
+    setMode (mode) {
+        if (this.#MODE.includes(mode)) {
+            // Set Mode Variable
+            this._mode = mode;
+
+            // Set Cursor Callbacks
+            this._cursor.setCallbacks(
+                this._callbacks[mode].horizontal,
+                this._callbacks[mode].vertical,
+                this._callbacks[mode].accept,
+                this._callbacks[mode].decline,
+                this._callbacks[mode].menu
+            );
+        }
+    }
+
+    /**
+     * Game Accept Action Function
+     * 
+     * During the game, if an error occurs, say when an 
+     * illegal move is made, then a message should be able
+     * to be viewed by the user.
+     * 
+     * @returns True if there are no Errors
+     */
+    gameAcceptAction () {
+        const message = this._board.acceptAction();
+        if (message !== "") { 
+            // Set Error Message
+            this._msg = message;
+            
+            // Update with Error Message
+            return false;
+        }
+
+        // Update with no Error Message
+        return true;
+    }
+
+    /**
+     * Initialise Callbacks Function
+     * 
+     * For each mode, that is, gameplay or menu, the button
+     * callback methods are setup within the Callbacks 
+     * Dictionary.
+     */
+    #initialiseCallbacks () {
+        // Initialise Callback Dictionary
+        this._callbacks = {
+            "gameplay": {
+                horizontal: this._board.horizontalMove.bind(this._board),
+                vertical: this._board.verticalMove.bind(this._board),
+                accept: this.gameAcceptAction.bind(this),
+                decline: function () { return; },
+                menu: null, // TODO: Call up menu
+            },
+            "menu": {
+                horizontal: null,
+                vertical: null,
+                accept: null,
+                decline: null,
+                menu: null,
+            }
+        }
     }
 }

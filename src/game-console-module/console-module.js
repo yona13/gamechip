@@ -56,6 +56,7 @@ export default class GameConsole {
         // Set the Scene for the Game
         this._game.setScene(
             this._display.show.bind(this._display),
+            this._display.takeDown.bind(this._display),
             this._display.getDimensions.bind(this._display)
         );
     }

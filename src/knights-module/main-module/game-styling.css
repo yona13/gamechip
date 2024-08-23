@@ -4,9 +4,10 @@
 }
 
 :root.normal {
-    --screen: #235789;
     --white-selected: #87d3ed;
     --black-selected: #2277a9;
+    --screen: #235789;
+    --error-screen: #f69493;
     --cursor: #e8c547;
     --num-colour: #e5b80b;
     --text-colour: #020100;
@@ -18,6 +19,7 @@
     --white-selected: #9bbc0f;
     --black-selected: #306230;
     --screen: #aaaaaa;
+    --error-screen: #f69493;
     --cursor: #8bac0f;
     --num-colour: #aaaaaa;
     --text-colour: #0f380f;
@@ -29,6 +31,7 @@
     --white-selected: #ffcb9a; 
     --black-select: #bd5e27;
     --screen: #116466;
+    --error-screen: #ff9900;
     --cursor: #ffcb9a;
     --num-colour: #116466;
     --text-colour: #2c3531;
@@ -40,6 +43,7 @@
     --white-selected: #00797e; 
     --black-select: #307cbf;
     --screen: #091833;
+    --error-screen: #e7ee4f;
     --cursor: #ea00d9;
     --num-colour: #711c91;
     --text-colour: #ea00d9;
@@ -51,6 +55,7 @@
     --black-selected: black;
     --white-selected: cyan;
     --screen: black;
+    --error-screen: red;
     --cursor: green;
     --num-colour: green;
     --text-colour: green;
@@ -62,9 +67,10 @@
     --white-selected: #f1b872; 
     --black-select: #431e1f;
     --screen: #9a9a8e;
+    --error-screen: #960018;
     --cursor: #9c6b65;
     --num-colour: #7c142c;
-    --text-colour: #7c142c;
+    --text-colour: #0a1583;
 }
 
 @font-face {
@@ -83,6 +89,7 @@
 }
 
 .knights-game-module { 
+    position: absolute;
     color: var(--text-colour);
     background-color: var(--screen); 
     display: flex;
@@ -102,6 +109,29 @@
 
 .info-components > div { border-bottom: 2px solid var(--black); }
 
+.error-container {
+    position: relative;
+}
+
+.error-box {
+    position: absolute;
+    z-index: 4;
+    font-family: "Dogica Bold";
+    color: var(--text-colour);
+    background-color: var(--error-screen);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.blurred-background {
+    z-index: 3;
+    background-color: var(--black);
+    opacity: 0.7;
+}
+
 .chessboard { 
     font-family: "Gothica";
     display: grid; 
@@ -117,11 +147,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
-[class*="-tile"].cursor,
-[class*="-tile"].selected.cursor { background-color: var(--cursor); }
+/* [class*="-tile"].cursor,
+[class*="-tile"].selected.cursor { 
+    background-color: var(--cursor); 
+    animation: blink 1.5s infinite;
+    animation-fill-mode: both;
+} */
+#cursor-tile { 
+    background-color: var(--cursor); 
+    animation: blink 1.5s infinite;
+    animation-fill-mode: both;
+}
 
 .black-tile { background-color: var(--black); }
 
@@ -130,3 +169,9 @@
 .white-tile { background-color: var(--white); }
 
 .white-tile.selected { background-color: var(--white-selected); }
+
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}

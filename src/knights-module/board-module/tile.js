@@ -17,17 +17,26 @@ export default class Tile {
             "grid-area", `tile-${x}${y}`
         );
 
+        // Generate Cursor DOM Element
+        this._cursor = document.createElement("div");
+        this._cursor.id = "cursor-tile";
+
         // Initialise Variables
         this._x = x;
         this._y = y;
         this._move = 0;
         this._colour = colour;
         this._active = false;
+        this._pointer = false;
     }
 
     get element () { return this._element; }
 
     set element (elem) { this._element = elem; }
+
+    get cursor () { return this._cursor; }
+
+    set cursor (elem) { this._cursor = elem; }
 
     get x () { return this._x; }
 
@@ -49,6 +58,10 @@ export default class Tile {
 
     set active (bool) { this._active = bool; }
 
+    get pointer () { return this._pointer; }
+
+    set pointer (bool) { this._pointer = bool; }
+
     /**
      * Remove Knight Function
      * 
@@ -58,6 +71,8 @@ export default class Tile {
         this._element.innerHTML = ""; 
         if (this._active && this._move > 0)
             this._element.textContent = this._move;
+        if (this._pointer)
+            this._element.appendChild(this._cursor);
     }
 
     /**
@@ -80,10 +95,16 @@ export default class Tile {
      * @param {boolean} on Place or Remove
      */
     placeCursor (on=true) {
-        if (on && !this._element.classList.contains("cursor"))
-            this._element.classList.add("cursor");
-        if (!on && this._element.classList.contains("cursor"))
-            this._element.classList.remove("cursor");
+        // Place Cursor on Tile
+        if (on && !this._pointer) {
+            this._element.appendChild(this._cursor);
+            this._pointer = true;
+        }
+        // Remove Cursor from Tile
+        if (!on && this._pointer) {
+            this._element.removeChild(this._cursor);
+            this._pointer = false;
+        }
     }
 
     /**

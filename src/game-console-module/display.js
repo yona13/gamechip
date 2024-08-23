@@ -20,10 +20,24 @@ export default class Display {
      * Update the Display to Show the Desired Element.
      * 
      * @param {*} elem Element to Display
+     * @param {boolean} overlay Default is False
      */
-    show (elem) {
-        this._module.innerHTML = "";
+    show (elem, overlay=false) {
+        if (!overlay) {
+            this._module.innerHTML = "";
+            this._main = elem;
+        }
         this._module.appendChild(elem);
+    }
+
+    /**
+     * Take Down Function
+     * 
+     * Update the Display to remove any overlayed element.
+     */
+    takeDown () {
+        this._module.innerHTML = "";
+        this._module.appendChild(this._main);
     }
 
     /**
