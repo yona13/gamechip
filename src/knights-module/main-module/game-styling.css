@@ -55,7 +55,7 @@
     --black-selected: black;
     --white-selected: cyan;
     --screen: black;
-    --error-screen: red;
+    --error-screen: blue;
     --cursor: green;
     --num-colour: green;
     --text-colour: green;
@@ -117,6 +117,7 @@
     position: absolute;
     z-index: 4;
     font-family: "Dogica Bold";
+    border: 3px var(--text-colour) solid;
     color: var(--text-colour);
     background-color: var(--error-screen);
     text-align: center;
@@ -150,12 +151,6 @@
     z-index: 2;
 }
 
-/* [class*="-tile"].cursor,
-[class*="-tile"].selected.cursor { 
-    background-color: var(--cursor); 
-    animation: blink 1.5s infinite;
-    animation-fill-mode: both;
-} */
 #cursor-tile { 
     background-color: var(--cursor); 
     animation: blink 1.5s infinite;

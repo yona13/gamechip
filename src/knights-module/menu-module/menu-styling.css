@@ -1,0 +1,19 @@
+.start-menu {
+    font-family: "Dogica";
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+}
+
+/* .start-menu > div.cursor {
+    background-color: var(--cursor); 
+    animation: blink 1.5s infinite;
+    animation-fill-mode: both;
+} */ /* TODO: check this inherits game-styling */
+
+/* @keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+} */
