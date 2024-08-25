@@ -11,9 +11,8 @@ export default class MenuBase {
      * 
      * @param {string} name Name of Sub-Menu
      * @param {Array} arr Array of Options
-     * @callback returnCallback Return Callback Method
      */
-    constructor (name, arr, returnCallback) {
+    constructor (name, arr) {
         // Generate Container DOM Element
         this._module = document.createElement("div");
         this._module.classList.add("start-menu");
@@ -45,10 +44,9 @@ export default class MenuBase {
         this._return = document.createElement("div");
         this._return.classList.add(`${name}-return`);
         this._return.textContent = "return";
-        this._return.addEventListener("click", (e) => {
-            returnCallback();
-        });
-        this.#returnCallback = returnCallback;
+        
+        // Initialise Variable
+        this._current = 0;
     }
 
     get module () { return this._module; }
@@ -59,9 +57,13 @@ export default class MenuBase {
 
     set options (arr) { this._options = arr; }
 
-    get return () { this._return; }
+    get return () { return this._return; }
 
     set return (btn) { this._return = btn; }
+
+    get current () { return this._current; }
+
+    set current (num) { this._current = num; }
 
     /**
      * Show Function
@@ -99,6 +101,17 @@ export default class MenuBase {
      * Either Navigate to Parent Menu or Close Menu.
      */
     declineAction () { this.#returnCallback(); }
+
+    /**
+     * Place Cursor
+     * 
+     * Place or Remove the Cursor on the Option.
+     * 
+     * @param {boolean} on Place or Remove
+     */
+    placeCursor (on=true) {}
+
+    setReturnCallback (returnCallback) { this.#returnCallback = returnCallback; }
 
     /**
      * Set Dimensions Function

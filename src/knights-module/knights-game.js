@@ -11,7 +11,7 @@ export default class KnightsGame extends GameInterface {
         super();
 
         // Create Knight's Manager
-        this._km = new KnightsManager(this.#showCallback.bind(this), this.#takeDownCallback.bind(this));
+        this._km = new KnightsManager(this.#showCallback, this.#takeDownCallback);
         this._error = new ErrorBox();
     }
 

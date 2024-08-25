@@ -1,8 +1,8 @@
 import MenuBase from "./menu-base.js";
 
 export default class InfoGetter extends MenuBase {
-    constructor (returnCallback) {
-        super("info-getter", [], returnCallback);
+    constructor () {
+        super("info-getter", []);
 
         // TODO: Add Information
     }

@@ -1,18 +1,14 @@
 import MenuBase from "./menu-base.js";
 
-export default class ThemeSetter extends MenuBase {
+export default class GameSetter extends MenuBase {
     #selectCallback;
-    #THEMES = [
-        "Normal",
-        "Retro",
-        "Future",
-        "Neon",
-        "Terminal",
-        "Fantasy"
+    #GAMES = [
+        "Shortest-Path", 
+        "Knights-Tour"
     ];
 
-    constructor (selectCallback, returnCallback) {
-        super("theme-setter", ["Normal", "Retro", "Future", "Neon", "Terminal", "Fantasy"], returnCallback);
+    constructor (selectCallback) {
+        super("game-setter", ["Shortest-Path", "Knights-Tour"]);
 
         // Initialise Callback
         this.#selectCallback = selectCallback;

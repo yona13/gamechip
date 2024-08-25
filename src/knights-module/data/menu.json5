@@ -1,0 +1,43 @@
+{
+    key: "Main",
+    subs: [
+        {
+            key: "Game",
+            subs: [
+                {
+                    key: "Shortest-Path",
+                    subs: []
+                }, {
+                    key: "Knights-Tour",
+                    subs: []
+                }
+            ]
+        }, {
+            key: "Theme",
+            subs: [
+                {
+                    key: "Normal",
+                    subs: []    
+                }, {
+                    key: "Retro",
+                    subs: []
+                }, {
+                    key: "Future",
+                    subs: []
+                }, {
+                    key: "Neon",
+                    subs: []
+                }, {
+                    key: "Terminal",
+                    subs: []
+                }, {
+                    key: "Fantasy",
+                    subs: []
+                }
+            ]
+        }, {
+            key: "Information",
+            subs: []
+        }
+    ]
+}

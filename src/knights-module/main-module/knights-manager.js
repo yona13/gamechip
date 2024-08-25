@@ -1,7 +1,6 @@
 import "./game-styling.css";
 import Board from "../board-module/board.js";
 import Cursor from "./cursor.js";
-import Menu from "../menu-module/menu.js";
 
 export default class KnightsManager {
     #GAME_TYPES = {
@@ -56,7 +55,6 @@ export default class KnightsManager {
         // Initialise Objects
         this._cursor = new Cursor();
         this._board = new Board();
-        this._menu = new Menu
 
         // Append All Components to Module
         this._module.appendChild(this._board.module);
@@ -86,10 +84,6 @@ export default class KnightsManager {
     get board () { return this._board; }
 
     set board (obj) { this._board = obj; }
-
-    get menu () { return this._menu; }
-
-    set menu (obj) { this._menu = obj; }
 
     get human () { return this._human; }
 
@@ -141,10 +135,6 @@ export default class KnightsManager {
 
         // Set Information Panel Font Size
         this._information.style.fontSize = Math.floor(dim * 0.2);
-
-        // Set Menu Dimensions
-        const menuDim = Math.floor(dim * 0.6);
-        this._menu.setDimensions(menuDim);
     }
 
     /**
@@ -210,25 +200,6 @@ export default class KnightsManager {
     }
 
     /**
-     * Show Menu Function
-     * 
-     * Displays the Menu.
-     */
-    showMenu () { 
-        this.setMode("menu");
-        this._menu.show(); 
-    }
-
-    /**
-     * Show Sub-Menu Function
-     * 
-     * Displays a given Sub-Menu.
-     * 
-     * @param {string} name Sub-Menu Name
-     */
-    showSubMenu (name) { this.setMode(name); }
-
-    /**
      * Initialise Callbacks Function
      * 
      * For each mode, that is, gameplay or menu, the button
@@ -244,34 +215,6 @@ export default class KnightsManager {
                 accept: this.gameAcceptAction.bind(this),
                 decline: function () { return; },
                 menu: this.showMenu.bind(this)
-            },
-            "menu": {
-                horizontal: function () { return; },
-                vertical: this._menu.verticalMove.bind(this._menu),
-                accept: this._menu.acceptAction.bind(this._menu),
-                decline: this._menu.declineAction.bind(this._menu),
-                menu: this._menu.takeDown.bind(this._menu),
-            },
-            "game-setter":  {
-                horizontal: function () { return; },
-                vertical: this._menu.game.verticalMove.bind(this._menu.game),
-                accept: this._menu.game.acceptAction.bind(this._menu.game),
-                decline: this._menu.game.declineAction.bind(this._menu.game),
-                menu: this._menu.game.takeDown.bind(this._menu.game),
-            },
-            "theme-setter":  {
-                horizontal: function () { return; },
-                vertical: this._menu.theme.verticalMove.bind(this._menu.theme),
-                accept: this._menu.theme.acceptAction.bind(this._menu.theme),
-                decline: this._menu.theme.declineAction.bind(this._menu.theme),
-                menu: this._menu.theme.takeDown.bind(this._menu.theme),
-            },
-            "info-getter":  {
-                horizontal: function () { return; },
-                vertical: this._menu.info.verticalMove.bind(this._menu.info),
-                accept: this._menu.info.acceptAction.bind(this._menu.info),
-                decline: this._menu.info.declineAction.bind(this._menu.info),
-                menu: this._menu.info.takeDown.bind(this._menu.info),
             },
         }
     }
