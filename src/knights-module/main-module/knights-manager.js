@@ -1,4 +1,3 @@
-import "./game-styling.css";
 import Board from "../board-module/board.js";
 
 export default class KnightsManager {

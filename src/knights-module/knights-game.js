@@ -1,8 +1,10 @@
+import "./game-styling.css";
 import categories from "./data/menu.json5";
 import GameInterface from "../game-console-module/game-interface.js";
 import ErrorBox from "./main-module/error-box.js";
 import KnightsManager from "./main-module/knights-manager.js";
-import Menu from "./menu-module.js/menu.js";
+import Menu from "./main-module/menu.js";
+import InfoBox from "./main-module/info-box.js";
 
 export default class KnightsGame extends GameInterface {
     #showCallback;
@@ -16,6 +18,7 @@ export default class KnightsGame extends GameInterface {
         this._km = new KnightsManager();
         this._menu = new Menu(categories);
         this._error = new ErrorBox();
+        this._info = new InfoBox();
     }
 
     /**
@@ -41,9 +44,14 @@ export default class KnightsGame extends GameInterface {
         this._sub_set = false;
         this._sub_menu; 
         this._error.setDimensions(dimensions.width, dimensions.height);
+        this._info.setDimensions(dimensions.width, dimensions.height);
 
         // Set Board on Display
         this.#showCallback(this._km.module);
+
+        // Show Information about Current Game
+        this._info.setMessage("Hello, World!"); // TODO: Replace with current game info
+        this.#showCallback(this._info.module, true);
     }
 
     /**
@@ -109,7 +117,10 @@ export default class KnightsGame extends GameInterface {
      */
     aCallback () { 
         // Handle Chessboard Action
-        if (this._km.controller) {
+        if (this._info.active) {
+            this.#takeDownCallback();
+            this._info.active = false;
+        } else if (this._km.controller) {
             if (!this._km.acceptAction()) {
                 this._error.setMessage(this._km.message);
                 this.#showCallback(this._error.module, true);
@@ -160,6 +171,9 @@ export default class KnightsGame extends GameInterface {
         if (this._error.active) {
             this.#takeDownCallback();
             this._error.active = false;
+        } else if (this._info.active) {
+            this.#takeDownCallback();
+            this._info.active = false;
         }
         // Handle Menu Action
         else if (this._menu.controller) 

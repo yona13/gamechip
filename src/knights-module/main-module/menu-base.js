@@ -1,4 +1,6 @@
-export default class MenuBase {
+import PopUp from "./pop-up.js";
+
+export default class MenuBase extends PopUp {
     /**
      * Menu Base Class
      * 
@@ -7,28 +9,7 @@ export default class MenuBase {
      * @param {Object} categories Categories for Menu
      */
     constructor (categories) {
-        // Build the Container for the Menu DOM Element
-        this._module = document.createElement("div");
-        this._module.classList.add("start-menu");
-        this._module.id = `${categories.key.toLowerCase()}-menu`;
-        
-        // Build Menu Box DOM Element
-        this._box = document.createElement("div");
-        this._box.classList.add("menu-box");
-
-        // Build Blurred Background DOM Element
-        this._blurred = document.createElement("div");
-        this._blurred.classList.add("blurred-background");
-
-        // Build Title DOM Element
-        const title = document.createElement("div");
-        title.classList.add("menu-title");
-        title.textContent = categories.key;
-        this._box.appendChild(title);
-
-        // Append Components to Container
-        this._module.appendChild(this._blurred);
-        this._module.appendChild(this._box);
+        super("Menu");
 
         // Build Option DOM Elements
         this._options = [];
@@ -57,10 +38,6 @@ export default class MenuBase {
             value: ""
         };
     }
-    
-    get module () { return this._module; }
-
-    set module (elem) { this._module = elem; }
 
     get options () { return this._options; }
 
@@ -88,31 +65,14 @@ export default class MenuBase {
      * @param {number} height Screen Height (pixels)
      */
     setDimensions (width, height) {
-        // Set Container Dimensions
-        this._module.style.width = `${width}px`;
-        this._module.style.height = `${height}px`
-
-        // Set Blurred Backgound Dimensions
-        this._blurred.style.width = `${width}px`;
-        this._blurred.style.height = `${height}px`;
-
-        // Set Menu Box Dimensions
-        const boxW = Math.floor(width * 0.6);
-        const boxH = Math.floor(height * 0.6);
-        this._box.style.width = `${boxW}px`;
-        this._box.style.height = `${boxH}px`;
+        super.setDimensions(width, height);
 
         // Set Options Width
+        const boxW = Math.floor(width * 0.6);
         this._options.forEach(option => {
             option.style.width = `${boxW}px`;
         });
         this._return.style.width = `${boxW}px`;
-
-        // Set Menu Box Position
-        const left = Math.floor(width * 0.2);
-        const top = Math.floor(height * 0.2);
-        this._box.style.left = `${left}px`;
-        this._box.style.top = `${top}px`;
     }
 
     /**

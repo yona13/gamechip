@@ -75,17 +75,17 @@
 
 @font-face {
     font-family: "Gothica";
-    src: url("../../fonts/Gothica-Book.ttf");
+    src: url("../fonts/Gothica-Book.ttf");
 }
 
 @font-face {
     font-family: "Dogica";
-    src: url("../../fonts/dogica.ttf");
+    src: url("../fonts/dogica.ttf");
 }
 
 @font-face {
     font-family: "Dogica Bold";
-    src: url("../../fonts/dogicabold.ttf");
+    src: url("../fonts/dogicabold.ttf");
 }
 
 .knights-game-module { 
@@ -109,17 +109,22 @@
 
 .info-components > div { border-bottom: 2px solid var(--black); }
 
-.start-menu { font-family: "Dogica"; }
+.menu-container,
+.information-container { font-family: "Dogica"; }
 
-.menu-box {
+.menu-box,
+.information-box {
     background-color: var(--screen);
     justify-content: flex-start;
     align-items: start;
 }
 
-.menu-title { font-family: "Dogica Bold"; }
+.menu-title,
+.information-title,
+.error-title { font-family: "Dogica Bold"; }
 
-.menu-box > div { text-align: start; }
+.menu-box > div,
+.information-box > div { text-align: start; }
 
 .menu-box > div.cursor {
     animation: fade 1.5s infinite;
@@ -131,6 +136,7 @@
 }
 
 .error-box,
+.information-box,
 .menu-box {
     position: absolute;
     z-index: 4;
