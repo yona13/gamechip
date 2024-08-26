@@ -22,7 +22,7 @@ export default class Edge {
     set vertices (arr) { this._vertices = arr; }
 
     /**
-     * Same Edge Function
+     * Same Edge Method
      * 
      * Checks if the given Edge is the same edge as this.
      * 
@@ -45,10 +45,10 @@ export default class Edge {
     }
 
     /**
-     * Get Neighbour Function
+     * Get Neighbour Method
      * 
      * For a given vertex, if it exists in the edge, the
-     * function will return the neighbour vertex, otherwise
+     * method will return the neighbour vertex, otherwise
      * it will return null;
      * 
      * @param {Vertex} v Vertex
@@ -65,7 +65,7 @@ export default class Edge {
     }
 
     /**
-     * Has Vertex
+     * Has Vertex Method
      * 
      * Checks if one of the Vertices that makes up the Edge
      * contains the desired Vertex, and returns true if it
@@ -85,7 +85,7 @@ export default class Edge {
     }
 
     /**
-     * Has Vertices Function
+     * Has Vertices Method
      * 
      * Checks if the pair of given Vertices are connected 
      * by the Edge, and returns true if they are.

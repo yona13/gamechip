@@ -63,7 +63,7 @@ export default class Tile {
     set pointer (bool) { this._pointer = bool; }
 
     /**
-     * Remove Knight Function
+     * Remove Knight Method
      * 
      * Removes the Knight DOM Element from the tile.
      */
@@ -76,7 +76,7 @@ export default class Tile {
     }
 
     /**
-     * Place Knight Function
+     * Place Knight Method
      * 
      * Appends the Knight DOM Element to the tile.
      * 
@@ -108,7 +108,7 @@ export default class Tile {
     }
 
     /**
-     * Number Function
+     * Number Method
      * 
      * Number the Tile with a Desired Number.
      * 
@@ -120,7 +120,7 @@ export default class Tile {
     }
 
     /**
-     * Highlight Function
+     * Highlight Method
      * 
      * Highlights the tile when if the tile is active and
      * if the knight lands on the tile.
@@ -131,7 +131,7 @@ export default class Tile {
     }
 
     /**
-     * Toggle Function
+     * Toggle Method
      * 
      * Sets the active variable to be on or off, depending
      * on whether or not there is a puzzle that the user is
@@ -140,7 +140,7 @@ export default class Tile {
     toggle () { this._active = !this._active; }
 
     /**
-     * Reset Function
+     * Reset Method
      * 
      * Removes any instance of the Tile being highlighted.
      */

@@ -13,7 +13,7 @@ export default class Queue {
     }
 
     /**
-     * Size Function
+     * Size Method
      * 
      * Returns the number of elements in the Queue.
      * 
@@ -22,9 +22,9 @@ export default class Queue {
     size () { return this._queue.length; }
 
     /**
-     * Is Empty Function
+     * Is Empty Method
      * 
-     * If there are no Elements in the Queue, the function
+     * If there are no Elements in the Queue, the method
      * returns true, and will return false in all other
      * cases.
      * 
@@ -33,7 +33,7 @@ export default class Queue {
     isEmpty () { return this._queue.length === 0; }
 
     /**
-     * Enqueue Function
+     * Enqueue Method
      * 
      * Adds a new Element to the Queue.
      * 
@@ -42,7 +42,7 @@ export default class Queue {
     enqueue (e) { this._queue.push(e); }
 
     /**
-     * First Function
+     * First Method
      * 
      * Returns the First Element of the Queue, without
      * dequeuing it.
@@ -52,7 +52,7 @@ export default class Queue {
     first () { return this._queue[0]; }
 
     /**
-     * Dequeue Function
+     * Dequeue Method
      * 
      * Removes the First Element of the Queue, and removes
      * it in the process.

@@ -17,10 +17,10 @@ export default class Graph {
     }
 
     /**
-     * Vertices Iterator Function
+     * Vertices Iterator Method
      * 
-     * Function that can be used in loops to iterate
-     * through the Graph's Vertices.
+     * Method that can be used in loops to iterate through
+     * the Graph's Vertices.
      * 
      * @returns Iterator of Vertices
      */
@@ -42,10 +42,10 @@ export default class Graph {
     }
 
     /**
-     * Edges Iterator Function
+     * Edges Iterator Method
      * 
-     * Function that can be used in loops to iterate
-     * through the Graph's Edges.
+     * Method that can be used in loops to iterate through 
+     * the Graph's Edges.
      * 
      * @returns Iterator of Edges
      */
@@ -67,7 +67,7 @@ export default class Graph {
     }
 
     /**
-     * Number of Vertices Function
+     * Number of Vertices Method
      * 
      * Get the Number of Vertices within the Graph.
      * 
@@ -76,7 +76,7 @@ export default class Graph {
     numVertices () { return this._vertices.length; }
 
     /**
-     * Number of Edges Function
+     * Number of Edges Method
      * 
      * Get the Number of Edges within the Graph.
      * 
@@ -85,9 +85,9 @@ export default class Graph {
     numEdges () { return this._edges.length; }
 
     /**
-     * Insert Vertex Function
+     * Insert Vertex Method
      * 
-     * For a given (x, y) coordinate, this function will 
+     * For a given (x, y) coordinate, this method will 
      * create a new Vertex for the Graph.
      * 
      * @param {number} x X-Coordinate
@@ -99,7 +99,7 @@ export default class Graph {
     }
 
     /**
-     * Remove Vertex Function
+     * Remove Vertex Method
      * 
      * For a given Vertex, if it is in the Graph, and if it
      * has any Edges associated with it, then those Edges 
@@ -134,7 +134,7 @@ export default class Graph {
     }
 
     /**
-     * Clear Vertices Function
+     * Clear Vertices Method
      * 
      * Clears all vertices in the Graph.
      */
@@ -143,9 +143,9 @@ export default class Graph {
     }
 
     /**
-     * Get Vertex Function
+     * Get Vertex Method
      * 
-     * For a given (x, y) coordinate, this function will 
+     * For a given (x, y) coordinate, this method will 
      * search its known vertices and return the vertex that
      * corresponds with the coordinate, or null if it does
      * not exist.
@@ -165,9 +165,9 @@ export default class Graph {
     }
 
     /**
-     * Insert Edge Function
+     * Insert Edge Method
      * 
-     * For a given pair of Vertices, this function will
+     * For a given pair of Vertices, this method will
      * create a new Edge for the pair, if there isn't one
      * already.
      * 
@@ -184,7 +184,7 @@ export default class Graph {
     }
 
     /**
-     * Remove Edge Function
+     * Remove Edge Method
      * 
      * For a given Edge, if it is in the Graph, the Edge 
      * would then be removed from the Graph.
@@ -228,9 +228,9 @@ export default class Graph {
     }
 
     /**
-     * Get Edge Function
+     * Get Edge Method
      * 
-     * For the given pair of Vertices, the function will
+     * For the given pair of Vertices, the method will
      * iterate through the known Edges of the Graph and 
      * return the Edge that connects them, or returns null.
      * 

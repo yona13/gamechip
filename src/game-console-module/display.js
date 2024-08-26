@@ -15,7 +15,7 @@ export default class Display {
     set module (elem) { this._module = elem; }
 
     /**
-     * Show Function
+     * Show Method
      * 
      * Update the Display to Show the Desired Element.
      * 
@@ -31,7 +31,7 @@ export default class Display {
     }
 
     /**
-     * Take Down Function
+     * Take Down Method
      * 
      * Update the Display to remove any overlayed element.
      */
@@ -41,7 +41,7 @@ export default class Display {
     }
 
     /**
-     * Get Dimensions Function
+     * Get Dimensions Method
      * 
      * Retrieves the Screen Width and Height for the Game.
      * 

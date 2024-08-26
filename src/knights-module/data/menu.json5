@@ -35,9 +35,6 @@
                     subs: []
                 }
             ]
-        }, {
-            key: "Information",
-            subs: []
         }
     ]
 }

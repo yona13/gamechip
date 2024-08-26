@@ -34,7 +34,7 @@ export default class ErrorBox {
     set active (bool) { this._active = bool; }
 
     /**
-     * Set Dimensions Function
+     * Set Dimensions Method
      * 
      * For the Components of the Error Box, the width and
      * height are to be set.
@@ -65,7 +65,7 @@ export default class ErrorBox {
     }
 
     /**
-     * Set Message Function
+     * Set Message Method
      * 
      * Update the Error Box with the most up to date error.
      * 

@@ -48,7 +48,7 @@ export default class GameConsole {
     set game (game) { this._game = game; }
 
     /**
-     * Start Function
+     * Start Method
      * 
      * Start the Game.
      */

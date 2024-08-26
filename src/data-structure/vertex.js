@@ -38,7 +38,7 @@ export default class Vertex {
     set neighbours (arr) { this._neighbours = arr; }
 
     /**
-     * Same Vertex Function
+     * Same Vertex Method
      * 
      * Checks if the given Vertex is the same one as this.
      * 
@@ -48,7 +48,7 @@ export default class Vertex {
     sameVertex (v) { return v.x === this.x && v.y === this.y; }
 
     /**
-     * Insert Neighbour Function
+     * Insert Neighbour Method
      * 
      * Adds a new Vertex that is Neighbour this Vertex in 
      * the Graph.
@@ -58,7 +58,7 @@ export default class Vertex {
     insertNeighbour (vertex) { this.neighbours.push(vertex); }
 
     /**
-     * Remove Neighbour Function
+     * Remove Neighbour Method
      * 
      * Removes a Neighbour Vertex, if it exists from the
      * Vertex's Neighbour List.

@@ -55,7 +55,7 @@ export default class Board {
     set knight (obj) { this._knight = obj; }
 
     /**
-     * Set Dimensions Function
+     * Set Dimensions Method
      * 
      * For the Board, the width and height are dependent on
      * the screen size.
@@ -84,7 +84,7 @@ export default class Board {
     }
 
     /**
-     * Set Theme Function
+     * Set Theme Method
      * 
      * Update the Knight's Icon.
      * 
@@ -93,7 +93,7 @@ export default class Board {
     setTheme (theme) { this._knight.changeIcon(theme); }
 
     /**
-     * Horizontal Move Function
+     * Horizontal Move Method
      * 
      * Move the Cursor Horizontally around the Board.
      * 
@@ -118,7 +118,7 @@ export default class Board {
     }
 
     /**
-     * Vertical Move Function
+     * Vertical Move Method
      * 
      * Move the Cursor up or down around the Board.
      * 

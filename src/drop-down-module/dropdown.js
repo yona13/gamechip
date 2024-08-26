@@ -36,7 +36,7 @@ export default class DropDownModule extends OptionsList {
     set dropDown (elem) { this._drop_down = elem; }
 
     /**
-     * Update Selection Function
+     * Update Selection Method
      * 
      * Update Dropdown selection based on User's seleciton.
      */

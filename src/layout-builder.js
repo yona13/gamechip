@@ -1,5 +1,5 @@
 /**
- * Get Header Function
+ * Get Header Method
  * 
  * Generates Header DOM Element.
  * 
@@ -30,7 +30,7 @@ const getHeader = function (resetCallback) {
 }
 
 /**
- * Get Footer Function
+ * Get Footer Method
  * 
  * Generates Footer DOM Element.
  * 

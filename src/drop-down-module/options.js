@@ -35,10 +35,10 @@ export default class OptionsList {
     set selected (value) { this._selected = value; }
 
     /**
-     * Toggle Function 
+     * Toggle Method 
      *
      * Dropdown List can be revealed or hidden using
-     * this function.
+     * this method.
      */
     toggle () {
         // Toggle Visibility of Options
@@ -49,7 +49,7 @@ export default class OptionsList {
     }
 
     /**
-     * Initialise Function
+     * Initialise Method
      * 
      * Sets up the options in Option List and adds
      * them to the List.

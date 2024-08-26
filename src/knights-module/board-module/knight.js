@@ -1,10 +1,10 @@
 import Graph from "../../data-structure/graph.js";
-import KnightNormal from "../../images/knight.png";
-import KnightRetro from "../../images/knight-retro.png";
-import KnightFuture from "../../images/knight-future.png";
-import KnightNeon from "../../images/knight-neon.png";
-import KnightTerminal from "../../images/knight-terminal.png";
-import KnightFantasy from "../../images/knight-fantasy.png";
+import KnightNormal from "../images/knight.png";
+import KnightRetro from "../images/knight-retro.png";
+import KnightFuture from "../images/knight-future.png";
+import KnightNeon from "../images/knight-neon.png";
+import KnightTerminal from "../images/knight-terminal.png";
+import KnightFantasy from "../images/knight-fantasy.png";
 
 export default class Knight {
     #BOARD;
@@ -89,7 +89,7 @@ export default class Knight {
     set steps (num) { this._steps = num; }
 
     /**
-     * Change Icon Function
+     * Change Icon Method
      * 
      * Set the New Icon for the given Theme.
      * 
@@ -106,7 +106,7 @@ export default class Knight {
     }
 
     /**
-     * Resize Function
+     * Resize Method
      * 
      * For a newly selected Board Size by the User, the 
      * Knight's variables must also be updated.
@@ -129,7 +129,7 @@ export default class Knight {
     }
 
     /**
-     * Set Path Function
+     * Set Path Method
      * 
      * Assign new Path for the Knight to Traverse through.
      * 
@@ -138,9 +138,9 @@ export default class Knight {
     setPath (path) { this._path = path; }
 
     /**
-     * Prompt Function
+     * Prompt Method
      * 
-     * Using an Interval, the function will iterate through
+     * Using an Interval, the method will iterate through
      * the Path Generated to make the Knight Traverse the
      * Chessboard.
      * 
@@ -163,10 +163,10 @@ export default class Knight {
     }
 
     /**
-     * Fill Function
+     * Fill Method
      * 
      * Based on the Legal Moves that a Knight can make on a
-     * Chessboard, this function will fill up the graph
+     * Chessboard, this method will fill up the graph
      * with edges that correspond to the legal movements a
      * knight can make at each square on the board.
      */
@@ -183,10 +183,10 @@ export default class Knight {
     }
 
     /**
-     * Current Legal Moves Function
+     * Current Legal Moves Method
      * 
      * For the current position the knight is in on the 
-     * Chessboard, this function will fill up the legal 
+     * Chessboard, this method will fill up the legal 
      * moves array with the currently available legal moves.
      */
     currentLegalMoves () {
@@ -196,7 +196,7 @@ export default class Knight {
     }
 
     /**
-     * Update Function
+     * Update Method
      * 
      * Update the Position of the Knight, and retrieve new
      * legal moves.
@@ -212,7 +212,7 @@ export default class Knight {
     }
 
     /**
-     * Is Legal Function
+     * Is Legal Method
      * 
      * Checks if the Move selected is a legal one, given 
      * the restrictions of the Knight's movement on a
@@ -232,9 +232,9 @@ export default class Knight {
     }
 
     /**
-     * Get Legal Moves Function
+     * Get Legal Moves Method
      * 
-     * For the Given Position, the function will generate
+     * For the Given Position, the method will generate
      * the edges towards the legal positions, given the 
      * knights restricted moves on a chessboard.
      * 

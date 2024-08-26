@@ -109,22 +109,43 @@
 
 .info-components > div { border-bottom: 2px solid var(--black); }
 
+.start-menu { font-family: "Dogica"; }
+
+.menu-box {
+    background-color: var(--screen);
+    justify-content: flex-start;
+    align-items: start;
+}
+
+.menu-title { font-family: "Dogica Bold"; }
+
+.menu-box > div { text-align: start; }
+
+.menu-box > div.cursor {
+    animation: fade 1.5s infinite;
+    animation-fill-mode: both;
+}
+
 .error-container {
     position: relative;
 }
 
-.error-box {
+.error-box,
+.menu-box {
     position: absolute;
     z-index: 4;
-    font-family: "Dogica Bold";
     border: 3px var(--text-colour) solid;
     color: var(--text-colour);
-    background-color: var(--error-screen);
     text-align: center;
     display: flex;
     flex-direction: column;
+}
+
+.error-box {
+    font-family: "Dogica Bold";
     justify-content: center;
     align-items: center;
+    background-color: var(--error-screen);
 }
 
 .blurred-background {
@@ -169,4 +190,10 @@
     0% { opacity: 0; }
     50% { opacity: 1; }
     100% { opacity: 0; }
+}
+
+@keyframes fade {
+    0% { background-color: var(--screen); }
+    50% { background-color: var(--cursor); }
+    100% { background-color: var(--screen); }
 }
