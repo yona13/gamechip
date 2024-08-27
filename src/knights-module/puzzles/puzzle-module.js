@@ -67,9 +67,12 @@ export default class PuzzleModule {
      * presented to the User about how well the puzzle was
      * completed.
      * 
+     * @param {boolean} human Human or Algorithm
+     * @param {number} steps Number of Steps to Complete
+     * @param {Array} path Path taken
      * @returns End of Puzzle Inforamtion
      */
-    endInfo () { return ""; }
+    endInfo (human, steps, path) { return ""; }
 
     /**
      * Generate Method

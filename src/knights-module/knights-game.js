@@ -66,6 +66,7 @@ export default class KnightsGame extends GameInterface {
         this._km.path = this._km.board.previous;
 
         // Puzzle Complete, Display Info
+        this._info.setTitle(this._km.game.puzzleTitle());
         this._info.setMessage(this._km.game.endInfo(
             this._km.human,
             this._km.human ? this._km.steps.human : this._km.steps.algorithm,

@@ -113,10 +113,14 @@ export default class Tile {
      * Number the Tile with a Desired Number.
      * 
      * @param {number} num Number for Tile
+     * @param {*} knight Knight DOM Element
      */
-    number (num) { 
+    number (num, knight) { 
         this._move = num;
         this._element.textContent = num; 
+        this._element.appendChild(knight);
+        this.highlight();
+        this._element.appendChild(this._cursor);
     }
 
     /**

@@ -18,6 +18,9 @@
 
 #cursor-tile { 
     background-color: var(--cursor); 
+    position: absolute;
+    top: 0;
+    left: 0;
     animation: blink 1.5s infinite;
     animation-fill-mode: both;
 }

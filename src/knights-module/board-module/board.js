@@ -182,7 +182,14 @@ export default class Board {
             return this._current.x === this._goal.x && this._current.y === this._goal.y;
 
         // Handle Knight's Tour Puzzle
-        // TODO: Implement this
+        let check = false;
+        for (let i = 0; i < this._tiles.length; i++) {
+            if (this._tiles[i].move === this._tiles.length) {
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 
     /**
@@ -223,8 +230,10 @@ export default class Board {
             }
         });
 
-        // Reset Previous Steps
+        // Reset Other Variables
         this._previous = [];
+        this._goal.x = -1;
+        this._goal.y = -1;
     }
 
     /**
@@ -296,23 +305,37 @@ export default class Board {
 
         // Ensure Move is Legal
         if (this._initialise || this._knight.isLegal(aux.x, aux.y)) {
-            // Update Current Tile
-            this._last = this._current;
-            this.#placeKnight(aux);
-            this._knight.update(aux.x, aux.y);
-            this._initialise = false;
-
+            let check = true;
             // Store Tile if Solving Puzzle
             if (this._puzzling) {
                 this._previous.push(aux);
+
+                // For Touring, Confirm No Repeated Tiles
+                if (this._goal.x === -1 && this._goal.y === -1)
+                    check = aux.move === 0;
 
                 // Check if Puzzle is Complete
                 if (this.isComplete())
                     this.#completeCallback();
             }
+            
+            if (check) {
+                // Update Current Tile
+                this._last = this._current;
+                this.#placeKnight(aux);
+                this._knight.update(aux.x, aux.y);
+                this._initialise = false;
 
-            // Update without Error
-            return "";
+                // Number Tile, if Touring
+                if (this._goal.x === -1 && this._goal.y === -1)
+                    this._current.number(this._previous.length, this._knight.element);
+
+                // Update without Error
+                return "";
+            } else {
+                this._previous.pop();
+                return `Move to (${aux.y}, ${aux.x}) has already been made!`;
+            }
         }
 
         // Update with Error
@@ -375,8 +398,9 @@ export default class Board {
 
 
             // If completing a Knight's Tour, Number Tile
-            if (tour)
-                this._current.number(1);
+            if (tour) {
+                this._current.number(1, this._knight.element);
+            }
         } 
         
         // Prompt Knight to Use Algorithm's Path
@@ -387,6 +411,12 @@ export default class Board {
                 let vertex;
                 vertex = path.pop();
                 self.previous.push(vertex);
+                if (tour)
+                    self._tiles.forEach(tile => {
+                        if (vertex.x === tile.x && vertex.y === tile.y)
+                            tile.number(self.previous.length - 1, self.knight.element);
+                    });
+
                 moveCallback(vertex.x, vertex.y);
                 if (path.length === 0) {
                     clearInterval(x);

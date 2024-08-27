@@ -1,5 +1,6 @@
 import PuzzleModule from "./puzzle-module.js";
 import Graph from "../../data-structure/graph.js";
+import Queue from "../../data-structure/queue.js";
 
 export default class KnightsTour extends PuzzleModule {
     constructor (x, y, size) {
@@ -41,20 +42,101 @@ export default class KnightsTour extends PuzzleModule {
      * presented to the User about how well the puzzle was
      * completed.
      * 
+     * @param {boolean} human Human or Algorithm
+     * @param {number} steps Number of Steps to Complete
+     * @param {Array} path Path taken
      * @returns End of Puzzle Inforamtion
      */
-    endInfo () { return ""; }
+    endInfo (human, steps, path) { 
+        // Toggle Generated
+        this._generated = false;
+
+        // Generate Main Message
+        let msg = human ? 
+            `Congratulations! You completed the puzzle ` +
+            `in ${steps} steps!\nThe Algorithm's best ` +
+            `was ${this._algorithm_path.length} steps.` : 
+            `Warnsdorff's Algorithm found a path in ` +
+            `${steps} steps.`;
+            
+        return msg;
+    }
 
     /**
      * Generate Method
      * 
-     * For the given Puzzle Type, the Algorithm used for 
-     * solving the Puzzle will be implemented to create the
-     * Path required for the Knight to complete the Puzzle.
+     * For the Knight's Tour Puzzle, Warnsdorff's Algorithm
+     * is implemented to find a full tour of the Chessboard
+     * and can be broken down using Warnsdorff's Rule:
+     *  1. Start from any initial position of the Knight on
+     *     the board.
+     *  2. Always move to an adjacent, unvisited tile with 
+     *     minimal degree (i.e. minimum number of unvisited
+     *     adjacent tiles).
      * 
      * @param {number} x Root X-Position
      * @param {number} y Root Y-Position
      * @param {Graph} graph Graph of Chessboard
      */
-    generate (x, y, graph) {}
+    generate (x, y, graph) {
+        // Get Root Vertex
+        const root = graph.getVertex(x, y);
+
+        // Set All Vertices Move to be 0
+        for (let v of graph.vertices()) {
+            v.move = 0;
+            v.visited = false;
+        }
+
+        // Set Root to be 1st Move
+        root.move = 1;
+        root.visited = true;
+
+        // Build Reverse Path
+        let backwards = [root];
+
+        // Setup Vertex to Cycle through Vertices
+        let last = root.move;
+        let aux = root;
+        while (aux.move !== Math.pow(this._size, 2)) {
+            // Find Neighbour with Fewest Neigbours
+            let min = 1000000;
+            let idx = -1;
+            for (let i = 0; i < aux.neighbours.length; i++) {
+                // Assign Neighbour
+                let neighbour = graph.getVertex(aux.neighbours[i].x, aux.neighbours[i].y);
+
+                // Count Number of Unvisited Neighbours
+                let count = 0;
+                for (let n of neighbour.neighbours) {
+                    if (!n.visited)
+                        count++;
+                }
+
+                // Assign Least Accessible Neighbout
+                if (count < min && !neighbour.visited) {
+                    min = count;
+                    idx = i;
+                }
+            }
+
+            // Set Least Accessible Vertex to be Next Move
+            aux = aux.neighbours[idx];
+            aux.visited = true;
+            aux.move = last + 1;
+            last = aux.move;
+            backwards.push(aux);
+        }
+
+        // Reverse Backwards Path
+        while (backwards.length > 0)
+            this._algorithm_path.push(backwards.pop());
+
+        console.log(this._algorithm_path[0]);
+        console.log(this._algorithm_path[this._algorithm_path.length - 1]);
+        console.log(this._algorithm_path.length);
+
+        // Toggle Generated
+        this._generated = true;
+    }
 }
