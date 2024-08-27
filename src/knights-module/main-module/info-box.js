@@ -28,6 +28,37 @@ export default class InfoBox extends PopUp {
     set active (bool) { this._active = bool; }
 
     /**
+     * Set Dimensions Method
+     * 
+     * For the Components of the Pop-Up Box, the width and
+     * height are to be set.
+     * 
+     * @param {number} width Screen Width (pixels)
+     * @param {number} height Screen Height (pixels)
+     */
+    setDimensions (width, height) {
+        // Set Container Dimensions
+        this._module.style.width = `${width}px`;
+        this._module.style.height = `${height}px`
+
+        // Set Blurred Backgound Dimensions
+        this._blurred.style.width = `${width}px`;
+        this._blurred.style.height = `${height}px`;
+
+        // Set Pop-Up Box Dimensions
+        const boxW = Math.floor(width * 0.8);
+        const boxH = Math.floor(height * 0.8);
+        this._box.style.width = `${boxW}px`;
+        this._box.style.height = `${boxH}px`;
+
+        // Set Pop-Up Box Position
+        const left = Math.floor(width * 0.1);
+        const top = Math.floor(height * 0.2);
+        this._box.style.left = `${left}px`;
+        this._box.style.top = `${top}px`;
+    }
+
+    /**
      * Set Title Method
      * 
      * Update the Title of the Information Box.

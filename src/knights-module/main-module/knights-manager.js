@@ -1,9 +1,11 @@
 import Board from "../board-module/board.js";
+import KnightsTour from "../puzzles/knights-tour.js";
+import ShortestPath from "../puzzles/shortest-path.js";
 
 export default class KnightsManager {
     #GAME_TYPES = {
-        "SP": null,     // TODO: Replace with Shortest Path Module
-        "KT": null,     // TODO: Replace with Knight's Tour Module
+        "SP": null,
+        "KT": null,
     };
     #THEMES = [
         "Normal",
@@ -14,7 +16,7 @@ export default class KnightsManager {
         "Fantasy"
     ];
 
-    constructor () {
+    constructor (completeCallback) {
         // Generate Game DOM Element
         this._module = document.createElement("div");
         this._module.classList.add("knights-game-module");
@@ -44,8 +46,17 @@ export default class KnightsManager {
         this._information.appendChild(this._type);
 
         // Initialise Objects
-        // this._cursor = new Cursor();
-        this._board = new Board();
+        this._board = new Board(completeCallback);
+        this.#GAME_TYPES["SP"] = new ShortestPath(
+            this._board.knight.x,
+            this._board.knight.y,
+            8
+        );
+        this.#GAME_TYPES["KT"] = new KnightsTour(
+            this._board.knight.x,
+            this._board.knight.y,
+            8
+        );
 
         // Append All Components to Module
         this._module.appendChild(this._board.module);
@@ -127,10 +138,16 @@ export default class KnightsManager {
      * @param {string} game Game Name
      */
     setGame (game) {
-        if (game === "Shortest-Path")
+        // Handle Shortest Path Puzzle
+        if (game === "Shortest-Path") {
             this._game = this.#GAME_TYPES["SP"];
-        if (game === "Knights-Tour")
+            this._type.textContent = "SP";
+        }
+        // Handle Knight's Tour Puzzle
+        if (game === "Knights-Tour") {
             this._game = this.#GAME_TYPES["KT"];
+            this._type.textContent = "KT";
+        }
     }
 
     /**
@@ -147,6 +164,26 @@ export default class KnightsManager {
 
         // Update Knight's Icon
         this._board.setTheme(theme.toLowerCase());
+    }
+
+    /**
+     * Reset Method
+     * 
+     * Set all variables to their original values, and set
+     * the board so that the tiles aren't highlighted.
+     */
+    reset () {
+        // Reset Values on Display
+        this._player.textContent = "H";
+        this._current.textContent = 0;
+
+        // Reset Steps Taken
+        this._steps.human = 0;
+        this._steps.algorithm = 0;
+        this._path = [];
+
+        // Reset Tiles
+        this._board.reset();
     }
 
     /**
@@ -186,7 +223,72 @@ export default class KnightsManager {
             return false;
         }
 
+        // Increment Steps if Puzzle has Commenced
+        if (this._board.puzzling) {
+            this._steps.human += 1;
+            this._current.textContent = this._steps.human;
+        }
+
         // Update with no Error Message
         return true;
+    }
+
+    /**
+     * Decline Action Method
+     * 
+     * While Solving the Puzzle, the User can use the B 
+     * Button as an Undo button.
+     */
+    declineAction () { this._board.declineAction(); }
+
+    /**
+     * Selection Action Method
+     * 
+     * During the Game, if the User presses Select, then 
+     * either the User is selecting an Initial Position for
+     * the Knight, or they are requesting a Solution for 
+     * the Puzzle.
+     */
+    selectAction () {
+        // Check if Knight's Tour is the Selected Puzzle
+        let check = this._type.textContent === "KT";
+
+        // Handle Request for Solution
+        if (this._game.generated) {
+            this._board.selectAction(check, this._game.algorithm, this.#moveCallback.bind(this));
+            this._human = false;
+            this._player.textContent = "A";
+        }
+
+        // Handle Selecting Initial Position
+        else {
+            this._board.selectAction(check, [], this.#moveCallback.bind(this));
+
+            // Generate Puzzle
+            const root = this._board.getRoot();
+            const graph = this._board.getGraph();
+            this._game.generate(root.x, root.y, graph);
+
+            // If Shortest Path, Update Goal Tile
+            if (!check) {
+                const goal = this._game.goal;
+                this._board.setGoal(goal.x, goal.y);
+            }
+        }
+    }
+
+    /**
+     * Move Callback Method
+     * 
+     * Used for Moving the Knight during prompting, the 
+     * method will also increment the steps on the UI.
+     * 
+     * @param {number} x Next X-Position
+     * @param {number} y Next Y-Position
+     */
+    #moveCallback (x, y) {
+        this._steps.algorithm += 1;
+        this._current.textContent = this._steps.algorithm;
+        this._board.move(x, y);
     }
 }

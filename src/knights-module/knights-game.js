@@ -15,7 +15,7 @@ export default class KnightsGame extends GameInterface {
         super();
 
         // Create Knight's Manager
-        this._km = new KnightsManager();
+        this._km = new KnightsManager(this.completeCallback.bind(this));
         this._menu = new Menu(categories);
         this._error = new ErrorBox();
         this._info = new InfoBox();
@@ -50,8 +50,29 @@ export default class KnightsGame extends GameInterface {
         this.#showCallback(this._km.module);
 
         // Show Information about Current Game
-        this._info.setMessage("Hello, World!"); // TODO: Replace with current game info
+        this._info.setTitle(this._km.game.puzzleTitle());
+        this._info.setMessage(this._km.game.puzzleInfo());
         this.#showCallback(this._info.module, true);
+    }
+
+    /**
+     * Puzzle Complete Callback Method
+     * 
+     * When the Puzzle is Complete, the User should be
+     * informed with the relevant information.
+     */
+    completeCallback () {
+        // Set Path Taken
+        this._km.path = this._km.board.previous;
+
+        // Puzzle Complete, Display Info
+        this._info.setMessage(this._km.game.endInfo(
+            this._km.human,
+            this._km.human ? this._km.steps.human : this._km.steps.algorithm,
+            this._km.path
+        ));
+        this.#showCallback(this._info.module, true);
+        this._km.reset();
     }
 
     /**
@@ -166,7 +187,7 @@ export default class KnightsGame extends GameInterface {
      * 
      * Handles the Click of the B Action Button.
      */
-    bCallback () { 
+    bCallback () {
         // Handle Chessboard Action
         if (this._error.active) {
             this.#takeDownCallback();
@@ -174,7 +195,8 @@ export default class KnightsGame extends GameInterface {
         } else if (this._info.active) {
             this.#takeDownCallback();
             this._info.active = false;
-        }
+        } else if (this._km.controller)
+            this._km.declineAction();
         // Handle Menu Action
         else if (this._menu.controller) 
             this.#close();
@@ -195,7 +217,11 @@ export default class KnightsGame extends GameInterface {
      * 
      * Handles the Click of the Select User Button.
      */
-    selectCallback () { this.#menu(); }
+    selectCallback () {
+        // Only Handle Gameplay Events
+        if (this._km.controller)
+            this._km.selectAction();
+    }
 
     /**
      * Main Return Method
@@ -212,10 +238,10 @@ export default class KnightsGame extends GameInterface {
     /**
      * Close Method
      * 
-     * Outside of clicking the Start or Select buttons, if
-     * the User is using the Menu, and selects an option 
-     * such that the menu should close, this method will
-     * complete that task.
+     * Outside of clicking the Start button, if the User is 
+     * using the Menu, and selects an option such that the 
+     * menu should close, this method will complete that 
+     * task.
      */
     #close () {
         this._sub_set = false;
@@ -227,9 +253,10 @@ export default class KnightsGame extends GameInterface {
     /**
      * Menu Method
      * 
-     * Given no difference between the Start and Select 
-     * buttons, the generic Menu Method is called by both
-     * click events.
+     * When the Start button is pressed, either the Menu 
+     * should be Displayed (i.e. during gameplay), or the
+     * Menu should be Taken Down (i.e. while the Menu is up 
+     * on the screen).
      */
     #menu () {
         // Menu to be Displayed

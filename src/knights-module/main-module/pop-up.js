@@ -1,3 +1,5 @@
+import "./pop-up-styling.css";
+
 export default class PopUp {
     /**
      * Pop-Up Class

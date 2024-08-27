@@ -1,0 +1,31 @@
+.chessboard { 
+    font-family: "Gothica";
+    display: grid; 
+    border: 3px solid var(--num-colour);
+}
+
+[class*="-tile"] {
+    position: relative;
+    color: var(--num-colour);
+}
+
+[class*="-tile"] > .knight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#cursor-tile { 
+    background-color: var(--cursor); 
+    animation: blink 1.5s infinite;
+    animation-fill-mode: both;
+}
+
+.black-tile { background-color: var(--black); }
+
+.black-tile.selected { background-color: var(--black-selected); }
+
+.white-tile { background-color: var(--white); }
+
+.white-tile.selected { background-color: var(--white-selected); }
