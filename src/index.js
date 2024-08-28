@@ -13,4 +13,4 @@ const gameConsole = new GameChip(knightsGame);
 document.body.appendChild(gameConsole.module);
 
 // Start Game
-gameConsole.start();
+// gameConsole.start();

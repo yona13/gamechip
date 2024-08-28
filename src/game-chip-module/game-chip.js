@@ -47,6 +47,10 @@ export default class GameChip {
 
     set game (game) { this._game = game; }
 
+    get games () { return this._games; }
+
+    set games (arr) { this._games = arr; }
+
     /**
      * Start Method
      * 

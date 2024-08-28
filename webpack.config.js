@@ -50,6 +50,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: "GameChip",
+            favicon: "./src/logo/favicon.ico",
+            filename: './index.html',
         }),
     ],
 };
