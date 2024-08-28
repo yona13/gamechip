@@ -16,6 +16,17 @@ export default class KnightsManager {
         "Fantasy"
     ];
 
+    /**
+     * Knight's Game Manager Class
+     * 
+     * For the Knight's Game, this Manager Class will Handle UI Components such
+     * as the Current Move Count, the Game being Played, the Chessboard and its
+     * associated elements, and whether the User is completing the Puzzle or the
+     * Algorithm is. It manages the Actions on the Chessboard with the parent 
+     * Game Interface.
+     * 
+     * @callback completeCallback Puzzle Complete Callback
+     */
     constructor (completeCallback) {
         // Generate Game DOM Element
         this._module = document.createElement("div");
@@ -109,10 +120,9 @@ export default class KnightsManager {
     /**
      * Setup Method
      * 
-     * Sets up the Display for the Game, including the 
-     * board, the information panel and the sub-modules for
-     * the game, such as the Shortest Path, the Knight's
-     * Tour, and the Start Screen.
+     * Sets up the Display for the Game, including the board, the information 
+     * panel and the sub-modules for the game, such as the Shortest Path, the 
+     * Knight's Tour, and the Start Screen.
      * 
      * @param {number} width Screen Width (pixels)
      * @param {number} height Screen Height (pixels)
@@ -169,8 +179,8 @@ export default class KnightsManager {
     /**
      * Reset Method
      * 
-     * Set all variables to their original values, and set
-     * the board so that the tiles aren't highlighted.
+     * Set all variables to their original values, and set the board so that the 
+     * tiles aren't highlighted.
      */
     reset () {
         // Reset Values on Display
@@ -207,9 +217,8 @@ export default class KnightsManager {
     /**
      * Accept Action Method
      * 
-     * During the game, if an error occurs, say when an 
-     * illegal move is made, then a message should be able
-     * to be viewed by the user.
+     * During the game, if an error occurs, say when an illegal move is made, 
+     * then a message should be able to be viewed by the user.
      * 
      * @returns True if there are no Errors
      */
@@ -236,18 +245,16 @@ export default class KnightsManager {
     /**
      * Decline Action Method
      * 
-     * While Solving the Puzzle, the User can use the B 
-     * Button as an Undo button.
+     * While Solving the Puzzle, the User can use the B Button as an Undo button.
      */
     declineAction () { this._board.declineAction(); }
 
     /**
      * Selection Action Method
      * 
-     * During the Game, if the User presses Select, then 
-     * either the User is selecting an Initial Position for
-     * the Knight, or they are requesting a Solution for 
-     * the Puzzle.
+     * During the Game, if the User presses Select, then either the User is 
+     * selecting an Initial Position for the Knight, or they are requesting a 
+     * Solution for the Puzzle.
      */
     selectAction () {
         // Check if Knight's Tour is the Selected Puzzle
@@ -255,9 +262,14 @@ export default class KnightsManager {
 
         // Handle Request for Solution
         if (this._game.generated) {
-            this._board.selectAction(check, this._game.algorithm, this.#moveCallback.bind(this));
+            this._board.selectAction(
+                check, 
+                this._game.algorithm, 
+                this.#moveCallback.bind(this)
+            );
             this._human = false;
             this._player.textContent = "A";
+            this._controller = false;
         }
 
         // Handle Selecting Initial Position
@@ -280,15 +292,18 @@ export default class KnightsManager {
     /**
      * Move Callback Method
      * 
-     * Used for Moving the Knight during prompting, the 
-     * method will also increment the steps on the UI.
+     * Used for Moving the Knight during prompting, the method will also 
+     * increment the steps on the UI.
      * 
      * @param {number} x Next X-Position
      * @param {number} y Next Y-Position
      */
     #moveCallback (x, y) {
+        // Update UI Move Count Element
         this._steps.algorithm += 1;
         this._current.textContent = this._steps.algorithm;
+
+        // Move Knight to Desired Coordinate
         this._board.move(x, y);
     }
 }

@@ -2,7 +2,8 @@ export default class GameInterface {
     /**
      * Game Interface Class
      * 
-     * Base Game Class that should be Inherited by Other Games to be Played on the Game Console.
+     * Base Game Class that should be Inherited by Other Games to be Played on 
+     * the Game Console.
      */
     constructor () {}
 

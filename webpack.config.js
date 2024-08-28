@@ -9,6 +9,10 @@ module.exports = {
     devtool: "inline-source-map",
     entry: {
         index: "./src/index.js",
+        gamechip: "./src/game-chip-module/game-chip.js",
+        knights: "./src/knights-module/knights-game.js",
+        queue: "./src/data-structures/queue.js",
+        graph: "./src/data-structures/graph.js"
     },
     mode: "development",
     module: {
@@ -45,7 +49,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "ChipBoy",
+            title: "GameChip",
         }),
     ],
 };

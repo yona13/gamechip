@@ -1,6 +1,6 @@
 import "./game-styling.css";
 import categories from "./data/menu.json5";
-import GameInterface from "../game-console-module/game-interface.js";
+import GameInterface from "../game-chip-module/game-interface.js";
 import ErrorBox from "./main-module/error-box.js";
 import KnightsManager from "./main-module/knights-manager.js";
 import Menu from "./main-module/menu.js";
@@ -11,6 +11,13 @@ export default class KnightsGame extends GameInterface {
     #takeDownCallback;
     #dimensionsCallback;
 
+    /**
+     * Knight's Game Interface Class
+     * 
+     * Used for Controlling the Menu and Chessboard Modules with the GameChip's
+     * Controllers, and also for Updating the Display with the relevant Error 
+     * and Information Messages.
+     */
     constructor () {
         super();
 
@@ -24,8 +31,8 @@ export default class KnightsGame extends GameInterface {
     /**
      * Set Scene Method
      * 
-     * Set the Show and Get Dimensions Callback Method for
-     * Updating the Game Console Display
+     * Set the Show and Get Dimensions Callback Method for Updating the Game 
+     * Console Display.
      * 
      * @callback showCallback Show Callback
      * @callback takeDownCallback Take Down Callback
@@ -58,12 +65,13 @@ export default class KnightsGame extends GameInterface {
     /**
      * Puzzle Complete Callback Method
      * 
-     * When the Puzzle is Complete, the User should be
-     * informed with the relevant information.
+     * When the Puzzle is Complete, the User should be informed with the relevant 
+     * information.
      */
     completeCallback () {
         // Set Path Taken
         this._km.path = this._km.board.previous;
+        this._km.controller = true;
 
         // Puzzle Complete, Display Info
         this._info.setTitle(this._km.game.puzzleTitle());
@@ -239,10 +247,9 @@ export default class KnightsGame extends GameInterface {
     /**
      * Close Method
      * 
-     * Outside of clicking the Start button, if the User is 
-     * using the Menu, and selects an option such that the 
-     * menu should close, this method will complete that 
-     * task.
+     * Outside of clicking the Start button, if the User is using the Menu, and 
+     * selects an option such that the menu should close, this method will 
+     * complete that task.
      */
     #close () {
         this._sub_set = false;
@@ -254,10 +261,9 @@ export default class KnightsGame extends GameInterface {
     /**
      * Menu Method
      * 
-     * When the Start button is pressed, either the Menu 
-     * should be Displayed (i.e. during gameplay), or the
-     * Menu should be Taken Down (i.e. while the Menu is up 
-     * on the screen).
+     * When the Start button is pressed, either the Menu should be Displayed 
+     * (i.e. during gameplay), or the Menu should be Taken Down (i.e. while the 
+     * Menu is up on the screen).
      */
     #menu () {
         // Menu to be Displayed

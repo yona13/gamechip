@@ -1,11 +1,10 @@
-import Graph from "../../data-structure/graph.js";
+import Graph from "../../data-structures/graph.js";
 
 export default class PuzzleModule {
     /**
      * Puzzle Module
      * 
-     * Base Class for the Shortest Path and Knight's Tour
-     * Puzzles.
+     * Base Class for the Shortest Path and Knight's Tour Puzzles.
      * 
      * @param {number} x Initial X-Position
      * @param {number} y Initial Y-Position
@@ -62,10 +61,9 @@ export default class PuzzleModule {
     /**
      * End of Puzzle Information Method
      * 
-     * When the Puzzle has been completed, either by the 
-     * User or by the Algorithm, then a message should be
-     * presented to the User about how well the puzzle was
-     * completed.
+     * When the Puzzle has been completed, either by the User or by the Algorithm, 
+     * then a message should be presented to the User about how well the puzzle 
+     * was completed.
      * 
      * @param {boolean} human Human or Algorithm
      * @param {number} steps Number of Steps to Complete
@@ -77,9 +75,9 @@ export default class PuzzleModule {
     /**
      * Generate Method
      * 
-     * For the given Puzzle Type, the Algorithm used for 
-     * solving the Puzzle will be implemented to create the
-     * Path required for the Knight to complete the Puzzle.
+     * For the given Puzzle Type, the Algorithm used for solving the Puzzle will 
+     * be implemented to create the Path required for the Knight to complete the 
+     * Puzzle.
      * 
      * @param {number} x Root X-Position
      * @param {number} y Root Y-Position

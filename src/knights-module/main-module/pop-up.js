@@ -4,8 +4,8 @@ export default class PopUp {
     /**
      * Pop-Up Class
      * 
-     * Several Components to the Game require a Pop-Up Box,
-     * and this Class Represents that Box.
+     * Several Components to the Game require a Pop-Up Box, and this Class 
+     * Represents that Box.
      * 
      * @param {string} name Name for Pop-Up
      */
@@ -40,8 +40,7 @@ export default class PopUp {
     /**
      * Set Dimensions Method
      * 
-     * For the Components of the Pop-Up Box, the width and
-     * height are to be set.
+     * For the Components of the Pop-Up Box, the width and height are to be set.
      * 
      * @param {number} width Screen Width (pixels)
      * @param {number} height Screen Height (pixels)

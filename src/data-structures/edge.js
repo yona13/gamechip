@@ -4,8 +4,7 @@ export default class Edge {
     /**
      * Edge Class
      * 
-     * Data structure that connects two Vertices of the
-     * Graph Data Structure.
+     * Data structure that connects two Vertices of the Graph Data Structure.
      * 
      * @param {Vertex} u Starting Vertex
      * @param {Vertex} v Ending Vertex
@@ -30,10 +29,16 @@ export default class Edge {
      * @returns True if they are the Same Edge
      */
     sameEdge (e) {
+        // Check that both Vertices are Identical
         let first = false;
         let second = false;
+
+        // Iterate through Vertices on Edge
         e.vertices.forEach(u => {
-            if (this.vertices[0].sameVertex(u) || this.vertices[1].sameVertex(u)) {
+            if (
+                this.vertices[0].sameVertex(u) || 
+                this.vertices[1].sameVertex(u)
+            ) {
                 if (!first)
                     first = true;
                 else
@@ -45,38 +50,19 @@ export default class Edge {
     }
 
     /**
-     * Get Neighbour Method
-     * 
-     * For a given vertex, if it exists in the edge, the
-     * method will return the neighbour vertex, otherwise
-     * it will return null;
-     * 
-     * @param {Vertex} v Vertex
-     * @returns Neighbour Vertex, or Null
-     */
-    getNeighbour (v) {
-        let u = null;
-        this.vertices.forEach(vertex => {
-            if (v.x === vertex.x && v.y === vertex.y)
-                u = vertex;
-        });
-
-        return u;
-    }
-
-    /**
      * Has Vertex Method
      * 
-     * Checks if one of the Vertices that makes up the Edge
-     * contains the desired Vertex, and returns true if it
-     * does.
+     * Checks if one of the Vertices that makes up the Edge contains the desired 
+     * Vertex, and returns true if it does.
      * 
      * @param {Vertex} v Vertex
      * @returns True if Edge Connects Vertex
      */
     hasVertex (v) {
+        // Check Both Vertices on Edge
         let check = false;
         this.vertices.forEach(vertex => {
+            // Check if Vertex is a Match
             if (v.sameVertex(vertex))
                 check = true;
         });
@@ -87,17 +73,19 @@ export default class Edge {
     /**
      * Has Vertices Method
      * 
-     * Checks if the pair of given Vertices are connected 
-     * by the Edge, and returns true if they are.
+     * Checks if the pair of given Vertices are connected  by the Edge, and 
+     * returns true if they are.
      * 
      * @param {Vertex} u One Vertex
      * @param {Vertex} v Other Vertex
      * @returns True if both Vertices are connected by Edge
      */
     hasVertices (u, v) {
+        // Check Both Vertices on Edege
         let first = false;
         let second = false;
         this.vertices.forEach(vertex => {
+            // Ensure Both are Accounted For
             if (u.sameVertex(vertex))
                 first = true;
             if (v.sameVertex(vertex))

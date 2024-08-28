@@ -1,8 +1,18 @@
 import PuzzleModule from "./puzzle-module.js";
-import Graph from "../../data-structure/graph.js";
-import Queue from "../../data-structure/queue.js";
+import Graph from "../../data-structures/graph.js";
 
 export default class KnightsTour extends PuzzleModule {
+    /**
+     * Knight's Tour Puzzle
+     * 
+     * Utilising Warnsdorff's Algorithm, this Puzzle Class does not find a goal
+     * vertex that the User must navigate to, but instead, the User must navigate
+     * around the Chessboard, exploring every single tile exactly once.
+     * 
+     * @param {number} x Initial X-Position
+     * @param {number} y Initial Y-Position
+     * @param {number} size Chessboard Size
+     */
     constructor (x, y, size) {
         super(x, y, size);
     }
@@ -37,10 +47,9 @@ export default class KnightsTour extends PuzzleModule {
     /**
      * End of Puzzle Information Method
      * 
-     * When the Puzzle has been completed, either by the 
-     * User or by the Algorithm, then a message should be
-     * presented to the User about how well the puzzle was
-     * completed.
+     * When the Puzzle has been completed, either by the User or by the Algorithm, 
+     * then a message should be presented to the User about how well the puzzle 
+     * was completed.
      * 
      * @param {boolean} human Human or Algorithm
      * @param {number} steps Number of Steps to Complete
@@ -65,14 +74,12 @@ export default class KnightsTour extends PuzzleModule {
     /**
      * Generate Method
      * 
-     * For the Knight's Tour Puzzle, Warnsdorff's Algorithm
-     * is implemented to find a full tour of the Chessboard
-     * and can be broken down using Warnsdorff's Rule:
-     *  1. Start from any initial position of the Knight on
-     *     the board.
-     *  2. Always move to an adjacent, unvisited tile with 
-     *     minimal degree (i.e. minimum number of unvisited
-     *     adjacent tiles).
+     * For the Knight's Tour Puzzle, Warnsdorff's Algorithm is implemented to 
+     * find a full tour of the Chessboard, the algorithm can be broken down 
+     * using Warnsdorff's Rule:
+     *  1. Start from any initial position of the Knight on the board.
+     *  2. Always move to an adjacent, unvisited tile with minimal degree (i.e.
+     *     minimum number of unvisited adjacent tiles).
      * 
      * @param {number} x Root X-Position
      * @param {number} y Root Y-Position
@@ -104,7 +111,10 @@ export default class KnightsTour extends PuzzleModule {
             let idx = -1;
             for (let i = 0; i < aux.neighbours.length; i++) {
                 // Assign Neighbour
-                let neighbour = graph.getVertex(aux.neighbours[i].x, aux.neighbours[i].y);
+                let neighbour = graph.getVertex(
+                    aux.neighbours[i].x, 
+                    aux.neighbours[i].y
+                );
 
                 // Count Number of Unvisited Neighbours
                 let count = 0;
@@ -131,10 +141,6 @@ export default class KnightsTour extends PuzzleModule {
         // Reverse Backwards Path
         while (backwards.length > 0)
             this._algorithm_path.push(backwards.pop());
-
-        console.log(this._algorithm_path[0]);
-        console.log(this._algorithm_path[this._algorithm_path.length - 1]);
-        console.log(this._algorithm_path.length);
 
         // Toggle Generated
         this._generated = true;

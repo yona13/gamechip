@@ -5,10 +5,9 @@ export default class Graph {
     /**
      * Graph Class
      * 
-     * Implementation of the Graph Data Structure, which
-     * utilises the Vertex and Edge Classes that are used
-     * to represent the data, and to connect the data to
-     * one another.
+     * Implementation of the Graph Data Structure, which utilises the Vertex and
+     * Edge Classes that are used to represent the data, and to connect the data
+     * to one another.
      */
     constructor () {
         // Initialise Variables
@@ -19,8 +18,7 @@ export default class Graph {
     /**
      * Vertices Iterator Method
      * 
-     * Method that can be used in loops to iterate through
-     * the Graph's Vertices.
+     * Method that can be used in loops to iterate through the Graph's Vertices.
      * 
      * @returns Iterator of Vertices
      */
@@ -44,8 +42,7 @@ export default class Graph {
     /**
      * Edges Iterator Method
      * 
-     * Method that can be used in loops to iterate through 
-     * the Graph's Edges.
+     * Method that can be used in loops to iterate through the Graph's Edges.
      * 
      * @returns Iterator of Edges
      */
@@ -87,24 +84,20 @@ export default class Graph {
     /**
      * Insert Vertex Method
      * 
-     * For a given (x, y) coordinate, this method will 
-     * create a new Vertex for the Graph.
+     * For a given (x, y) coordinate, this method will create a new Vertex for
+     * the Graph.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
      */
-    insertVertex (x, y) {
-        const vertex = new Vertex(x, y);
-        this._vertices.push(vertex);
-    }
+    insertVertex (x, y) { this._vertices.push(new Vertex(x, y)); }
 
     /**
      * Remove Vertex Method
      * 
-     * For a given Vertex, if it is in the Graph, and if it
-     * has any Edges associated with it, then those Edges 
-     * would be removed, and finally the Vertex would then 
-     * be removed from the Graph.
+     * For a given Vertex, if it is in the Graph, and if it has any Edges 
+     * associated with it, then those Edges would be removed, and finally the 
+     * Vertex would then be removed from the Graph.
      * 
      * @param {Vertex} v Vertex
      */
@@ -145,18 +138,19 @@ export default class Graph {
     /**
      * Get Vertex Method
      * 
-     * For a given (x, y) coordinate, this method will 
-     * search its known vertices and return the vertex that
-     * corresponds with the coordinate, or null if it does
-     * not exist.
+     * For a given (x, y) coordinate, this method will search its known vertices
+     * and return the vertex that corresponds with the coordinate, or null if it
+     * does not exist.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
      * @returns Corresponding Vertex
      */
     getVertex (x, y) {
+        // Iterate through Vertices
         let u = null;
         for (let vertex of this.vertices()) {
+            // Check that Vertex Coordinates match Desired
             if (vertex.x === x && vertex.y === y)
                 u = vertex;
         }
@@ -167,18 +161,21 @@ export default class Graph {
     /**
      * Insert Edge Method
      * 
-     * For a given pair of Vertices, this method will
-     * create a new Edge for the pair, if there isn't one
-     * already.
+     * For a given pair of Vertices, this method will create a new Edge for the 
+     * pair, if there isn't one already.
      * 
      * @param {Vertex} u Starting Vertex
      * @param {Vertex} v Ending Vertex
      */
     insertEdge (u, v) {
+        // Ensure no Edge with Vertices already exists
         if (this.getEdge(u, v) === null) {
+            // Create a New Edge for Vertices
             const edge = new Edge(u, v);
             u.insertNeighbour(v);
             v.insertNeighbour(u);
+
+            // Add to Edges Array
             this._edges.push(edge);
         }
     }
@@ -186,8 +183,8 @@ export default class Graph {
     /**
      * Remove Edge Method
      * 
-     * For a given Edge, if it is in the Graph, the Edge 
-     * would then be removed from the Graph.
+     * For a given Edge, if it is in the Graph, the Edge would then be removed
+     * from the Graph.
      * 
      * @param {Edge} e Edge
      */
@@ -230,17 +227,19 @@ export default class Graph {
     /**
      * Get Edge Method
      * 
-     * For the given pair of Vertices, the method will
-     * iterate through the known Edges of the Graph and 
-     * return the Edge that connects them, or returns null.
+     * For the given pair of Vertices, the method will iterate through the known
+     * Edges of the Graph and return the Edge that connects them, or returns 
+     * null.
      * 
      * @param {Vertex} u One Vertex
      * @param {Vertex} v Other Vertex
      * @returns Edge that Connects the two Vertices
      */
     getEdge (u, v) {
+        // Iterate through Edges
         let e = null;
         for (let edge of this.edges()) {
+            // Check if Edge has both Vertices
             if (edge.hasVertices(u, v))
                 e = edge;
         }

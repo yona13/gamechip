@@ -4,8 +4,8 @@ export default class InfoBox extends PopUp {
     /**
      * Information Box Class
      * 
-     * Used for updating the User with Information relating
-     * to the current Game being played.
+     * Used for updating the User with Information relating to the current Game 
+     * being played.
      */
     constructor () {
         super("Information");
@@ -30,8 +30,7 @@ export default class InfoBox extends PopUp {
     /**
      * Set Dimensions Method
      * 
-     * For the Components of the Pop-Up Box, the width and
-     * height are to be set.
+     * For the Components of the Pop-Up Box, the width and height are to be set.
      * 
      * @param {number} width Screen Width (pixels)
      * @param {number} height Screen Height (pixels)
@@ -70,8 +69,8 @@ export default class InfoBox extends PopUp {
     /**
      * Set Message Method
      * 
-     * Update the Information Box with the necessary 
-     * information related to the game being played.
+     * Update the Information Box with the necessary information related to the 
+     * game being played.
      * 
      * @param {string} txt Information Message
      */

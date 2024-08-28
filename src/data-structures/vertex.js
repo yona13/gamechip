@@ -2,8 +2,8 @@ export default class Vertex {
     /**
      * Vertex Class
      * 
-     * Data structure that store the data within the Graph,
-     * in this case, stores (x, y) coordinates.
+     * Data structure that store the data within the Graph, in this case, stores
+     * (x, y) coordinates.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
@@ -50,8 +50,7 @@ export default class Vertex {
     /**
      * Insert Neighbour Method
      * 
-     * Adds a new Vertex that is Neighbour this Vertex in 
-     * the Graph.
+     * Adds a new Vertex that is Neighbour this Vertex in the Graph.
      * 
      * @param {Vertex} vertex Vertex
      */
@@ -60,8 +59,7 @@ export default class Vertex {
     /**
      * Remove Neighbour Method
      * 
-     * Removes a Neighbour Vertex, if it exists from the
-     * Vertex's Neighbour List.
+     * Removes a Neighbour Vertex, if it exists from the Vertex's Neighbours.
      * 
      * @param {Vertex} vertex Neighbour to Remove
      */

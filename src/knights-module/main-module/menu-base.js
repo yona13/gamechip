@@ -58,8 +58,7 @@ export default class MenuBase extends PopUp {
     /**
      * Set Dimensions Method
      * 
-     * For the Components of the Menu Box, the width and
-     * height are to be set.
+     * For the Components of the Menu Box, the width and height are to be set.
      * 
      * @param {number} width Screen Width (pixels)
      * @param {number} height Screen Height (pixels)
@@ -78,9 +77,8 @@ export default class MenuBase extends PopUp {
     /**
      * Set Cursor Method
      * 
-     * While cycling through the Menu Options, if the
-     * cursor is on an option, then the option should be
-     * highlighted.
+     * While cycling through the Menu Options, if the cursor is on an option, 
+     * then the option should be highlighted.
      * 
      * @param {boolean} on Cursor on Option
      */
@@ -122,10 +120,9 @@ export default class MenuBase extends PopUp {
     /**
      * Accept Action Method
      * 
-     * Chooses the Option on the Menu that the User has 
-     * selected, returning true implies that an option was 
-     * seleccted, false implies that the return option was
-     * selected.
+     * Chooses the Option on the Menu that the User has selected, returning true 
+     * implies that an option was seleccted, false implies that the return option 
+     * was selected.
      * 
      * @returns True for an Option, False for Return
      */

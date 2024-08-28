@@ -1,4 +1,4 @@
-import Graph from "../../data-structure/graph.js";
+import Graph from "../../data-structures/graph.js";
 import KnightNormal from "../images/knight.png";
 import KnightRetro from "../images/knight-retro.png";
 import KnightFuture from "../images/knight-future.png";
@@ -20,10 +20,9 @@ export default class Knight {
     /**
      * Knight Class
      * 
-     * Class that Generates the DOM element that represents
-     * the Knight Object, and also controls the Knight as 
-     * it moves across the Chessboard, either by the User
-     * or by the Search Algorithm.
+     * Class that Generates the DOM element that represents the Knight Object, 
+     * and also controls the Knight as it moves across the Chessboard, either 
+     * by the User or by the Search Algorithm.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
@@ -106,69 +105,11 @@ export default class Knight {
     }
 
     /**
-     * Resize Method
-     * 
-     * For a newly selected Board Size by the User, the 
-     * Knight's variables must also be updated.
-     * 
-     * @param {number} size New Board Size
-     * @param {Array} tiles Array of Tiles
-     */
-    resize (board, tiles) {
-        // Reset Graph
-        this._graph.clearEdges();
-        this._graph.clearVertices();
-
-        // Update Variables
-        this.#BOARD = board;
-        this._tiles = tiles;
-
-        // Fill Graph and update Legal Moves
-        this.fill();
-        this.currentLegalMoves();
-    }
-
-    /**
-     * Set Path Method
-     * 
-     * Assign new Path for the Knight to Traverse through.
-     * 
-     * @param {Array} path Path for Knight 
-     */
-    setPath (path) { this._path = path; }
-
-    /**
-     * Prompt Method
-     * 
-     * Using an Interval, the method will iterate through
-     * the Path Generated to make the Knight Traverse the
-     * Chessboard.
-     * 
-     * @callback moveCallback Move Knight Callback
-     */
-    prompt (moveCallback) {
-        // // First Vertex is the Current Position
-        this._steps = this._path.length;
-        var aux = [...this.path];
-
-        // Every Second, Knight executes the next move
-        var x = setInterval(function () {
-            let vertex = aux.pop();
-
-            // Step Forward
-            moveCallback(vertex.x, vertex.y);
-            if (aux.length === 0)
-                clearInterval(x);
-        }, 1000);
-    }
-
-    /**
      * Fill Method
      * 
-     * Based on the Legal Moves that a Knight can make on a
-     * Chessboard, this method will fill up the graph
-     * with edges that correspond to the legal movements a
-     * knight can make at each square on the board.
+     * Based on the Legal Moves that a Knight can make on a Chessboard, this 
+     * method will fill up the graph with edges that correspond to the legal 
+     * movements a knight can make at each square on the board.
      */
     fill () {
         // Add a Vertex for each Tile
@@ -185,12 +126,15 @@ export default class Knight {
     /**
      * Current Legal Moves Method
      * 
-     * For the current position the knight is in on the 
-     * Chessboard, this method will fill up the legal 
-     * moves array with the currently available legal moves.
+     * For the current position the knight is in on the Chessboard, this method 
+     * will fill up the legal moves array with the currently available legal 
+     * moves.
      */
     currentLegalMoves () {
+        // Get Vertex for Current Location from Graph
         const current = this._graph.getVertex(this.x, this.y);
+
+        // Iterate through Neighbours, adding them to Legal Moves Array
         for (let i = 0; i < current.neighbours.length; i++)
             this._legal.push(current.neighbours[i]);
     }
@@ -198,8 +142,7 @@ export default class Knight {
     /**
      * Update Method
      * 
-     * Update the Position of the Knight, and retrieve new
-     * legal moves.
+     * Update the Position of the Knight, and retrieve new legal moves.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
@@ -214,17 +157,18 @@ export default class Knight {
     /**
      * Is Legal Method
      * 
-     * Checks if the Move selected is a legal one, given 
-     * the restrictions of the Knight's movement on a
-     * chessboard.
+     * Checks if the Move selected is a legal one, given the restrictions of the
+     * Knight's movement on a chessboard.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate
      * @returns True if Move is Legal
      */
     isLegal (x, y) {
+        // Find if Coordinate is a Legal Vertex
         let idx = -1;
         for (let i = 0; i < this._legal.length; i++)
+            // Check if Coordinate Matches Legal Vertex
             if (this._legal[i].x === x && this._legal[i].y === y)
                 idx = i;
         
@@ -234,9 +178,8 @@ export default class Knight {
     /**
      * Get Legal Moves Method
      * 
-     * For the Given Position, the method will generate
-     * the edges towards the legal positions, given the 
-     * knights restricted moves on a chessboard.
+     * For the Given Position, the method will generate the edges towards the 
+     * legal positions, given the knights restricted moves on a chessboard.
      * 
      * @param {number} x X-Coordinate
      * @param {number} y Y-Coordinate

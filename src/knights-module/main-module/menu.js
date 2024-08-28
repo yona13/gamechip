@@ -1,6 +1,14 @@
 import MenuBase from "./menu-base.js";
 
 export default class Menu extends MenuBase {
+    /**
+     * Menu Class
+     * 
+     * For the given Categories for the Menu, a display will be presented to 
+     * the User for them to Select.
+     * 
+     * @param {Object} categories JSON Object of Menu Categories
+     */
     constructor (categories) {
         super(categories);
 
@@ -31,9 +39,9 @@ export default class Menu extends MenuBase {
     /**
      * Set Dimensions Method
      * 
-     * For the Components of the Menu Box, the width and
-     * height are to be set. Additionally, the width and 
-     * height of the Sub-Menu Components are to be set.
+     * For the Components of the Menu Box, the width and height are to be set. 
+     * Additionally, the width and height of the Sub-Menu Components are to be 
+     * set.
      * 
      * @param {number} width Screen Width (pixels)
      * @param {number} height Screen Height (pixels)
@@ -49,8 +57,7 @@ export default class Menu extends MenuBase {
     /**
      * Set Sub-Menu Method
      * 
-     * Sets the Sub-Menu Selected by the User to be on
-     * Display.
+     * Sets the Sub-Menu Selected by the User to be on Display.
      * 
      * @returns Sub-Menu DOM Element
      */
@@ -64,7 +71,5 @@ export default class Menu extends MenuBase {
      * 
      * Sets the Main Menu to be on Display.
      */
-    resetSubMenus () {
-        this._subs.forEach(sub => { sub.controller = false; });
-    }
+    resetSubMenus () { this._subs.forEach(sub => { sub.controller = false; }); }
 }

@@ -3,9 +3,9 @@ import Controller from "./controller.js";
 import Display from "./display.js";
 import GameInterface from "./game-interface.js";
 
-export default class GameConsole {
+export default class GameChip {
     /**
-     * Game Console Class
+     * GameChip Class
      * 
      * Console on which a Game can be Played.
      * 

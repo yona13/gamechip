@@ -1,7 +1,7 @@
 {
-  "name": "chip-boy",
+  "name": "gamechip",
   "version": "1.0.0",
-  "description": "ChipBoy and its Associated Games",
+  "description": "GameChip and its Associated Games",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

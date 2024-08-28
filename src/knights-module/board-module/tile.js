@@ -68,9 +68,14 @@ export default class Tile {
      * Removes the Knight DOM Element from the tile.
      */
     removeKnight () { 
+        // Clear DOM Elements
         this._element.innerHTML = ""; 
+        
+        // If Number was on Tile, Keep it On
         if (this._active && this._move > 0)
             this._element.textContent = this._move;
+
+        // If Cursor was on Tile, Keep it On
         if (this._pointer)
             this._element.appendChild(this._cursor);
     }
@@ -126,8 +131,8 @@ export default class Tile {
     /**
      * Highlight Method
      * 
-     * Highlights the tile when if the tile is active and
-     * if the knight lands on the tile.
+     * Highlights the tile when if the tile is active and if the knight lands 
+     * on the tile.
      */
     highlight () {
         if (this._active && !this._element.classList.contains("selected"))
@@ -137,9 +142,8 @@ export default class Tile {
     /**
      * Toggle Method
      * 
-     * Sets the active variable to be on or off, depending
-     * on whether or not there is a puzzle that the user is
-     * currently completing.
+     * Sets the active variable to be on or off, depending on whether or not 
+     * there is a puzzle that the user is currently completing.
      */
     toggle () { this._active = !this._active; }
 
@@ -149,6 +153,7 @@ export default class Tile {
      * Removes any instance of the Tile being highlighted.
      */
     reset () {
+        // Only Reset Tiles that are Highlighted
         if (this._element.classList.contains("selected")) {
             this._element.classList.remove("selected");
             this._element.textContent = "";

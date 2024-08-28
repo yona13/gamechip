@@ -1,8 +1,20 @@
 import PuzzleModule from "./puzzle-module.js";
-import Graph from "../../data-structure/graph.js";
-import Queue from "../../data-structure/queue.js";
+import Graph from "../../data-structures/graph.js";
+import Queue from "../../data-structures/queue.js";
 
 export default class ShortestPath extends PuzzleModule {
+    /**
+     * Shortest Path Puzzle
+     * 
+     * Utilising a modified Breadth-First Search Algorithm, this puzzle will
+     * initially randomly generate a Goal Position where the User must attempt
+     * to find the Shortest Path to, or use the Algorithm's Generated Shortest
+     * Path to the Goal Position.
+     * 
+     * @param {number} x Initial X-Position
+     * @param {number} y Initial Y-Position
+     * @param {number} size Chessboard Size
+     */
     constructor (x, y, size) { super(x, y, size); }
 
     get goal () { return this._goal; }
@@ -38,10 +50,9 @@ export default class ShortestPath extends PuzzleModule {
     /**
      * End of Puzzle Information Method
      * 
-     * When the Puzzle has been completed, either by the 
-     * User or by the Algorithm, then a message should be
-     * presented to the User about how well the puzzle was
-     * completed.
+     * When the Puzzle has been completed, either by the User or by the Algorithm, 
+     * then a message should be presented to the User about how well the puzzle 
+     * was completed.
      * 
      * @param {boolean} human Human or Algorithm
      * @param {number} steps Number of Steps to Complete
@@ -73,11 +84,9 @@ export default class ShortestPath extends PuzzleModule {
     /**
      * Generate Method
      * 
-     * For the Shortest Path Puzzle, a modified version of 
-     * the Breadth-First Search Algorithm is utilised for 
-     * finding the shortest path from the Root Vertex to 
-     * the Goal Vertex, the latter of which is randomly
-     * generated.
+     * For the Shortest Path Puzzle, a modified version of the Breadth-First 
+     * Search Algorithm is utilised for finding the shortest path from the Root 
+     * Vertex to the Goal Vertex, the latter of which is randomly generated.
      * 
      * @param {number} x Root X-Position
      * @param {number} y Root Y-Position
@@ -167,8 +176,7 @@ export default class ShortestPath extends PuzzleModule {
     /**
      * Random Method
      * 
-     * Generates a random number between 0 and the size of
-     * the Chessboard.
+     * Generates a random number between 0 and the size of the Chessboard.
      * 
      * @returns Random Number between 0 and Board Size
      */

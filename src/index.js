@@ -1,11 +1,15 @@
 import "./css/normalise.css";
 import "./css/style.css";
-import GameConsole from "./game-console-module/console-module.js";
+import GameChip from "./game-chip-module/game-chip.js";
 import KnightsGame from "./knights-module/knights-game.js";
 
+// Initialise Games for GameChip
 const knightsGame = new KnightsGame();
-const gameConsole = new GameConsole(knightsGame);
 
+// Initialise GameChip
+const gameConsole = new GameChip(knightsGame);
+
+// Add GameChip
 document.body.appendChild(gameConsole.module);
 
 // Start Game
