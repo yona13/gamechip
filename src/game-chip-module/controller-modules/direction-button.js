@@ -2,7 +2,7 @@ export default class DirectionButton {
     /**
      * Direction Button Class
      * 
-     * Governs a Direction Button for the Direction Pad on the Game Console.
+     * Governs a Direction Button for the Direction Pad on the GameChip.
      * 
      * @callback clickCallback Click Button Callback Method
      * @param {string} btnType User Button Type

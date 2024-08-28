@@ -12,7 +12,7 @@ export default class GameChip {
      * @param {GameInterface} game Game to be Played
      */
     constructor (game) {
-        // Create Game Console Module DOM Element
+        // Create GameChip Module DOM Element
         this._module = document.createElement("div");
         this._module.classList.add("game-console");
 
@@ -37,6 +37,18 @@ export default class GameChip {
         // Append Objects to Console
         this._module.appendChild(this._display.module);
         this._module.appendChild(controller.module);
+
+        // Initialise Variables
+        this._initialised = true;
+
+        // Setup Screen Event Listeners
+        window.addEventListener("resize", (e) => {
+            this._game.setScene(
+                this._display.show.bind(this._display),
+                this._display.takeDown.bind(this._display),
+                this._display.getDimensions.bind(this._display)
+            );
+        });
     }
 
     get module () { return this._module; }

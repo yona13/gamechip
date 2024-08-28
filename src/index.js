@@ -7,10 +7,10 @@ import KnightsGame from "./knights-module/knights-game.js";
 const knightsGame = new KnightsGame();
 
 // Initialise GameChip
-const gameConsole = new GameChip(knightsGame);
+const gameChip = new GameChip(knightsGame);
 
 // Add GameChip
-document.body.appendChild(gameConsole.module);
+document.body.appendChild(gameChip.module);
 
 // Start Game
-// gameConsole.start();
+gameChip.start();

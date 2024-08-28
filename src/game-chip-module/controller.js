@@ -6,7 +6,7 @@ export default class Controller {
     /**
      * Controller Class
      * 
-     * Governs the Game Console Controller.
+     * Governs the GameChip Controller.
      * 
      * @callback upCallback 
      * @callback rightCallback 

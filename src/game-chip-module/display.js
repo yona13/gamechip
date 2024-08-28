@@ -2,7 +2,7 @@ export default class Display {
     /**
      * Display Class
      * 
-     * Governs the Game Console Display.
+     * Governs the GameChip Display.
      */
     constructor () {
         // Generate Display DOM Element

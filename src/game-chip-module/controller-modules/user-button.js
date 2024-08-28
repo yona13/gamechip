@@ -2,7 +2,7 @@ export default class UserButton {
     /**
      * User Button Class
      * 
-     * Governs the Start or Select Buttons for the Game Console.
+     * Governs the Start or Select Buttons for the GameChip.
      * 
      * @callback clickCallback Click Button Callback Method
      * @param {string} btnType User Button Type

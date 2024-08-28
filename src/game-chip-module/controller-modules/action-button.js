@@ -2,7 +2,7 @@ export default class ActionButton {
     /**
      * Action Button Class
      * 
-     * Governs the A or B Buttons for the Game Console.
+     * Governs the A or B Buttons for the GameChip.
      * 
      * @callback clickCallback Click Button Callback Method
      * @param {string} btnType User Button Type

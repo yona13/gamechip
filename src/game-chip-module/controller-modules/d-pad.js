@@ -4,7 +4,7 @@ export default class DirectionPad {
     /**
      * Direction Pad Class
      * 
-     * Governs the Directional Buttons for the Game Console.
+     * Governs the Directional Buttons for the GameChip.
      * 
      * @callback upCallback Up Click Callback Method
      * @callback rightCallback Right Click Callback Method

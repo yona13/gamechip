@@ -3,14 +3,14 @@ export default class GameInterface {
      * Game Interface Class
      * 
      * Base Game Class that should be Inherited by Other Games to be Played on 
-     * the Game Console.
+     * the GameChip.
      */
     constructor () {}
 
     /**
      * Set Show Method
      * 
-     * Set the Show Callback Method for Updating the Game Console Display
+     * Set the Show Callback Method for Updating the GameChip Display
      * 
      * @callback showCallback Show Callback
      * @callback dimensionsCallback Get Dimensions Callback
