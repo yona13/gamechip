@@ -45,14 +45,14 @@ export default class InfoBox extends PopUp {
         this._blurred.style.height = `${height}px`;
 
         // Set Pop-Up Box Dimensions
-        const boxW = Math.floor(width * 0.8);
-        const boxH = Math.floor(height * 0.8);
+        const boxW = Math.floor(width * 0.9);
+        const boxH = Math.floor(height * 0.9);
         this._box.style.width = `${boxW}px`;
         this._box.style.height = `${boxH}px`;
 
         // Set Pop-Up Box Position
         const left = Math.floor(width * 0.1);
-        const top = Math.floor(height * 0.2);
+        const top = Math.floor(height * 0.1);
         this._box.style.left = `${left}px`;
         this._box.style.top = `${top}px`;
     }

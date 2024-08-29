@@ -46,6 +46,7 @@ export default class KnightsGame extends GameInterface {
 
         // Set Board Dimensions
         const dimensions = this.#dimensionsCallback();
+        console.log(dimensions);
         this._km.setup(dimensions.width, dimensions.height);
         this._menu.setDimensions(dimensions.width, dimensions.height);
         this._sub_set = false;

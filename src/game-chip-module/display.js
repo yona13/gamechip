@@ -5,10 +5,27 @@ export default class Display {
      * Governs the GameChip Display.
      */
     constructor () {
+        // Generate Background DOM Element
+        this._background = document.createElement("div");
+        this._background.classList.add("gamechip-background");
+
         // Generate Display DOM Element
         this._module = document.createElement("div");
-        this._module.classList.add("game-console-display");
+        this._module.classList.add("gamechip-display");
+
+        // Generate Title
+        const title = document.createElement("div");
+        title.classList.add("gamechip-title");
+        title.textContent = "GAMECHIP \u00A9";
+
+        // Add Display to Background
+        this._background.appendChild(this._module);
+        this._background.appendChild(title);
     }
+
+    get background () { return this._background; }
+
+    set background (elem) { this._background = elem; }
 
     get module () { return this._module; }
 

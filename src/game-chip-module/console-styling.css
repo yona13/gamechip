@@ -3,7 +3,7 @@
     src: url("../fonts/MeromSans-Regular.ttf");
 }
 
-.game-console {
+.gamechip {
     width: 100vw;
     height: 100vh;
     border-radius: 1.5rem;
@@ -11,15 +11,36 @@
     background-color: #f2ad26;
 }
 
-.game-console-display { 
+.gamechip-background { 
     display: flex;
+    position: relative;
     padding: 0.3rem;
     background-color: #020100;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
 }
 
-.game-console-controller {
+.gamechip-display { 
+    display: flex;
+    background-color: #e9f7c2;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+}
+
+.gamechip-title {
+    display: block;
+    position: absolute;
+    color: #363b97;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    bottom: 1px;
+}
+
+.gamechip-controller {
     margin-bottom: 2rem;
 }
 
@@ -132,20 +153,20 @@
 #select-container { grid-area: select; }
 
 @media (orientation: portrait) {
-    .game-console {
+    .gamechip {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
     }
 
-    .game-console-display {
+    .gamechip-background {
         margin-top: 2rem;
         width: 90vw;
         height: 45vh;
     }
 
-    .game-console-controller {
+    .gamechip-controller {
         width: 90vw;
         height: 35vh;
         display: grid;
@@ -163,11 +184,11 @@
 }
 
 @media (orientation: landscape) {
-    .game-console {
+    .gamechip {
         position: absolute;
     }
 
-    .game-console-display {
+    .gamechip-background {
         position: relative;
         width: 50vw;
         height: 90vh;
@@ -176,7 +197,7 @@
         z-index: 1;
     }
 
-    .game-console-controller {
+    .gamechip-controller {
         position: absolute;
         top: 2.5vh;
         left: 2.5vw;

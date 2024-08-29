@@ -14,7 +14,7 @@ export default class GameChip {
     constructor (game) {
         // Create GameChip Module DOM Element
         this._module = document.createElement("div");
-        this._module.classList.add("game-console");
+        this._module.classList.add("gamechip");
 
         // Initialise Game Variable
         this._game = game;
@@ -35,7 +35,7 @@ export default class GameChip {
         );
 
         // Append Objects to Console
-        this._module.appendChild(this._display.module);
+        this._module.appendChild(this._display.background);
         this._module.appendChild(controller.module);
 
         // Initialise Variables

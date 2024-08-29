@@ -29,7 +29,7 @@ export default class Controller {
     ) {
         // Generate Module DOM Element
         this._module = document.createElement("div");
-        this._module.classList.add("game-console-controller");
+        this._module.classList.add("gamechip-controller");
 
         // Create the Direction Pad
         const dPad = new DirectionPad(upCallback, rightCallback, downCallback, leftCallback);

@@ -129,8 +129,8 @@ export default class KnightsManager {
      */
     setup (width, height) {
         // Set Game Dimensions
-        this._module.style.width = width;
-        this._module.style.height = height;
+        this._module.style.width = `${width}px`;
+        this._module.style.height = `${height}px`;
 
         // Set Board Dimensions
         const dim = Math.floor(Math.min(width, height) * 0.9);
