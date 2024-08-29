@@ -1,4 +1,6 @@
 export default class ActionButton {
+    #callback;
+
     /**
      * Action Button Class
      * 
@@ -14,11 +16,23 @@ export default class ActionButton {
         this._button.id = btnType.toLowerCase() + "-btn";
         this._button.textContent = btnType;
 
+        // Set Default Callback
+        this.#callback = clickCallback;
+
         // Add Click Event Listener to Button
-        this._button.addEventListener("click", (e) => { clickCallback(); })
+        this._button.addEventListener("click", (e) => { this.#callback(); })
     }
 
     get button () { return this._button; }
 
     set button (btn) { this._button = btn; }
+
+    /**
+     * Set Callback Method
+     * 
+     * Set the Callback for the Button to be a different Callback Method.
+     * 
+     * @callback clickCallback Click Button Callback Method
+     */
+    setCallback (clickCallback) { this.#callback = clickCallback; }
 }

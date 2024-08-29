@@ -9,7 +9,6 @@ import InfoBox from "./main-module/info-box.js";
 export default class KnightsGame extends GameInterface {
     #showCallback;
     #takeDownCallback;
-    #dimensionsCallback;
 
     /**
      * Knight's Game Interface Class
@@ -18,8 +17,8 @@ export default class KnightsGame extends GameInterface {
      * Controllers, and also for Updating the Display with the relevant Error 
      * and Information Messages.
      */
-    constructor () {
-        super();
+    constructor (title) {
+        super(title);
 
         // Create Knight's Manager
         this._km = new KnightsManager(this.completeCallback.bind(this));
@@ -39,13 +38,12 @@ export default class KnightsGame extends GameInterface {
      * @callback dimensionsCallback Get Dimensions Callback
      */
     setScene (showCallback, takeDownCallback, getDimensions) {
-        // Set Callback Methods
+        // Set Callback Method
         this.#showCallback = showCallback;
         this.#takeDownCallback = takeDownCallback;
-        this.#dimensionsCallback = getDimensions;
 
         // Set Board Dimensions
-        const dimensions = this.#dimensionsCallback();
+        const dimensions = getDimensions();
         console.log(dimensions);
         this._km.setup(dimensions.width, dimensions.height);
         this._menu.setDimensions(dimensions.width, dimensions.height);

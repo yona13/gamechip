@@ -4,8 +4,14 @@ export default class GameInterface {
      * 
      * Base Game Class that should be Inherited by Other Games to be Played on 
      * the GameChip.
+     * 
+     * @param {string} title Name of the Game
      */
-    constructor () {}
+    constructor (title) { this._title = title; }
+
+    get title () { return this._title; }
+
+    set title (str) { this._title; }
 
     /**
      * Set Show Method
@@ -13,9 +19,10 @@ export default class GameInterface {
      * Set the Show Callback Method for Updating the GameChip Display
      * 
      * @callback showCallback Show Callback
+     * @callback takeDownCallback Take Down Callback
      * @callback dimensionsCallback Get Dimensions Callback
      */
-    setScene (showCallback, getDimensions) {}
+    setScene (showCallback, takeDownCallback, getDimensions) {}
 
     /**
      * Up Callback Method

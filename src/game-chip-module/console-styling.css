@@ -3,6 +3,11 @@
     src: url("../fonts/MeromSans-Regular.ttf");
 }
 
+@font-face {
+    font-family: "Dogica";
+    src: url("../fonts/dogica.ttf");
+}
+
 .gamechip {
     width: 100vw;
     height: 100vh;
@@ -16,29 +21,69 @@
     position: relative;
     padding: 0.3rem;
     background-color: #020100;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
 }
 
 .gamechip-display { 
     display: flex;
-    background-color: #e9f7c2;
     justify-content: center;
     align-items: center;
     width: 90%;
     height: 90%;
 }
 
+.gamechip-display, .initial-screen { background-color: #e9f7c2; }
+
 .gamechip-title {
     display: block;
     position: absolute;
+    bottom: 1px;
+}
+
+.gamechip-title, .initialise-title {
     color: #363b97;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-style: italic;
     font-weight: bold;
-    bottom: 1px;
 }
+
+.initial-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.initialise-title.roll-down {
+    animation-name: rolldown;
+    animation-duration: 5s;
+}
+
+.initialise-title.roll-up {
+    animation-name: rollup;
+    animation-duration: 2s;
+}
+
+.initial-screen.ready { 
+    justify-content: flex-start; 
+    gap: 1rem;
+}
+
+.available-game {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.available-game-title {
+    font-size: 1rem;
+    font-family: "Dogica";
+    color: #0f380f;
+    text-align: center;
+}
+
+.initial-cursor.active { animation: blink 0.8s infinite; }
 
 .gamechip-controller {
     margin-bottom: 2rem;
@@ -84,7 +129,7 @@
     border-bottom-right-radius: 0.2rem;
 }
 
-#right-arrow {
+.initial-cursor.active, #right-arrow {
     width: 0; 
     height: 0; 
     border-top: 0.6rem solid transparent;
@@ -223,4 +268,20 @@
         width: 3rem;
         height: 3rem;
     }
+}
+
+@keyframes rolldown {
+    0% { translate: 0; }
+    100% { translate: 0 400%; }
+}
+
+@keyframes rollup {
+    0% { translate: 0 400%; }
+    100% { translate: 0; }
+}
+
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
 }

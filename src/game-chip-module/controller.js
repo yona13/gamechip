@@ -8,14 +8,14 @@ export default class Controller {
      * 
      * Governs the GameChip Controller.
      * 
-     * @callback upCallback 
-     * @callback rightCallback 
-     * @callback downCallback 
-     * @callback leftCallback 
-     * @callback aCallback 
-     * @callback bCallback 
-     * @callback startCallback 
-     * @callback selectCallback 
+     * @callback upCallback Up Click Callback Method
+     * @callback rightCallback Right Click Callback Method
+     * @callback downCallback Down Click Callback Method
+     * @callback leftCallback Left Click Callback Method
+     * @callback aCallback A Click Callback Method
+     * @callback bCallback B Click Callback Method
+     * @callback startCallback Start Click Callback Method
+     * @callback selectCallback Select Click Callback Method
      */
     constructor (
         upCallback, 
@@ -32,25 +32,56 @@ export default class Controller {
         this._module.classList.add("gamechip-controller");
 
         // Create the Direction Pad
-        const dPad = new DirectionPad(upCallback, rightCallback, downCallback, leftCallback);
+        this._dPad = new DirectionPad(upCallback, rightCallback, downCallback, leftCallback);
 
         // Create A & B Buttons
-        const aBtn = new ActionButton(aCallback, "A");
-        const bBtn = new ActionButton(bCallback, "B");
+        this._aBtn = new ActionButton(aCallback, "A");
+        this._bBtn = new ActionButton(bCallback, "B");
 
         // Create Start & Select Buttons
-        const startBtn = new UserButton(startCallback, "Start");
-        const selectBtn = new UserButton(selectCallback, "Select");
+        this._startBtn = new UserButton(startCallback, "Start");
+        this._selectBtn = new UserButton(selectCallback, "Select");
 
         // Append Objects to Module
-        this._module.appendChild(dPad.pad);
-        this._module.appendChild(aBtn.button);
-        this._module.appendChild(bBtn.button);
-        this._module.appendChild(startBtn.button);
-        this._module.appendChild(selectBtn.button);
+        this._module.appendChild(this._dPad.pad);
+        this._module.appendChild(this._aBtn.button);
+        this._module.appendChild(this._bBtn.button);
+        this._module.appendChild(this._startBtn.button);
+        this._module.appendChild(this._selectBtn.button);
     }
 
     get module () { return this._module; }
 
     set module (elem) { this._module = elem; }
+
+    /**
+     * Controller Class
+     * 
+     * For the Controller Buttons, set the different Callback Methods.
+     * 
+     * @callback upCallback Up Click Callback Method
+     * @callback rightCallback Right Click Callback Method
+     * @callback downCallback Down Click Callback Method
+     * @callback leftCallback Left Click Callback Method
+     * @callback aCallback A Click Callback Method
+     * @callback bCallback B Click Callback Method
+     * @callback startCallback Start Click Callback Method
+     * @callback selectCallback Select Click Callback Method
+     */
+    setCallbacks (
+        upCallback, 
+        rightCallback, 
+        downCallback, 
+        leftCallback, 
+        aCallback, 
+        bCallback, 
+        startCallback, 
+        selectCallback
+    ) {
+        this._dPad.setCallbacks(upCallback, rightCallback, downCallback, leftCallback);
+        this._aBtn.setCallback(aCallback);
+        this._bBtn.setCallback(bCallback);
+        this._startBtn.setCallback(startCallback);
+        this._selectBtn.setCallback(selectCallback);
+    }
 }
