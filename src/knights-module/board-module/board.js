@@ -25,11 +25,11 @@ export default class Board {
         for (let i = this.#BOARD - 1; i >= 0; i--) {
             for (let j = 0; j < this.#BOARD; j++) {
                 if (j === 0)
-                    template += `"tile-${i}${j} `
+                    template += `"tile-${i}${j} `;
                 else if (j === this.#BOARD - 1)
                     template += `tile-${i}${j}"${i === 0 ? "" : " "}`;
                 else
-                    template += `tile-${i}${j} `
+                    template += `tile-${i}${j} `;
             }
         }
         this._module.style.setProperty("grid-template-areas", template);

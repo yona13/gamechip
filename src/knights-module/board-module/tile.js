@@ -89,7 +89,7 @@ export default class Tile {
     }
 
     /**
-     * Place Cursor
+     * Place Cursor Method
      * 
      * Place or Remove the Cursor on the tile.
      * 
