@@ -188,12 +188,16 @@ export default class KnightsManager {
         this._current.textContent = 0;
 
         // Reset Steps Taken
+        this._human = true;
         this._steps.human = 0;
         this._steps.algorithm = 0;
         this._path = [];
 
         // Reset Tiles
         this._board.reset();
+
+        // Reset Puzzle
+        this._game.reset();
     }
 
     /**
@@ -247,7 +251,15 @@ export default class KnightsManager {
      * 
      * While Solving the Puzzle, the User can use the B Button as an Undo button.
      */
-    declineAction () { this._board.declineAction(); }
+    declineAction () { 
+        if (this._board.puzzling) {
+            if (this._steps.human > 0) {
+                this._steps.human -= 1;
+                this._current.textContent = this._steps.human;
+            }
+            this._board.declineAction();
+        } 
+    }
 
     /**
      * Selection Action Method

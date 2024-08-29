@@ -14,27 +14,17 @@ export default class PuzzleModule {
         // Initialise Variables;
         this._root = {x: x, y: y};
         this._size = size;
-        this._started = false;
         this._generated = false;
-        this._user_path = [];
         this._algorithm_path = [];
     }
 
     get root () { return this._root; }
 
     set root (dict) { this._root = dict; }
-
-    get started () { return this._started; }
-
-    set started (bool) { this._started = bool; }
     
     get generated () { return this._generated; }
 
     set generated (bool) { this._generated = bool; }
-    
-    get user () { return this._user_path; }
-
-    set user (arr) { this._user_path = arr; }
 
     get algorithm () { return this._algorithm_path; }
 
@@ -84,4 +74,14 @@ export default class PuzzleModule {
      * @param {Graph} graph Graph of Chessboard
      */
     generate (x, y, graph) {}
+
+    /**
+     * Reset Method
+     * 
+     * Reset Puzzle.
+     */
+    reset () {
+        this._generated = false;
+        this._algorithm_path = [];
+    }
 }

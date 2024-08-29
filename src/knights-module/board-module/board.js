@@ -73,7 +73,6 @@ export default class Board {
 
         // Initialise Callback and Variables
         this.#completeCallback = completeCallback;
-        this._last;
         this._previous = [];
         this._initialise = false;
         this._puzzling = false;
@@ -226,7 +225,6 @@ export default class Board {
         // Place Cursor and Knight on Tile
         this._current.placeCursor(false);
         this.#placeKnight(tile);
-        this._knight.update(tile.x, tile.y);
         this._current.placeCursor();
     }
 
@@ -239,17 +237,17 @@ export default class Board {
         // Reset Tiles
         this._tiles.forEach(tile => {
             tile.reset();
-            tile.toggle();
 
             // Ensure Knight and Cursor Remain on their Tile
             if (tile.x === this._knight.x && tile.y === this._knight.y) {
                 tile.placeKnight(this._knight.element);
-                tile.pointer = false;
                 tile.placeCursor();
             }
         });
 
         // Reset Other Variables
+        this._puzzling = false;
+        this._algorithm = false;
         this._previous = [];
         this._goal.x = -1;
         this._goal.y = -1;
@@ -332,22 +330,20 @@ export default class Board {
                 // For Touring, Confirm No Repeated Tiles
                 if (this._goal.x === -1 && this._goal.y === -1)
                     check = aux.move === 0;
-
-                // Check if Puzzle is Complete
-                if (this.isComplete())
-                    this.#completeCallback();
             }
             
             if (check) {
                 // Update Current Tile
-                this._last = this._current;
                 this.#placeKnight(aux);
-                this._knight.update(aux.x, aux.y);
                 this._initialise = false;
 
                 // Number Tile, if Touring
-                if (this._goal.x === -1 && this._goal.y === -1)
+                if (this._goal.x === -1 && this._goal.y === -1 && this._puzzling)
                     this._current.number(this._previous.length, this._knight.element);
+
+                // Check if Puzzle is Complete
+                if (this.isComplete())
+                    this.#completeCallback();
 
                 // Update without Error
                 return "";
@@ -369,18 +365,13 @@ export default class Board {
      */
     declineAction () {
         // Handle only if Solving Puzzle
-        if (this._puzzling && !this._algorithm && this._previous.length > 0) {
-            let check = this._previous[this._previous.length - 1];
-
-            // Remove Move if Last Move is the Same as Last in List
-            if (check.x === this._last.x && check.y === this._last.y)
-                this._previous.pop();
-
+        if (this._puzzling && !this._algorithm && this._previous.length > 1) {
             // Set Last Move in List as Current Move
             let aux = this._previous.pop();
+            if (aux.x === this._current.x && aux.y === this._current.y)
+                aux = this._previous.pop();
             this.#placeKnight(aux, this._current, true);
-            this._knight.update(aux.x, aux.y);
-            this._last = this._current;
+            this._previous.push(this._current);
         }
     }
 
@@ -407,7 +398,6 @@ export default class Board {
 
             // Update Current Tile
             this.#placeKnight(aux);
-            this._knight.update(aux.x, aux.y);
 
             // Setup Puzzling Variables
             this._previous.push(aux);
@@ -490,5 +480,6 @@ export default class Board {
         // Update Current Tile
         this._current = tile;
         this._current.placeKnight(this._knight.element);
+        this._knight.update(tile.x, tile.y);
     }
 }

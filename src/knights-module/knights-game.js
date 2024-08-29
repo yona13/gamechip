@@ -44,7 +44,6 @@ export default class KnightsGame extends GameInterface {
 
         // Set Board Dimensions
         const dimensions = getDimensions();
-        console.log(dimensions);
         this._km.setup(dimensions.width, dimensions.height);
         this._menu.setDimensions(dimensions.width, dimensions.height);
         this._sub_set = false;
@@ -76,7 +75,7 @@ export default class KnightsGame extends GameInterface {
         this._info.setTitle(this._km.game.puzzleTitle());
         this._info.setMessage(this._km.game.endInfo(
             this._km.human,
-            this._km.human ? this._km.steps.human : this._km.steps.algorithm,
+            this._km.human ? this._km.steps.human + 1 : this._km.steps.algorithm,
             this._km.path
         ));
         this.#showCallback(this._info.module, true);

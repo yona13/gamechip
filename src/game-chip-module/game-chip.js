@@ -102,17 +102,18 @@ export default class GameChip {
     #initialiseCallback (game) {
         // Set Game Variable
         this._game = game;
+        this._initialised = true;
 
         // Set Controller Callbacks
         this._controller.setCallbacks(
-            this._game.upCallback.bind(this),
-            this._game.rightCallback.bind(this),
-            this._game.downCallback.bind(this),
-            this._game.leftCallback.bind(this),
-            this._game.aCallback.bind(this),
-            this._game.bCallback.bind(this),
-            this._game.startCallback.bind(this),
-            this._game.selectCallback.bind(this)
+            this._game.upCallback.bind(this._game),
+            this._game.rightCallback.bind(this._game),
+            this._game.downCallback.bind(this._game),
+            this._game.leftCallback.bind(this._game),
+            this._game.aCallback.bind(this._game),
+            this._game.bCallback.bind(this._game),
+            this._game.startCallback.bind(this._game),
+            this._game.selectCallback.bind(this._game)
         );
 
         this.play();

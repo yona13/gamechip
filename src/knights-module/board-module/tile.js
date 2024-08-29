@@ -50,10 +50,6 @@ export default class Tile {
 
     set move (num) { this._move = num; }
 
-    get colour () { return this._colour; }
-
-    set colour (str) { this._colour = str; }
-
     get active () { return this._active; }
 
     set active (bool) { this._active = bool; }
@@ -153,11 +149,17 @@ export default class Tile {
      * Removes any instance of the Tile being highlighted.
      */
     reset () {
-        // Only Reset Tiles that are Highlighted
+        // Remove Highlight, if needed
         if (this._element.classList.contains("selected")) {
             this._element.classList.remove("selected");
-            this._element.textContent = "";
-            this._move = 0;
         }
+
+        // Reset Other Variables
+        this._move = 0;
+        this._active = false;
+        if (this._pointer)
+            this.placeCursor(false);
+        if (this._element.textContent !== "")
+            this._element.textContent = "";
     }
 }

@@ -5,7 +5,7 @@ import KnightsGame from "./knights-module/knights-game.js";
 import RPSGame from "./rock-paper-scissors-module/rps-game.js";
 
 // Initialise Games for GameChip
-const knightsGame = new KnightsGame("Knight's Game");
+const knightsGame = new KnightsGame("Knight's Travails");
 const rpsGame = new RPSGame("Rock, Paper, Scissors");
 
 // Initialise GameChip

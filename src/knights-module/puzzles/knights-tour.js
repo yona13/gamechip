@@ -64,9 +64,9 @@ export default class KnightsTour extends PuzzleModule {
         let msg = human ? 
             `Congratulations! You completed the puzzle ` +
             `in ${steps} steps!\nThe Algorithm's best ` +
-            `was ${this._algorithm_path.length} steps.` : 
+            `was ${this._algorithm_path.length - 1} steps.` : 
             `Warnsdorff's Algorithm found a path in ` +
-            `${steps} steps.`;
+            `${steps - 1} steps.`;
             
         return msg;
     }

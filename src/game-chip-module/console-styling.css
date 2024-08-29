@@ -72,7 +72,7 @@
 .available-game {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 0.5rem;
 }
 
@@ -81,6 +81,7 @@
     font-family: "Dogica";
     color: #0f380f;
     text-align: center;
+    width: 70%;
 }
 
 .initial-cursor.active { animation: blink 0.8s infinite; }
