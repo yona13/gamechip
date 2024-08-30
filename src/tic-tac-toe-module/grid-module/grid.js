@@ -1,7 +1,7 @@
 import Cell from "./cell";
 
 export default class Grid {
-    #GRID = 3;
+    #GRID;
     #DEFAULT_POS = {x: 1, y: 2};
 
     /**
@@ -10,12 +10,13 @@ export default class Grid {
      * Tic-Tac-Toe Grid that is responsible for setting up all Cells and the
      * control of those Cells.
      */
-    constructor () {
+    constructor (size) {
         // Build the Grid DOM Element
         this._module = document.createElement("div");
         this._module.classList.add("tic-tac-toe-grid");
 
         // Add Grid Template Areas to the Grid DOM Element
+        this.#GRID = size;
         let template = "";
         for (let i = this.#GRID - 1; i >= 0; i--) {
             for (let j = 0; j < this.#GRID; j++) {
