@@ -173,15 +173,33 @@ export default class KnightsGame extends GameInterface {
             // Handle Option Selected
             if (this._sub_menu.acceptAction()) {
                 // Handle Game Set
-                if (this._sub_menu.selected.key === "Game")
+                if (this._sub_menu.selected.key === "Game") {
                     this._km.setGame(this._sub_menu.selected.value);
+                    this.#close();
+                }
                 
                 // Handle Theme Set
-                if (this._sub_menu.selected.key === "Theme")
+                if (this._sub_menu.selected.key === "Theme") {
                     this._km.setTheme(this._sub_menu.selected.value);
+                    this.#close();
+                }
 
-                // Close Menu & Sub-Menu
-                this.#close();
+                // Handle Controls Information Get
+                if (this._sub_menu.selected.key === "Controls") {
+                    this._info.setTitle("Controller Information");
+                    this._info.setMessage(
+                        "W - Same as Up on the D-Pad\n" +
+                        "D - Same as Right on the D-Pad\n" +
+                        "S - Same as Down on the D-Pad\n" + 
+                        "A - Same as Left on the D-Pad\n" +
+                        "O - Same as B-Button\n" +
+                        "K - Same as A-Button\n" +
+                        "Space - Same as Start\n" + 
+                        "Shift - Same as Select"
+                    );
+                    this.#close();
+                    this.#showCallback(this._info.module, true);
+                }
             }
             // Handle Return Selected
             else 

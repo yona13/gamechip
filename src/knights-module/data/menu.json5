@@ -35,6 +35,14 @@
                     subs: []
                 }
             ]
+        }, {
+            key: "Controls",
+            subs: [
+                {
+                    key: "Information",
+                    subs: []
+                }
+            ]
         }
     ]
 }

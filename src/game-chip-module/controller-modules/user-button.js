@@ -8,8 +8,9 @@ export default class UserButton {
      * 
      * @callback clickCallback Click Button Callback Method
      * @param {string} btnType User Button Type
+     * @param {string} key Key Press for Button
      */
-    constructor (clickCallback, btnType) {
+    constructor (clickCallback, btnType, key) {
         // Generate Container DOM Element
         this._button = document.createElement("div");
         this._button.classList.add("user-button");
@@ -29,6 +30,12 @@ export default class UserButton {
 
         // Add Click Event Listener to Button
         btn.addEventListener("click", (e) => { this.#callback(); });
+
+        // Add Key Down Event Listener to Window
+        window.addEventListener("keydown", (e) => {
+            if (e.key === key)
+                this.#callback();
+        });
 
         // Append Objects to Container
         this._button.appendChild(label);

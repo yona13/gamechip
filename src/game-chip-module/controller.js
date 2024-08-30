@@ -35,12 +35,12 @@ export default class Controller {
         this._dPad = new DirectionPad(upCallback, rightCallback, downCallback, leftCallback);
 
         // Create A & B Buttons
-        this._aBtn = new ActionButton(aCallback, "A");
-        this._bBtn = new ActionButton(bCallback, "B");
+        this._aBtn = new ActionButton(aCallback, "A", "k");
+        this._bBtn = new ActionButton(bCallback, "B", "o");
 
         // Create Start & Select Buttons
-        this._startBtn = new UserButton(startCallback, "Start");
-        this._selectBtn = new UserButton(selectCallback, "Select");
+        this._startBtn = new UserButton(startCallback, "Start", " ");
+        this._selectBtn = new UserButton(selectCallback, "Select", "Shift");
 
         // Append Objects to Module
         this._module.appendChild(this._dPad.pad);

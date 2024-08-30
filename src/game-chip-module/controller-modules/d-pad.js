@@ -17,10 +17,10 @@ export default class DirectionPad {
         this._pad.classList.add("direction-pad");
 
         // Create Directional Buttons
-        this._up = new DirectionButton(upCallback, "up");
-        this._right = new DirectionButton(rightCallback, "right");
-        this._down = new DirectionButton(downCallback, "down");
-        this._left = new DirectionButton(leftCallback, "left");
+        this._up = new DirectionButton(upCallback, "up", "w");
+        this._right = new DirectionButton(rightCallback, "right", "d");
+        this._down = new DirectionButton(downCallback, "down", "s");
+        this._left = new DirectionButton(leftCallback, "left", "a");
         const central = document.createElement("div");
         central.id = ("central-pad");
 

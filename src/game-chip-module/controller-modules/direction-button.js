@@ -8,8 +8,9 @@ export default class DirectionButton {
      * 
      * @callback clickCallback Click Button Callback Method
      * @param {string} btnType User Button Type
+     * @param {string} key Key Press for Button
      */
-    constructor (clickCallback, btnType) {
+    constructor (clickCallback, btnType, key) {
         // Generate Direction Button DOM Element
         this._button = document.createElement("button");
         this._button.classList.add("direction-button");
@@ -27,6 +28,12 @@ export default class DirectionButton {
 
         // Add Click Event Listener to Button
         this._button.addEventListener("click", (e) => { this.#callback(); })
+
+        // Add Key Down Event Listener to Window
+        window.addEventListener("keydown", (e) => {
+            if (e.key === key)
+                this.#callback();
+        });
     }
 
     get button () { return this._button; }
