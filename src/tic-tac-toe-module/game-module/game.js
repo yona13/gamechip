@@ -19,7 +19,7 @@ export default class Game {
             this._grid.push([]);
         this._players = [];
         this.#TURN = 0;
-        this.#SIZE = size;;
+        this.#SIZE = size;
     }
 
     get grid () { return this._grid; }
@@ -60,6 +60,27 @@ export default class Game {
                 this._grid[i][j] = "";
     }
 
+    /**
+     * Get Marker Method
+     * 
+     * For the Current Turn, the method returns the Marker of the Player.
+     * 
+     * @returns True, if Current Turn is Nought
+     */
+    getMarker () { return this._players[this.#TURN].isNought; }
+
+    /**
+     * Attempt Method
+     * 
+     * When the Player Attempts to make a move, the method will ensure that the
+     * move was a legal one or not, and also check if the resulting move has led
+     * to the end of the Game, whether that player has won, or if it resulted in
+     * a draw.
+     * 
+     * @param {number} x Attempt X-Coordinate
+     * @param {number} y Attempt Y-Coordinate
+     * @returns Message indicating Attempt's Result
+     */
     attempt (x, y) {
         // Reject Attempts that are beyond Grid Bounds
         if (x < 3 && x >= 0 && y < 3 && y >= 0) {

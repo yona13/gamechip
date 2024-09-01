@@ -23,10 +23,12 @@ export default class Cell {
         // Build Nought DOM Element
         this._nought = document.createElement("div");
         this._nought.id = `nought-${x}-${y}`;
+        this._nought.textContent = "O";
 
         // Build Cross DOM Element
         this._cross = document.createElement("div");
         this._cross.id = `cross-${x}-${y}`;
+        this._cross.textContent = "X";
 
         // Initialise Variables
         this._x = x;

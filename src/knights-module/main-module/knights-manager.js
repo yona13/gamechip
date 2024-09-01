@@ -137,7 +137,7 @@ export default class KnightsManager {
         this._board.setDimensions(dim);
 
         // Set Information Panel Font Size
-        this._information.style.fontSize = Math.floor(dim * 0.2);
+        this._information.style.fontSize = `${Math.floor(dim * 0.2)}px`;
     }
 
     /**

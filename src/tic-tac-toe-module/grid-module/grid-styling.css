@@ -1,0 +1,25 @@
+.tic-tac-toe-grid {
+    font-family: var(--font);
+    display: grid;
+}
+
+.cell {
+    position: relative;
+    background-color: var(--white);
+    border: 2px solid var(--black);
+    color: var(--text-colour);
+}
+
+.cell > div { 
+    font-family: var(--marker-font);
+    text-align: center;
+}
+
+#cursor-cell {
+    background-color: var(--cursor);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: blink 1.5s infinite;
+    animation-fill-mode: both;
+}

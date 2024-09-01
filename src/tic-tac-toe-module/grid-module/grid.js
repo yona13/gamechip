@@ -1,8 +1,9 @@
-import Cell from "./cell";
+import "./grid-styling.css";
+import Cell from "./cell.js";
 
 export default class Grid {
     #GRID;
-    #DEFAULT_POS = {x: 1, y: 2};
+    #DEFAULT_POS = {x: 1, y: 1};
 
     /**
      * Grid Class
@@ -28,7 +29,7 @@ export default class Grid {
                     template += `cell-${i}${j} `;
             }
         }
-        this._module.style.setProperty("grid-template-ares", template);
+        this._module.style.setProperty("grid-template-areas", template);
 
         // Initialise Cells
         this._cells = [];
@@ -39,8 +40,10 @@ export default class Grid {
                 this._module.appendChild(cell.element);
 
                 // Place Cursor on Default Initial Cursor
-                if (cell.x === this.#DEFAULT_POS.x && cell.y === this.#DEFAULT_POS.y)
+                if (cell.x === this.#DEFAULT_POS.x && cell.y === this.#DEFAULT_POS.y) {
+                    this._current = cell;
                     cell.placeCursor();
+                }
             }
         }
     }
@@ -48,4 +51,100 @@ export default class Grid {
     get module () { return this._module; }
 
     set module (elem) { this._module = elem; }
+
+    get current () { return this._current; }
+
+    set current (cell) { this._current = cell; }
+
+    /**
+     * Set Dimensions Method
+     * 
+     * For the Grid, the Width and Height are dependent on the Screen Size.
+     * 
+     * @param {number} dimension Grid Size (pixels)
+     */
+    setDimensions (dimension) {
+        // Set Grid Dimensions
+        this._module.style.width = `${dimension}px`;
+        this._module.style.height = `${dimension}px`;
+
+        // Set Cell Dimensions
+        const cellDim = Math.floor(dimension / this.#GRID);
+        const fontSize = Math.floor(cellDim * 0.8);
+        this._cells.forEach(cell => {
+            cell.element.style.width = `${cellDim}px`;
+            cell.element.style.height = `${cellDim}px`;
+            cell.cursor.style.width = `${cellDim}px`;
+            cell.cursor.style.height = `${cellDim}px`;
+            cell.nought.style.fontSize = `${fontSize}px`;
+            cell.cross.style.fontSize = `${fontSize}px`;
+        });
+    }
+
+    /**
+     * Horizontal Move Method
+     * 
+     * TODO: Write Description
+     * 
+     * @param {boolean} right Default Action is Rightwards
+     */
+    horizontalMove (right=true) {
+        // Ensure Horizontal Move is still on Grid
+        const curr = this._current.y + (right ? 1 : -1);
+        if (curr < this.#GRID && curr >= 0) {
+            // Remove Cursor from Cell
+            this._current.placeCursor(false);
+
+            // Iterate and Find New Cell for Cursor
+            this._cells.forEach(cell => {
+                if (cell.x === this._current.x && cell.y === curr)
+                    this._current = cell;
+            });
+
+            // Place Cursor on Cell
+            this._current.placeCursor(true);
+        }
+    }
+
+    /**
+     * Vertical Move Method
+     * 
+     * TODO: Write Description
+     * 
+     * @param {boolean} up Default Action is Upwards
+     */
+    verticalMove (up=true) {
+        // Ensure Vertical Move is still on Grid
+        const curr = this._current.x + (up ? 1 : -1);
+        if (curr < this.#GRID && curr >= 0) {
+            // Remove Cursor from Cell
+            this._current.placeCursor(false);
+
+            // Iterate and Find New Cell for Cursor
+            this._cells.forEach(cell => {
+                if (cell.x === curr && cell.y === this._current.y)
+                    this._current = cell;
+            });
+
+            // Place Cursor on Cell
+            this._current.placeCursor(true);
+        }
+    }
+
+    /**
+     * Accept Action Method
+     * 
+     * TODO: Write Description
+     * 
+     * @param {boolean} nought Nought or Cross
+     * @returns Error Message, if required
+     */
+    acceptAction (nought) { nought ? this._current.placeNought() : this._current.placeCross(); }
+
+    /**
+     * Decline Action Method
+     * 
+     * TODO: Write Description
+     */
+    declineAction () { /* TODO: Implement */ }
 }

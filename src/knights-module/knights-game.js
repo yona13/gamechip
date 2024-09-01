@@ -20,7 +20,7 @@ export default class KnightsGame extends GameInterface {
     constructor (title) {
         super(title);
 
-        // Create Knight's Manager
+        // Initialise Objects for the Knight's Game
         this._km = new KnightsManager(this.completeCallback.bind(this));
         this._menu = new Menu(categories);
         this._error = new ErrorBox();
@@ -30,21 +30,22 @@ export default class KnightsGame extends GameInterface {
     /**
      * Set Scene Method
      * 
-     * Set the Show and Get Dimensions Callback Method for Updating the Game 
-     * Console Display.
+     * Set the Callback Methods for Updating the GameChip Display.
      * 
      * @callback showCallback Show Callback
      * @callback takeDownCallback Take Down Callback
      * @callback dimensionsCallback Get Dimensions Callback
      */
     setScene (showCallback, takeDownCallback, getDimensions) {
-        // Set Callback Method
+        // Set Callback Methods
         this.#showCallback = showCallback;
         this.#takeDownCallback = takeDownCallback;
 
         // Set Board Dimensions
         const dimensions = getDimensions();
         this._km.setup(dimensions.width, dimensions.height);
+
+        // Set Pop-Up Dimensions
         this._menu.setDimensions(dimensions.width, dimensions.height);
         this._sub_set = false;
         this._sub_menu; 
@@ -176,6 +177,11 @@ export default class KnightsGame extends GameInterface {
                 if (this._sub_menu.selected.key === "Game") {
                     this._km.setGame(this._sub_menu.selected.value);
                     this.#close();
+
+                    // Show Information about Current Game
+                    this._info.setTitle(this._km.game.puzzleTitle());
+                    this._info.setMessage(this._km.game.puzzleInfo());
+                    this.#showCallback(this._info.module, true);
                 }
                 
                 // Handle Theme Set
@@ -188,10 +194,10 @@ export default class KnightsGame extends GameInterface {
                 if (this._sub_menu.selected.key === "Controls") {
                     this._info.setTitle("Controller Information");
                     this._info.setMessage(
-                        "W - Same as Up on the D-Pad\n" +
-                        "D - Same as Right on the D-Pad\n" +
-                        "S - Same as Down on the D-Pad\n" + 
-                        "A - Same as Left on the D-Pad\n" +
+                        "W - Same as Up-Button\n" +
+                        "D - Same as Right-Button\n" +
+                        "S - Same as Down-Button\n" + 
+                        "A - Same as Left-Button\n" +
                         "O - Same as B-Button\n" +
                         "K - Same as A-Button\n" +
                         "Space - Same as Start\n" + 

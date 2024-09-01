@@ -1,0 +1,116 @@
+@font-face {
+    font-family: "Merom Sans";
+    src: url("../fonts/MeromSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Dogica";
+    src: url("../fonts/dogica.ttf");
+}
+
+@font-face {
+    font-family: "Gothica";
+    src: url("../fonts/Gothica-Book.ttf");
+}
+
+@font-face {
+    font-family: "Alex Brush";
+    src: url("../fonts/AlexBrush-Regular-OTF.otf")
+}
+
+@font-face {
+    font-family: "Free Metto";
+    src: url("../fonts/freemetto.ttf");
+}
+
+@font-face {
+    font-family: "Rich Eatin";
+    src: url("../fonts/Rich\ Eatin\'.otf");
+}
+
+:root {
+    --white: #fdfffc;
+    --black: #020100;
+}
+
+:root.normal {
+    --font: "Merom Sans";
+    --marker-font: "Free Metto";
+    --white: #ffecd1;
+    --black: #001524;
+    --screen: #15616d;
+    --error-screen: #78290f;
+    --border-colour: #ff7d00;
+    --cursor: #36bce1;
+    --text-colour: #001524;
+}
+
+:root.retro {
+    --font: "Dogica";
+    --marker-font: "Dogica";
+    --white: #aaaaaa;
+    --black: #0f380f;
+    --screen: #9bbc0f;
+    --error-screen: #f69493;
+    --border-colour: #b5af42;
+    --cursor: #8bac0f;
+    --text-colour: #0f380f;
+}
+
+:root.fancy {
+    --font: "Gothica";
+    --marker-font: "Alex Brush";
+    --white: #efefe9;
+    --black: #223030;
+    --screen: #e8d9cd;
+    --error-screen: #d7504d;
+    --border-colour: #523d35;
+    --cursor: #bba584;
+    --text-colour: #223030;
+}
+
+:root.scruffy {
+    --font: "Rich Eatin";
+    --marker-font: "Rich Eatin";
+    --white: #f7f7f7;
+    --black: #170f11;
+    --screen: #21c5b0;
+    --error-screen: #7a0a0a;
+    --border-colour: #dfcc16;
+    --cursor: #12a365;
+    --text-colour: #170f11;
+}
+
+.tic-tac-toe-game-module {
+    position: absolute;
+    color: var(--text-colour);
+    background-color: var(--screen);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.scorecard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--cursor);
+    border: 3px solid var(--border-colour);
+}
+
+.scorecard > [class*="-scorecard"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
