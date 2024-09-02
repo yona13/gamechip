@@ -149,6 +149,15 @@ export default class TTTManager {
     }
 
     /**
+     * Set Level Method
+     * 
+     * Update the Game based on the Level Selected.
+     * 
+     * @param {string} level Selected Level
+     */
+    setLevel (level) { this._game.setLevel(level.toLowerCase()); }
+
+    /**
      * Set Theme Method
      * 
      * Update the Styling to Reflect the Theme Selected.
@@ -217,7 +226,7 @@ export default class TTTManager {
             
             // Check if Attempt was Illegal
             if (msg.includes("Illegal Move!")){
-                gameoverCallback(msg); 
+                gameoverCallback(msg, true); 
                 return;
             }
 

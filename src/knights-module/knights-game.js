@@ -145,11 +145,18 @@ export default class KnightsGame extends GameInterface {
      * Handles the Click of the A Action Button.
      */
     aCallback () { 
-        // Handle Chessboard Action
+        // Handle Info Action
         if (this._info.active) {
             this.#takeDownCallback();
             this._info.active = false;
-        } else if (this._km.controller) {
+        } 
+        // Handle Error Action
+        else if (this._error.active) {
+            this.#takeDownCallback();
+            this._error.active = false;
+        } 
+        // Handle Chessboard Action
+        else if (this._km.controller) {
             if (!this._km.acceptAction()) {
                 this._error.setMessage(this._km.message);
                 this.#showCallback(this._error.module, true);

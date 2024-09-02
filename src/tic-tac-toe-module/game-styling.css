@@ -67,13 +67,13 @@
 :root.neon {
     --font: "Beon";
     --marker-font: "Beon";
-    --white: #0abdc6;
+    --white: #ea00d9;
     --black: #133e7c;
     --screen: #091833;
-    --error-screen: #e7ee4f;
+    --error-screen: #f23ca6;
     --border-colour: #711c91;
-    --cursor: #ea00d9;
-    --text-colour: #091833;
+    --cursor: #0abdc6;
+    --text-colour: #fbff36;
     --bottom-border: #711c91;
 }
 

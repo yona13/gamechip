@@ -13,6 +13,7 @@ export default class Easy extends Level {
      * @returns Selected Move
      */
     play (grid) {
+        console.log("EASY");
         // Initialise Available Array
         let available = [];
         

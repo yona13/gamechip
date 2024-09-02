@@ -26,7 +26,7 @@ export default class Game {
         this.#LEVELS.hard = new Hard("x", this.#SIZE);
         
         // Set Default Algorithm to be Easy
-        this._algorithm = this.#LEVELS.hard;
+        this._algorithm = this.#LEVELS.easy;
     }
 
     get grid () { return this._grid; }
@@ -78,7 +78,10 @@ export default class Game {
      * 
      * @param {string} level Algorithm Difficulty
      */
-    setLevel (level) { this._algorithm = this.#LEVELS[level]; }
+    setLevel (level) { 
+        this._algorithm = this.#LEVELS[level]; 
+        this.setup(this._players[0].marker);
+    }
 
     /**
      * Get Marker Method

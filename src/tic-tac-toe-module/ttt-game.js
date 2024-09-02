@@ -64,17 +64,6 @@ export default class TTTGame extends GameInterface {
     }
 
     /**
-     * Up Callback Method
-     * 
-     * Handles the Click of the Up Button on the Direction Pad.
-     */
-    upCallback () {
-        // Handle Grid Movement
-        if (this._tm.controller)
-            this._tm.verticalMove();
-    }
-
-    /**
      * Left Callback Method
      * 
      * Handles the Click of the Left Button on the Direction Pad.
@@ -86,6 +75,23 @@ export default class TTTGame extends GameInterface {
     }
 
     /**
+     * Up Callback Method
+     * 
+     * Handles the Click of the Up Button on the Direction Pad.
+     */
+    upCallback () {
+        // Handle Grid Movement
+        if (this._tm.controller)
+            this._tm.verticalMove();
+        // Handle Menu Movement
+        if (this._menu.controller)
+            this._menu.verticalMove();
+        // Handle Sub-Menu Movement
+        if (this._sub_set)
+            this._sub_menu.verticalMove();
+    }
+
+    /**
      * Down Callback Method
      * 
      * Handles the Click of the Down Button on the Direction Pad.
@@ -94,6 +100,12 @@ export default class TTTGame extends GameInterface {
         // Handle Grid Movement
         if (this._tm.controller)
             this._tm.verticalMove(false);
+        // Handle Menu Movement
+        if (this._menu.controller)
+            this._menu.verticalMove(false);
+        // Handle Sub-Menu Movement
+        if (this._sub_set)
+            this._sub_menu.verticalMove(false);
     }
 
     /**
@@ -102,21 +114,73 @@ export default class TTTGame extends GameInterface {
      * Handles the Click of the A Action Button.
      */
     aCallback () {
+        // Handle Info Action
+        if (this._info.active) {
+            this.#takeDownCallback();
+            this._tm.controller = true;
+            this._info.active = false;
+        } 
+        // Handle Error Action
+        else if (this._error.active) {
+            this.#takeDownCallback();
+            this._tm.controller = true;
+            this._error.active = false;
+        } 
         // Handle Grid Action
-        if (this._tm.controller) {
+        else if (this._tm.controller) {
             this._tm.acceptAction(this.#gameoverCallback.bind(this));
-            // // Check if Game is Over
-            // if (this._tm.acceptAction() && this._tm.end) { 
-            //     /* TODO: Raise Information about Outcome of Game */ 
-            //     console.log("Game Over!");
-            //     console.log(this._tm.message);
-            // }
+        }
+        // Handle Menu Action
+        else if (this._menu.controller) {
+            // Handle Sub-Menu Selected
+            if (this._menu.acceptAction()) {
+                this._sub_set = true;
+                this._menu.controller = false;
+                this._sub_menu = this._menu.setSubMenu();
+                this.#takeDownCallback();
+                this.#showCallback(this._sub_menu.module, true);
+            } 
+            // Handle Return Selected
+            else 
+                this.#close();
+        }
+        // Handle Sub-Menu Action
+        else if (this._sub_set) {
+            // Handle Option Selected
+            if (this._sub_menu.acceptAction()) {
+                // Handle Game Set
+                if (this._sub_menu.selected.key === "Level") {
+                    this._tm.setLevel(this._sub_menu.selected.value);
+                    // this._km.setGame(this._sub_menu.selected.value);
+                    this.#close();
+                }
+                
+                // Handle Theme Set
+                if (this._sub_menu.selected.key === "Theme") {
+                    this._tm.setTheme(this._sub_menu.selected.value);
+                    this.#close();
+                }
 
-            // // Handle Error Message
-            // else {
-            //     this._error.setMessage(this._tm.message);
-            //     this.#showCallback(this._error.module, true);
-            // }
+                // Handle Controls Information Get
+                if (this._sub_menu.selected.key === "Controls") {
+                    this._info.setTitle("Controller Information");
+                    this._info.setMessage(
+                        "W - Same as Up-Button\n" +
+                        "D - Same as Right-Button\n" +
+                        "S - Same as Down-Button\n" + 
+                        "A - Same as Left-Button\n" +
+                        "O - Same as B-Button\n" +
+                        "K - Same as A-Button\n" +
+                        "Space - Same as Start\n" + 
+                        "Shift - Same as Select"
+                    );
+                    this.#close();
+                    this.#showCallback(this._info.module, true);
+                }
+            }
+            // Handle Return Selected
+            else 
+                this.#mainReturn();
         }
     }
 
@@ -129,6 +193,7 @@ export default class TTTGame extends GameInterface {
         // Handle Grid Action
         if (this._error.active) {
             this.#takeDownCallback();
+            this._tm.controller = true;
             this._error.active = false;
         }
     }
@@ -142,7 +207,7 @@ export default class TTTGame extends GameInterface {
         // Menu to be Displayed
         if (this._tm.controller) {
             // Set Menu to be Controlled
-            this._km.controller = false;
+            this._tm.controller = false;
             this._menu.controller = true;
 
             // Display the Menu
@@ -170,6 +235,32 @@ export default class TTTGame extends GameInterface {
      * Handles the Click of the Select User Button.
      */
     selectCallback () {}
+
+    /**
+     * Main Return Method
+     * 
+     * Return to the Main Menu from the Sub-Menu.
+     */
+    #mainReturn () {
+        this._sub_set = false;
+        this._menu.controller = true;
+        this.#takeDownCallback();
+        this.#showCallback(this._menu.module, true);
+    }
+
+    /**
+     * Close Method
+     * 
+     * Outside of clicking the Start button, if the User is using the Menu, and 
+     * selects an option such that the menu should close, this method will 
+     * complete that task.
+     */
+    #close () {
+        this._sub_set = false;
+        this._tm.controller = true;
+        this._menu.controller = false;
+        this.#takeDownCallback();
+    }
 
     /**
      * Gameover Callback Method
