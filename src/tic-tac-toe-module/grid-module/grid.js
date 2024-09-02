@@ -19,14 +19,15 @@ export default class Grid {
         // Add Grid Template Areas to the Grid DOM Element
         this.#GRID = size;
         let template = "";
-        for (let i = this.#GRID - 1; i >= 0; i--) {
+        for (let i = 0; i < this.#GRID; i++) {
+        // for (let i = this.#GRID - 1; i >= 0; i--) {
             for (let j = 0; j < this.#GRID; j++) {
                 if (j === 0)
-                    template += `"cell-${i}${j} `;
+                    template += `"cell-${j}${i} `;
                 else if (j === this.#GRID - 1)
-                    template += `cell-${i}${j}"${i === 0 ? "" : " "}`;
+                    template += `cell-${j}${i}"${i === 0 ? "" : " "}`;
                 else
-                    template += `cell-${i}${j} `;
+                    template += `cell-${j}${i} `;
             }
         }
         this._module.style.setProperty("grid-template-areas", template);
@@ -35,7 +36,7 @@ export default class Grid {
         this._cells = [];
         for (let i = 0; i < this.#GRID; i++) {
             for (let j = 0; j < this.#GRID; j++) {
-                const cell = new Cell(i, j);
+                const cell = new Cell(j, i);
                 this._cells.push(cell);
                 this._module.appendChild(cell.element);
 
@@ -82,6 +83,23 @@ export default class Grid {
     }
 
     /**
+     * Algorithm Select Method
+     * 
+     * For the Algorithm's Selected Move, the Grid on Display must Update with
+     * the appropriate Value.
+     * 
+     * @param {Object} move X and Y Coordinates
+     * @param {boolean} nought Nought or Cross
+     */
+    algorithmSelect (move, nought) {
+        // Find Cell and Update with Algorithm's Marker
+        this._cells.forEach(cell => {
+            if (cell.x === move.x && cell.y === move.y)
+                nought ? cell.placeNought() : cell.placeCross();
+        });
+    }
+
+    /**
      * Horizontal Move Method
      * 
      * TODO: Write Description
@@ -90,14 +108,14 @@ export default class Grid {
      */
     horizontalMove (right=true) {
         // Ensure Horizontal Move is still on Grid
-        const curr = this._current.y + (right ? 1 : -1);
+        const curr = this._current.x + (right ? 1 : -1);
         if (curr < this.#GRID && curr >= 0) {
             // Remove Cursor from Cell
             this._current.placeCursor(false);
 
             // Iterate and Find New Cell for Cursor
             this._cells.forEach(cell => {
-                if (cell.x === this._current.x && cell.y === curr)
+                if (cell.x === curr && cell.y === this._current.y)
                     this._current = cell;
             });
 
@@ -115,14 +133,14 @@ export default class Grid {
      */
     verticalMove (up=true) {
         // Ensure Vertical Move is still on Grid
-        const curr = this._current.x + (up ? 1 : -1);
+        const curr = this._current.y + (up ? -1 : 1);
         if (curr < this.#GRID && curr >= 0) {
             // Remove Cursor from Cell
             this._current.placeCursor(false);
 
             // Iterate and Find New Cell for Cursor
             this._cells.forEach(cell => {
-                if (cell.x === curr && cell.y === this._current.y)
+                if (cell.x === this._current.x && cell.y === curr)
                     this._current = cell;
             });
 

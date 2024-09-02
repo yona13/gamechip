@@ -1,14 +1,16 @@
+import Easy from "./levels/easy.js";
+import Hard from "./levels/hard.js";
 import Player from "./player.js";
 
 export default class Game {
     #TURN;
     #SIZE;
+    #LEVELS = {easy: null, hard: null};
 
     /**
      * Game Class
      * 
-     * Object for tracking the current game, whether it is with a compurter or 
-     * with another human.
+     * Object for tracking the current game.
      * 
      * @param {number} size Size of Grid
      */
@@ -20,6 +22,11 @@ export default class Game {
         this._players = [];
         this.#TURN = 0;
         this.#SIZE = size;
+        this.#LEVELS.easy = new Easy();
+        this.#LEVELS.hard = new Hard("x", this.#SIZE);
+        
+        // Set Default Algorithm to be Easy
+        this._algorithm = this.#LEVELS.hard;
     }
 
     get grid () { return this._grid; }
@@ -30,24 +37,28 @@ export default class Game {
 
     set players (arr) { this._players = arr; }
 
+    get algorithm () { return this._algorithm; }
+
+    set algorithm (obj) { this._level = obj; }
+
     /**
      * Setup Method
      * 
      * Create Player Objects for the Upcoming Game.
      * 
-     * @param {boolean} nought Player 1 Nought or Cross
+     * @param {string} nought Player 1 Nought or Cross
      */
     setup (nought) {
         // Check if Players have already been initialised
         if (this._players.length === 0) {
-            this._players.push(new Player(nought));
-            this._players.push(new Player(!nought));
+            this._players.push(new Player(nought, this.#SIZE));
+            this._players.push(new Player((nought === "o" ? "x" : "o"), this.#SIZE));
         }
         // Otherwise, Update Players, if required
-        else if (this._players[0].isNought !== nought) {
+        else if (this._players[0].marker !== nought) {
             // Update Player Markers
-            this._players[0].isNought = nought;
-            this._players[1].isNought = !nought;
+            this._players[0].marker = nought;
+            this._players[1].marker = (nought === "o" ? "x" : "o");
 
             // Reset Player Scores
             this._players[0].reset();
@@ -61,13 +72,22 @@ export default class Game {
     }
 
     /**
+     * Set Level Method
+     * 
+     * Difficulty Level is set with this Method.
+     * 
+     * @param {string} level Algorithm Difficulty
+     */
+    setLevel (level) { this._algorithm = this.#LEVELS[level]; }
+
+    /**
      * Get Marker Method
      * 
      * For the Current Turn, the method returns the Marker of the Player.
      * 
      * @returns True, if Current Turn is Nought
      */
-    getMarker () { return this._players[this.#TURN].isNought; }
+    getMarker () { return this._players[this.#TURN].marker === "o" ? true : false; }
 
     /**
      * Attempt Method
@@ -90,20 +110,20 @@ export default class Game {
                 this._players[this.#TURN].play(x, y);
 
                 // Update Grid
-                this._grid[x][y] = this._players[this.#TURN].isNought ? "o" : "x";
+                this._grid[y][x] = this._players[this.#TURN].marker;
 
-                // Check if Game is Over
-                const check = this.#gameover();
+                // Chcek if Player has Won
+                if (this._players[this.#TURN].hasWon())
+                    return this._players[this.#TURN].marker;
 
-                // Return Winning Player Message
-                if (check >= 0)
-                    return `Player ${check + 1} has Won!`;
-                // Return Drawn Message
-                else if (check === -1)
+                // Check for a Draw
+                if (this.#filled()) 
                     return "Draw!";
 
-                // Update Turn if Game must Resume
+                // Next Turn
                 this.#TURN = this.#TURN === 0 ? 1 : 0;
+
+                // Game should Resume
                 return "";
             }
 
@@ -111,27 +131,6 @@ export default class Game {
         }
 
         return `Illegal Move! (${x}, ${y}) is out of bounds!`;
-    }
-
-    /**
-     * Gameover Method
-     * 
-     * Checks if a Player has Won the Game.
-     * 
-     * @returns Index of Player that has won, or -1 if game is not over
-     */
-    #gameover () {
-        // Check if First Player has Won
-        if (this._players[0].hasWon())
-            return 0;
-        // Check if Second Player has Won
-        else if (this._players[1].hasWon())
-            return 1;
-        // Check if there is a Draw
-        else if (this.#filled())
-            return -1;
-        // Game Must Continue
-        return -2;
     }
 
     /**

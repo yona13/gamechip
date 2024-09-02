@@ -35,7 +35,7 @@ export default class TTTGame extends GameInterface {
         this.#showCallback(this._tm.module);
 
         // Show Information about the Tic-Tac-Toe Game
-        this._tm.setMarker(true); // TODO: Replace with info where user can select marker
+        this._tm.setMarker("o"); // TODO: Replace with info where user can select marker
     }
 
     /**
@@ -87,11 +87,15 @@ export default class TTTGame extends GameInterface {
      * 
      * Handles the Click of the A Action Button.
      */
-    aCallback () {
+    async aCallback () {
         // Handle Grid Action
         if (this._tm.controller) {
             // Check if Game is Over
-            if (this._tm.acceptAction() && this._tm.end) { /* TODO: Raise Information about Outcome of Game */}
+            if (await this._tm.acceptAction() && this._tm.end) { 
+                console.log("Game Over!");
+                console.log(this._tm.message);
+                /* TODO: Raise Information about Outcome of Game */ 
+            }
 
             // Handle Error Message
             else { /* TODO: Raise Error in Popup */ }
