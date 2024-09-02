@@ -117,7 +117,7 @@ export default class TTTManager {
     /**
      * Setup Method
      * 
-     * TODO: Write Description
+     * Sets up the Display for the Game, including the cells and the scorecard.
      * 
      * @param {number} width Screen Width (pixels)
      * @param {number} height Screen Height (pixels)
@@ -155,7 +155,10 @@ export default class TTTManager {
      * 
      * @param {string} level Selected Level
      */
-    setLevel (level) { this._game.setLevel(level.toLowerCase()); }
+    setLevel (level) { 
+        this._game.setLevel(level.toLowerCase()); 
+        this._grid.reset();
+    }
 
     /**
      * Set Theme Method
@@ -182,7 +185,7 @@ export default class TTTManager {
         const move = this._game.algorithm.play(this._game.grid);
         
         // Update Display
-        this._grid.algorithmSelect(move);
+        this._grid.algorithmSelect(move, (this._user !== "o"));
 
         // Return Message resulting from Move
         return this._game.attempt(move.x, move.y);
@@ -191,30 +194,36 @@ export default class TTTManager {
     /**
      * Reset Method
      * 
-     * TODO: Write Description
+     * Set all variables to their original values, and set the grid so that the
+     * cells don't contain noughts nor crosses.
      */
     reset () {
         this._end = false;
+        this._grid.reset();
+        this._game.reset();
     }
 
     /**
      * Horizontal Move Method
      * 
-     * TODO: Write Description
+     * Moving the Cursor Right or Left on the Grid.
      */
     horizontalMove (right=true) { if (!this._end) this._grid.horizontalMove(right); }
 
     /**
      * Vertical Move Method
      * 
-     * TODO: Write Description
+     * Moving the Cursor Up or Down on the Grid.
      */
     verticalMove (up=true) { if (!this._end) this._grid.verticalMove(up); }
 
     /**
      * Accept Action Method
      * 
-     * TODO: Write Description
+     * When the User makes a move, then the grid should update the corresponding
+     * cell to reflect the Users move, given that the move is legal, otherwise 
+     * the move should raise an error. Additionally, when the move is made, the 
+     * Algorithm should be prompted to make its next move.
      * 
      * @callback gameoverCallback Gameover Callback Method
      */
@@ -234,6 +243,7 @@ export default class TTTManager {
             if (msg === this._user) {
                 this._end = true;
                 msg = "Congratulations, you won!";
+                this.#gameover(true);
             } 
             // Check if there is a Draw
             else if (msg === "Draw!")
@@ -257,6 +267,7 @@ export default class TTTManager {
                 if (msg === (this._user === "o" ? "x" : "o")) {
                     this._end = true;
                     msg = "Bad luck, the Algorithm has won!";
+                    this.#gameover(false);
                 } 
                 // Check if there is a Draw
                 else if (msg === "Draw!")
@@ -268,31 +279,27 @@ export default class TTTManager {
                 }
             }, 1000);
         }
-        // this.playAlgorithmMove();
-
-        // // Chek if Algorithm has Won
-        // if (this._msg === (this._user === "o" ? "x" : "o")) {
-        //     this._end = true;
-        //     this._msg = "Bad luck, the Algorithm has won!";
-        // } 
-        // // Check if there is a Draw
-        // else if (this._msg === "Draw!")
-        //     this._end = true;
-        
-        // return true;
     }
 
     /**
-     * Decline Action Method
+     * Gameover Method
      * 
-     * TODO: Write Description
+     * For a non-draw, this method updates the DOM Scores.
+     * 
+     * @param {boolean} human Human Won
      */
-    declineAction () {}
+    #gameover (human=false) {
+        // Update Human Score
+        if (human) {
+            this._scores.human += 1;
+            this._human.textContent = this._scores.human;
+        }
+        // Update Algorithm Score
+        else {
+            this._scores.algorithm += 1;
+            this._algorithm.textContent = this._scores.algorithm;
+        }
 
-    /**
-     * Selection Action Method
-     * 
-     * TODO: Write Description
-     */
-    selectAction () {}
+        this.reset();
+    }
 }

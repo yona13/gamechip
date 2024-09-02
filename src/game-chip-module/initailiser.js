@@ -5,7 +5,8 @@ export default class Initialiser {
     /**
      * Initialiser Class
      * 
-     * TODO: Write Description
+     * The use case for this class is for selecting the game that the user 
+     * wants to play.
      * 
      * @param {Array} games List of Games
      * @callback initialiseCallback Initialise Callback Method

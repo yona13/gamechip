@@ -1,0 +1,12 @@
+{
+    game: {
+        description: "Please choose a game.",
+        categories: [
+            {
+                key: "Shortest-Path"
+            }, {
+                key: "Knights-Tour"
+            }
+        ]
+    }
+}

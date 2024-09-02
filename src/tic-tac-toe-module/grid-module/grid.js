@@ -83,6 +83,20 @@ export default class Grid {
     }
 
     /**
+     * Reset Method
+     * 
+     * For the Cells in the Grid, the method will remove any nought or cross 
+     * within them.
+     */
+    reset () {
+        // Iterate through Cells and Remove Nought or Cross
+        this._cells.forEach(cell => {
+            cell.placeCross(false);
+            cell.placeNought(false);
+        })
+    }
+
+    /**
      * Algorithm Select Method
      * 
      * For the Algorithm's Selected Move, the Grid on Display must Update with
@@ -102,7 +116,7 @@ export default class Grid {
     /**
      * Horizontal Move Method
      * 
-     * TODO: Write Description
+     * Move the Cursor Horizontally around the Grid.
      * 
      * @param {boolean} right Default Action is Rightwards
      */
@@ -127,7 +141,7 @@ export default class Grid {
     /**
      * Vertical Move Method
      * 
-     * TODO: Write Description
+     * Move the Cursor Vertically around the Grid.
      * 
      * @param {boolean} up Default Action is Upwards
      */
@@ -152,17 +166,11 @@ export default class Grid {
     /**
      * Accept Action Method
      * 
-     * TODO: Write Description
+     * Depending on whether a Nought or Cross is Placed in the cell, the cell
+     * will be updated so that it reflects the move that was just played.
      * 
      * @param {boolean} nought Nought or Cross
      * @returns Error Message, if required
      */
     acceptAction (nought) { nought ? this._current.placeNought() : this._current.placeCross(); }
-
-    /**
-     * Decline Action Method
-     * 
-     * TODO: Write Description
-     */
-    declineAction () { /* TODO: Implement */ }
 }

@@ -1,10 +1,18 @@
 import Player from "../player.js";
-import Game from "../player.js";
 import Level from "./level.js";
 
 export default class Hard extends Level {
     #INFINITY = 1000;
 
+    /**
+     * Hard Level Class
+     * 
+     * For the Tic-Tac-Toe Game, the Hard Level utilises the Minimax Algorithm
+     * to find the Next Move it will take.
+     * 
+     * @param {string} marker Default Algorithm Marker
+     * @param {number} size Size of the Grid
+     */
     constructor (marker, size) { 
         super("hard"); 
         this._marker = marker;
@@ -36,11 +44,23 @@ export default class Hard extends Level {
      * @returns Selected Move
      */
     play (grid) {
-        console.log("HARD");
         this.#minimax(grid, 0, true, (this._marker === "o" ? "x" : "o"));
         return this._move; 
     }
 
+    /**
+     * Minimax Algorithm Method
+     * 
+     * The Minimax Algorithm is a decision tool for minimising the possible loss
+     * for a worst case scenario. This Algorithm was modified for the context of
+     * playing Tic-Tac-Toe.
+     * 
+     * @param {string[][]} grid Current Grid
+     * @param {number} depth Depth of Recursion
+     * @param {boolean} maximising Default is Maximising
+     * @param {string} marker Marker for Turn
+     * @returns The Cost/Benefit of the Move
+     */
     #minimax (grid, depth=0, maximising=true, marker="") {
         // Check if Game is Complete
         const state = this.#isComplete(grid);
@@ -94,31 +114,6 @@ export default class Hard extends Level {
 
             return value;
         }
-        // let value;
-        // const moves = this.#availableMoves(grid);
-        // const next = this.#nextTurn(grid, marker);
-
-        // // Handle Maximising Player
-        // if (maximising) {
-        //     value = -1 * this.#INFINITY;
-        //     moves.forEach(move => {
-        //         const newState = this.#simulate(grid, move.x, move.y, next);
-        //         value = Math.max(value, this.#minimax(newState, depth + 1, false));
-        //     });
-
-        //     return value;
-        // }
-
-        // // Handle Minimising Player
-        // else {
-        //     value = this.#INFINITY;
-        //     moves.forEach(move => {
-        //         const newState = this.#simulate(grid, move.x, move.y, next);
-        //         value = Math.min(value, this.#minimax(newState, depth + 1, true));
-        //     });
-
-        //     return value;
-        // }
     }
 
     /**

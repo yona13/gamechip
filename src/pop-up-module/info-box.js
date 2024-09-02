@@ -55,6 +55,10 @@ export default class InfoBox extends PopUp {
         const top = Math.floor(height * 0.1);
         this._box.style.left = `${left}px`;
         this._box.style.top = `${top}px`;
+
+        // Set Message Font Size
+        const fontSize = Math.floor(Math.min(width, height) * 0.04);
+        this._message.style.fontSize = `${fontSize}px`;
     }
 
     /**

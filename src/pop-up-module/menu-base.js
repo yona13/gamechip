@@ -68,9 +68,7 @@ export default class MenuBase extends PopUp {
 
         // Set Options Width
         const boxW = Math.floor(width * 0.6);
-        this._options.forEach(option => {
-            option.style.width = `${boxW}px`;
-        });
+        this._options.forEach(option => { option.style.width = `${boxW}px`; });
         this._return.style.width = `${boxW}px`;
     }
 
@@ -121,7 +119,7 @@ export default class MenuBase extends PopUp {
      * Accept Action Method
      * 
      * Chooses the Option on the Menu that the User has selected, returning true 
-     * implies that an option was seleccted, false implies that the return option 
+     * implies that an option was selected, false implies that the return option 
      * was selected.
      * 
      * @returns True for an Option, False for Return

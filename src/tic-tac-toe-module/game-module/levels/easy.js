@@ -1,6 +1,12 @@
 import Level from "./level.js";
 
 export default class Easy extends Level {
+    /**
+     * Easy Level Class
+     * 
+     * For the Tic-Tac-Toe Game, the Easy Level randomly selects its next move,
+     * without any effort for minimising loss.
+     */
     constructor () { super("easy"); }
 
     /**
@@ -13,7 +19,6 @@ export default class Easy extends Level {
      * @returns Selected Move
      */
     play (grid) {
-        console.log("EASY");
         // Initialise Available Array
         let available = [];
         

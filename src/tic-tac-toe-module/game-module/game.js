@@ -24,6 +24,7 @@ export default class Game {
         this.#SIZE = size;
         this.#LEVELS.easy = new Easy();
         this.#LEVELS.hard = new Hard("x", this.#SIZE);
+        this._initialised = false;
         
         // Set Default Algorithm to be Easy
         this._algorithm = this.#LEVELS.easy;
@@ -53,22 +54,18 @@ export default class Game {
         if (this._players.length === 0) {
             this._players.push(new Player(nought, this.#SIZE));
             this._players.push(new Player((nought === "o" ? "x" : "o"), this.#SIZE));
+            this.#LEVELS.hard.marker = (nought === "o" ? "x" : "o");
+            this._initialised = true;
         }
         // Otherwise, Update Players, if required
         else if (this._players[0].marker !== nought) {
             // Update Player Markers
             this._players[0].marker = nought;
             this._players[1].marker = (nought === "o" ? "x" : "o");
-
-            // Reset Player Scores
-            this._players[0].reset();
-            this._players[1].reset();
+            this.#LEVELS.hard.marker = (nought === "o" ? "x" : "o");
         }
-
-        // Reset Grid
-        for (let i = 0; i < this.#SIZE; i++) 
-            for (let j = 0; j < this.#SIZE; j++)
-                this._grid[i][j] = "";
+        
+        this.reset();
     }
 
     /**
@@ -80,7 +77,8 @@ export default class Game {
      */
     setLevel (level) { 
         this._algorithm = this.#LEVELS[level]; 
-        this.setup(this._players[0].marker);
+        if (this._initialised)
+            this.setup(this._players[0].marker);
     }
 
     /**
@@ -91,6 +89,22 @@ export default class Game {
      * @returns True, if Current Turn is Nought
      */
     getMarker () { return this._players[this.#TURN].marker === "o" ? true : false; }
+    
+    /**
+     * Reset Method
+     * 
+     * Reset Scores and Grid.
+     */
+    reset () {
+        // Reset Player Scores
+        this._players[0].reset();
+        this._players[1].reset();
+
+        // Reset Grid
+        for (let i = 0; i < this.#SIZE; i++) 
+            for (let j = 0; j < this.#SIZE; j++)
+                this._grid[i][j] = "";
+    }
 
     /**
      * Attempt Method

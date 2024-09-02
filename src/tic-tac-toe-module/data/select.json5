@@ -1,0 +1,22 @@
+{
+    difficulty: {
+        description: "Please choose a difficulty level.",
+        categories: [
+            {
+                key: "Easy"
+            }, {
+                key: "Hard"
+            }
+        ]
+    },
+    marker: {
+        description: "Please choose a marker.",
+        categories: [
+            {
+                key: "o"
+            }, {
+                key: "x"
+            }
+        ]
+    }
+}

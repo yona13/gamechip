@@ -1,10 +1,12 @@
 import "./game-styling.css";
 import categories from "./data/menu.json5";
+import selection from "./data/select.json5";
 import GameInterface from "../game-chip-module/game-interface.js";
 import KnightsManager from "./main-module/knights-manager.js";
 import Menu from "../pop-up-module/menu.js";
 import ErrorBox from "../pop-up-module/error-box.js";
 import InfoBox from "../pop-up-module/info-box.js";
+import SelectBox from "../pop-up-module/select-box.js";
 
 export default class KnightsGame extends GameInterface {
     #showCallback;
@@ -25,6 +27,13 @@ export default class KnightsGame extends GameInterface {
         this._menu = new Menu(categories);
         this._error = new ErrorBox();
         this._info = new InfoBox();
+        this._select = new SelectBox(
+            selection.game.description,
+            selection.game.categories
+        );
+
+        // Initialise Variable
+        this._game_selected = false;
     }
 
     /**
@@ -51,14 +60,15 @@ export default class KnightsGame extends GameInterface {
         this._sub_menu; 
         this._error.setDimensions(dimensions.width, dimensions.height);
         this._info.setDimensions(dimensions.width, dimensions.height);
+        this._select.setDimensions(dimensions.width, dimensions.height);
 
         // Set Board on Display
         this.#showCallback(this._km.module);
 
         // Show Information about Current Game
-        this._info.setTitle(this._km.game.puzzleTitle());
-        this._info.setMessage(this._km.game.puzzleInfo());
-        this.#showCallback(this._info.module, true);
+        this._select.active = true;
+        this._km.controller = false;
+        this.#showCallback(this._select.module, true);
     }
 
     /**
@@ -120,6 +130,9 @@ export default class KnightsGame extends GameInterface {
         // Handle Sub-Menu Movement
         if (this._sub_set)
             this._sub_menu.verticalMove();
+        // Handle Select Movement
+        if (this._select.active)
+            this._select.verticalMove();
     }
 
     /**
@@ -137,6 +150,9 @@ export default class KnightsGame extends GameInterface {
         // Handle Sub-Menu Movement
         if (this._sub_set)
             this._sub_menu.verticalMove(false);
+        // Handle Select Movement
+        if (this._select.active)
+            this._select.verticalMove(false);
     }
 
     /**
@@ -145,10 +161,25 @@ export default class KnightsGame extends GameInterface {
      * Handles the Click of the A Action Button.
      */
     aCallback () { 
+        // Handle Select Action
+        if (this._select.active && !this._game_selected) {
+            // Set Game
+            this._km.setGame(this._select.acceptAction());
+            this._game_selected = true;
+
+            // Show Information about Game
+            this.#takeDownCallback();
+            this._select.active = false;
+
+            this._info.setTitle(this._km.game.puzzleTitle());
+            this._info.setMessage(this._km.game.puzzleInfo());
+            this.#showCallback(this._info.module, true);
+        }
         // Handle Info Action
-        if (this._info.active) {
+        else if (this._info.active) {
             this.#takeDownCallback();
             this._info.active = false;
+            this._km.controller = true;
         } 
         // Handle Error Action
         else if (this._error.active) {
@@ -230,9 +261,11 @@ export default class KnightsGame extends GameInterface {
         if (this._error.active) {
             this.#takeDownCallback();
             this._error.active = false;
+            this._km.controller = true;
         } else if (this._info.active) {
             this.#takeDownCallback();
             this._info.active = false;
+            this._km.controller = true;
         } else if (this._km.controller)
             this._km.declineAction();
         // Handle Menu Action

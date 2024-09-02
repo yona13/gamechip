@@ -10,9 +10,11 @@
 .info-components > div { border-bottom: 2px solid var(--black); }
 
 .menu-container,
+.select-container,
 .information-container { font-family: "Dogica"; }
 
 .menu-box,
+.select-box,
 .information-box {
     background-color: var(--screen);
     justify-content: flex-start;
@@ -25,16 +27,19 @@
     overflow-y: hidden;
 }
 
-.info-message { font-size: 0.6rem; }
+/* .info-message { font-size: 0.4rem; } */
 
 .menu-title,
+.select-description,
 .information-title,
 .error-title { font-family: "Dogica Bold"; }
 
 .menu-box > div,
+.select-box > div,
 .information-box > div { text-align: start; }
 
-.menu-box > div.cursor {
+.menu-box > div.cursor,
+.select-box > div.cursor {
     animation: fade 1.5s infinite;
     animation-fill-mode: both;
 }
@@ -44,6 +49,7 @@
 }
 
 .error-box,
+.select-box,
 .information-box,
 .menu-box {
     position: absolute;

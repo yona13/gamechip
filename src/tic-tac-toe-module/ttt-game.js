@@ -1,10 +1,12 @@
 import "./game-styling.css";
 import categories from "./data/menu.json5";
+import selection from "./data/select.json5";
 import GameInterface from "../game-chip-module/game-interface.js";
 import TTTManager from "./main-module/ttt-manager.js";
 import Menu from "../pop-up-module/menu.js";
 import ErrorBox from "../pop-up-module/error-box.js";
 import InfoBox from "../pop-up-module/info-box.js";
+import SelectBox from "../pop-up-module/select-box.js";
 
 export default class TTTGame extends GameInterface {
     #showCallback;
@@ -18,6 +20,14 @@ export default class TTTGame extends GameInterface {
         this._menu = new Menu(categories);
         this._error = new ErrorBox();
         this._info = new InfoBox();
+        this._select = new SelectBox(
+            selection.difficulty.description, 
+            selection.difficulty.categories
+        );
+
+        // Initialise Variables
+        this._difficulty_selected = false;
+        this._marker_selected = false;
     }
 
     /**
@@ -44,12 +54,15 @@ export default class TTTGame extends GameInterface {
         this._sub_menu;
         this._error.setDimensions(dimensions.width, dimensions.height);
         this._info.setDimensions(dimensions.width, dimensions.height);
+        this._select.setDimensions(dimensions.width, dimensions.height);
 
         // Set Grid on Display
         this.#showCallback(this._tm.module);
 
-        // Show Information about the Tic-Tac-Toe Game
-        this._tm.setMarker("o"); // TODO: Replace with info where user can select marker
+        // Show Difficulty Selection
+        this._select.active = true;
+        this._tm.controller = false;
+        this.#showCallback(this._select.module, true);
     }
 
     /**
@@ -89,6 +102,9 @@ export default class TTTGame extends GameInterface {
         // Handle Sub-Menu Movement
         if (this._sub_set)
             this._sub_menu.verticalMove();
+        // Handle Select Movement
+        if (this._select.active)
+            this._select.verticalMove();
     }
 
     /**
@@ -106,6 +122,9 @@ export default class TTTGame extends GameInterface {
         // Handle Sub-Menu Movement
         if (this._sub_set)
             this._sub_menu.verticalMove(false);
+        // Handle Select Movement
+        if (this._select.active)
+            this._select.verticalMove(false);
     }
 
     /**
@@ -114,8 +133,29 @@ export default class TTTGame extends GameInterface {
      * Handles the Click of the A Action Button.
      */
     aCallback () {
+        // Handle Select Action
+        if (this._select.active && !this._difficulty_selected) {
+            // Set Difficulty Level
+            this._tm.setLevel(this._select.acceptAction());
+            this._difficulty_selected = true;
+
+            // Set Marker Selection
+            this._select.setSelections(
+                selection.marker.description,
+                selection.marker.categories
+            );
+        } else if (this._select.active && !this._marker_selected) {
+            // Set Marker
+            this._tm.setMarker(this._select.acceptAction());
+            this._marker_selected = true;
+
+            // Take down Select Box
+            this.#takeDownCallback();
+            this._select.active = false;
+            this._tm.controller = true;
+        }
         // Handle Info Action
-        if (this._info.active) {
+        else if (this._info.active) {
             this.#takeDownCallback();
             this._tm.controller = true;
             this._info.active = false;
