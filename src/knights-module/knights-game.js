@@ -1,10 +1,10 @@
 import "./game-styling.css";
 import categories from "./data/menu.json5";
 import GameInterface from "../game-chip-module/game-interface.js";
-import ErrorBox from "./main-module/error-box.js";
 import KnightsManager from "./main-module/knights-manager.js";
-import Menu from "./main-module/menu.js";
-import InfoBox from "./main-module/info-box.js";
+import Menu from "../pop-up-module/menu.js";
+import ErrorBox from "../pop-up-module/error-box.js";
+import InfoBox from "../pop-up-module/info-box.js";
 
 export default class KnightsGame extends GameInterface {
     #showCallback;

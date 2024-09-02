@@ -1,0 +1,48 @@
+{
+    key: "Main",
+    subs: [
+        {
+            key: "Level",
+            subs: [
+                {
+                    key: "Easy",
+                    subs: []
+                }, {
+                    key: "Hard",
+                    subs: []
+                }
+            ]
+        }, {
+            key: "Theme",
+            subs: [
+                {
+                    key: "Normal",
+                    subs: []    
+                }, {
+                    key: "Retro",
+                    subs: []
+                }, {
+                    key: "Neon",
+                    subs: []
+                }, {
+                    key: "Terminal",
+                    subs: []
+                }, {
+                    key: "Fancy",
+                    subs: []
+                }, {
+                    key: "Scruffy",
+                    subs: []
+                }
+            ]
+        }, {
+            key: "Controls",
+            subs: [
+                {
+                    key: "Information",
+                    subs: []
+                }
+            ]
+        }
+    ]
+}

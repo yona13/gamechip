@@ -6,6 +6,8 @@ export default class TTTManager {
     #THEMES = [
         "Normal",
         "Retro",
+        "Neon",
+        "Terminal",
         "Fancy",
         "Scruffy"
     ];
@@ -24,9 +26,10 @@ export default class TTTManager {
         humanScorecard.classList.add("human-scorecard");
 
         // Build Human Label DOM Element
-        const humanLabel = document.createElement("div");
-        humanLabel.classList.add("human-label");
-        humanLabel.textContent = "H: ";
+        this._humanLabel = document.createElement("div");
+        this._humanLabel.classList.add("human-label");
+        this._humanLabel.classList.add("turn");
+        this._humanLabel.textContent = "H: ";
 
         // Build Human Score DOM Element
         this._human = document.createElement("div");
@@ -34,7 +37,7 @@ export default class TTTManager {
         this._human.textContent = 0;
 
         // Add Components to Human Scorecard
-        humanScorecard.appendChild(humanLabel);
+        humanScorecard.appendChild(this._humanLabel);
         humanScorecard.appendChild(this._human);
 
         // Build Algorithm Scorecard DOM Components
@@ -42,9 +45,9 @@ export default class TTTManager {
         algorithmScorecard.classList.add("algorithm-scorecard");
 
         // Build Algorithm Label DOM Element
-        const algorithmLabel = document.createElement("div");
-        algorithmLabel.classList.add("algorithm-label");
-        algorithmLabel.textContent = "A: ";
+        this._algorithmLabel = document.createElement("div");
+        this._algorithmLabel.classList.add("algorithm-label");
+        this._algorithmLabel.textContent = "A: ";
 
         // Build Algorithm Score DOM Element
         this._algorithm = document.createElement("div");
@@ -52,7 +55,7 @@ export default class TTTManager {
         this._algorithm.textContent = 0;
 
         // Add Components to Algorithm Scorecard
-        algorithmScorecard.appendChild(algorithmLabel);
+        algorithmScorecard.appendChild(this._algorithmLabel);
         algorithmScorecard.appendChild(this._algorithm);
 
         // Build Versus Label DOM Element
@@ -78,7 +81,6 @@ export default class TTTManager {
         this._game = new Game(this.#DEFAULT_GRID);
         this._scores = {human: 0, algorithm: 0};
         this._end = false;
-        this._msg = "";
 
         // Set the Default Theme
         this.setTheme(this.#THEMES[0]);
@@ -111,10 +113,6 @@ export default class TTTManager {
     get end () { return this._end; }
 
     set end (bool) { this._end = bool; }
-
-    get message () { return this._msg; }
-
-    set message (str) { this._msg = str; }
 
     /**
      * Setup Method
@@ -178,7 +176,7 @@ export default class TTTManager {
         this._grid.algorithmSelect(move);
 
         // Return Message resulting from Move
-        this._msg = this._game.attempt(move.x, move.y);
+        return this._game.attempt(move.x, move.y);
     }
 
     /**
@@ -195,60 +193,84 @@ export default class TTTManager {
      * 
      * TODO: Write Description
      */
-    horizontalMove (right=true) { this._grid.horizontalMove(right); }
+    horizontalMove (right=true) { if (!this._end) this._grid.horizontalMove(right); }
 
     /**
      * Vertical Move Method
      * 
      * TODO: Write Description
      */
-    verticalMove (up=true) { this._grid.verticalMove(up); }
+    verticalMove (up=true) { if (!this._end) this._grid.verticalMove(up); }
 
     /**
      * Accept Action Method
      * 
      * TODO: Write Description
+     * 
+     * @callback gameoverCallback Gameover Callback Method
      */
-    acceptAction () {
-        // Check that the Attempt is Valid
-        const turn = this._game.getMarker();
-        this._msg = this._game.attempt(this._grid.current.x, this._grid.current.y);
+    acceptAction (gameoverCallback) {
+        if (!this._end) {
+            // Check that the Attempt is Valid
+            const turn = this._game.getMarker();
+            let msg = this._game.attempt(this._grid.current.x, this._grid.current.y);
+            
+            // Check if Attempt was Illegal
+            if (msg.includes("Illegal Move!")){
+                gameoverCallback(msg); 
+                return;
+            }
+
+            // Check if User has Won
+            if (msg === this._user) {
+                this._end = true;
+                msg = "Congratulations, you won!";
+            } 
+            // Check if there is a Draw
+            else if (msg === "Draw!")
+                this._end = true;
+            
+            // Make the Move on the Grid
+            this._grid.acceptAction(turn);
+
+            // Don't allow Algorithm to Move if Game is Over
+            if (this._end) {
+                gameoverCallback(msg);
+                return;
+            }
+                // return true;
+
+            // Prompt Algorithm to Move
+            setTimeout(() => {
+                msg = this.playAlgorithmMove();
         
-        // Check if Attempt was Illegal
-        if (this._msg.includes("Illegal Move!"))
-            return false;
+                // Chek if Algorithm has Won
+                if (msg === (this._user === "o" ? "x" : "o")) {
+                    this._end = true;
+                    msg = "Bad luck, the Algorithm has won!";
+                } 
+                // Check if there is a Draw
+                else if (msg === "Draw!")
+                    this._end = true;
+                
+                if (this._end) {
+                    gameoverCallback(msg);
+                    return;
+                }
+            }, 1000);
+        }
+        // this.playAlgorithmMove();
 
-        // Check if User has Won
-        if (this._msg === this._user) {
-            this._end = true;
-            this._msg = "Congratulations, you won!";
-        } 
-        // Check if there is a Draw
-        else if (this._msg === "Draw!")
-            this._end = true;
+        // // Chek if Algorithm has Won
+        // if (this._msg === (this._user === "o" ? "x" : "o")) {
+        //     this._end = true;
+        //     this._msg = "Bad luck, the Algorithm has won!";
+        // } 
+        // // Check if there is a Draw
+        // else if (this._msg === "Draw!")
+        //     this._end = true;
         
-        // Make the Move on the Grid
-        this._grid.acceptAction(turn);
-
-        // Don't allow Algorithm to Move if Game is Over
-        if (this._end)
-            return true;
-
-        // Prompt Algorithm to Move
-        this.playAlgorithmMove();
-        // setTimeout(this.playAlgorithmMove.bind(this), 1000);
-        console.log(this._msg);
-
-        // Chek if Algorithm has Won
-        if (this._msg === (this._user === "o" ? "x" : "o")) {
-            this._end = true;
-            this._msg = "Bad luck, the Algorithm has won!";
-        } 
-        // Check if there is a Draw
-        else if (this._msg === "Draw!")
-            this._end = true;
-        
-        return true;
+        // return true;
     }
 
     /**

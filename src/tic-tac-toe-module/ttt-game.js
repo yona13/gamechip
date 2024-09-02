@@ -1,6 +1,10 @@
 import "./game-styling.css";
+import categories from "./data/menu.json5";
 import GameInterface from "../game-chip-module/game-interface.js";
 import TTTManager from "./main-module/ttt-manager.js";
+import Menu from "../pop-up-module/menu.js";
+import ErrorBox from "../pop-up-module/error-box.js";
+import InfoBox from "../pop-up-module/info-box.js";
 
 export default class TTTGame extends GameInterface {
     #showCallback;
@@ -11,6 +15,9 @@ export default class TTTGame extends GameInterface {
 
         // Initialise Objects for the Tic-Tac-Toe Game
         this._tm = new TTTManager();
+        this._menu = new Menu(categories);
+        this._error = new ErrorBox();
+        this._info = new InfoBox();
     }
 
     /**
@@ -30,6 +37,13 @@ export default class TTTGame extends GameInterface {
         // Set Grid Dimensions
         const dimensions = getDimensions();
         this._tm.setup(dimensions.width, dimensions.height);
+
+        // Set Pop-Up Dimensions
+        this._menu.setDimensions(dimensions.width, dimensions.height);
+        this._sub_set = false;
+        this._sub_menu;
+        this._error.setDimensions(dimensions.width, dimensions.height);
+        this._info.setDimensions(dimensions.width, dimensions.height);
 
         // Set Grid on Display
         this.#showCallback(this._tm.module);
@@ -87,18 +101,22 @@ export default class TTTGame extends GameInterface {
      * 
      * Handles the Click of the A Action Button.
      */
-    async aCallback () {
+    aCallback () {
         // Handle Grid Action
         if (this._tm.controller) {
-            // Check if Game is Over
-            if (await this._tm.acceptAction() && this._tm.end) { 
-                console.log("Game Over!");
-                console.log(this._tm.message);
-                /* TODO: Raise Information about Outcome of Game */ 
-            }
+            this._tm.acceptAction(this.#gameoverCallback.bind(this));
+            // // Check if Game is Over
+            // if (this._tm.acceptAction() && this._tm.end) { 
+            //     /* TODO: Raise Information about Outcome of Game */ 
+            //     console.log("Game Over!");
+            //     console.log(this._tm.message);
+            // }
 
-            // Handle Error Message
-            else { /* TODO: Raise Error in Popup */ }
+            // // Handle Error Message
+            // else {
+            //     this._error.setMessage(this._tm.message);
+            //     this.#showCallback(this._error.module, true);
+            // }
         }
     }
 
@@ -107,14 +125,44 @@ export default class TTTGame extends GameInterface {
      * 
      * Handles the Click of the B Action Button.
      */
-    bCallback () {}
+    bCallback () {
+        // Handle Grid Action
+        if (this._error.active) {
+            this.#takeDownCallback();
+            this._error.active = false;
+        }
+    }
 
     /**
      * Start Callback Method
      * 
      * Handles the Click of the Start User Button.
      */
-    startCallback () {}
+    startCallback () {
+        // Menu to be Displayed
+        if (this._tm.controller) {
+            // Set Menu to be Controlled
+            this._km.controller = false;
+            this._menu.controller = true;
+
+            // Display the Menu
+            this.#showCallback(this._menu.module, true);
+        }
+
+        // Menu to be Taken Down
+        else {
+            // Set Tic-Tac-Toe to be Controlled
+            this._tm.controller = true;
+            this._menu.controller = false;
+            
+            // Take Down Menu/Sub-Menu
+            this.#takeDownCallback();
+            if (this._sub_set) {
+                this._menu.resetSubMenus();
+                this._sub_set = false;
+            }
+        }
+    }
 
     /**
      * Select Callback Method
@@ -122,4 +170,40 @@ export default class TTTGame extends GameInterface {
      * Handles the Click of the Select User Button.
      */
     selectCallback () {}
+
+    /**
+     * Gameover Callback Method
+     * 
+     * Method used for informing the User of the End Game Results.
+     * 
+     * @param {string} msg Game Over Message
+     * @param {boolean} error Default is No Error
+     */
+    #gameoverCallback (msg, error=false) {
+        // Display End Game Information if there are no errors.
+        if (!error) {
+            // Set Information Box Parameters
+            this._info.setTitle("Game Over!");
+            this._info.setMessage(msg);
+
+            // Update Cursor Control
+            this._tm.controller = false;
+            this._info.controller = true;
+
+            // Display Information
+            this.#showCallback(this._info.module, true);
+        }
+
+        // Otherwise, inform the User of the Error
+        else {
+            // Set Error Box Parameters
+            this._error.setMessage(msg);
+
+            // Update Cursor Control
+            this._tm.controller = false;
+            
+            // Display Error
+            this.#showCallback(this._error.module, true);
+        }
+    }
 }

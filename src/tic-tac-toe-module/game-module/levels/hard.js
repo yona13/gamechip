@@ -37,7 +37,6 @@ export default class Hard extends Level {
      */
     play (grid) {
         this.#minimax(grid, 0, true, (this._marker === "o" ? "x" : "o"));
-        console.log(this._move);
         return this._move; 
     }
 

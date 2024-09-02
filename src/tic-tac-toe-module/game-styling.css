@@ -28,6 +28,11 @@
     src: url("../fonts/Rich\ Eatin\'.otf");
 }
 
+@font-face {
+    font-family: "Beon";
+    src: url("../fonts/Beon-Regular.otf");
+}
+
 :root {
     --white: #fdfffc;
     --black: #020100;
@@ -43,6 +48,7 @@
     --border-colour: #ff7d00;
     --cursor: #36bce1;
     --text-colour: #001524;
+    --bottom-border: #ff7d00;
 }
 
 :root.retro {
@@ -55,6 +61,33 @@
     --border-colour: #b5af42;
     --cursor: #8bac0f;
     --text-colour: #0f380f;
+    --bottom-border: #b5af42;
+}
+
+:root.neon {
+    --font: "Beon";
+    --marker-font: "Beon";
+    --white: #0abdc6;
+    --black: #133e7c;
+    --screen: #091833;
+    --error-screen: #e7ee4f;
+    --border-colour: #711c91;
+    --cursor: #ea00d9;
+    --text-colour: #091833;
+    --bottom-border: #711c91;
+}
+
+:root.terminal {
+    --font: "Dogica";
+    --marker-font: "Dogica";
+    --white: black;
+    --black: black;
+    --screen: black;
+    --error-screen: red;
+    --border-colour: green;
+    --cursor: black;
+    --text-colour: green;
+    --bottom-border: black;
 }
 
 :root.fancy {
@@ -67,6 +100,7 @@
     --border-colour: #523d35;
     --cursor: #bba584;
     --text-colour: #223030;
+    --bottom-border: #523d35;
 }
 
 :root.scruffy {
@@ -79,6 +113,7 @@
     --border-colour: #dfcc16;
     --cursor: #12a365;
     --text-colour: #170f11;
+    --bottom-border: #dfcc16;
 }
 
 .tic-tac-toe-game-module {
@@ -108,9 +143,22 @@
     align-items: center;
 }
 
+.information-container { font-size: 1.5rem; }
+
+.info-message { font-size: 1rem; }
+
 
 @keyframes blink {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
+    0% { 
+        opacity: 0; 
+        border-bottom: 2px solid var(--border-colour);
+    }
+    50% { 
+        opacity: 1;
+        border-bottom: 2px solid var(--bottom-border);
+    }
+    100% { 
+        opacity: 0;
+        border-bottom: 2px solid var(--border-colour);
+    }
 }
