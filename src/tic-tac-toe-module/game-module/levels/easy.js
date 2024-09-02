@@ -26,7 +26,7 @@ export default class Easy extends Level {
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid.length; j++) {
                 // Only Push Avaiable Cells into Array
-                if (grid[j][i] === "")
+                if (grid[i][j] === "")
                     available.push({x: j, y: i});
             }
         }

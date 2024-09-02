@@ -255,6 +255,7 @@ export default class TTTManager {
             // Don't allow Algorithm to Move if Game is Over
             if (this._end) {
                 gameoverCallback(msg);
+                this.reset();
                 return;
             }
                 // return true;
@@ -275,6 +276,7 @@ export default class TTTManager {
                 
                 if (this._end) {
                     gameoverCallback(msg);
+                    this.reset();
                     return;
                 }
             }, 1000);
@@ -299,7 +301,5 @@ export default class TTTManager {
             this._scores.algorithm += 1;
             this._algorithm.textContent = this._scores.algorithm;
         }
-
-        this.reset();
     }
 }

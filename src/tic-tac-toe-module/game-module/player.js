@@ -29,7 +29,7 @@ export default class Player {
      * 
      * Set all score values to be zero.
      */
-    reset () { this._scores.forEach(e => { e = 0; }); }
+    reset () { for (let i = 0; i < this._scores.length; i++) this._scores[i] = 0; }
 
     /**
      * Play Method
