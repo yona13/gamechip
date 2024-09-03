@@ -1,8 +1,12 @@
 import GameInterface from "../game-chip-module/game-interface.js";
+import RPSManager from "./main-module/rps-manager.js";
 
 export default class RPSGame extends GameInterface {
     constructor (title) {
         super(title);
+
+        // Initialise Objects for the Rock, Paper, Scissors Game
+        this._rm = new RPSManager();
     }
 
     /**
