@@ -66,10 +66,11 @@ export default class RPSDisplay {
         this._module.style.height = `${height}px`;
 
         // Set Icon Dimensions
-        this._hIcon.style.width = `${height}px`;
-        this._hIcon.style.height = `${height}px`;
-        this._aIcon.style.width = `${height}px`;
-        this._aIcon.style.height = `${height}px`;
+        const dim = Math.floor(height * 0.6);
+        this._hIcon.style.width = `${dim}px`;
+        this._hIcon.style.height = `${dim}px`;
+        this._aIcon.style.width = `${dim}px`;
+        this._aIcon.style.height = `${dim}px`;
     }
 
     /**

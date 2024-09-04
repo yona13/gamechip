@@ -97,6 +97,24 @@
     align-items: center;
 }
 
+[class*="-sign-button"] { position: relative; }
+
+[class*="-sign-button"] > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#cursor-button {
+    background-color: var(--cursor);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: blink 1.5s infinite;
+    animation-fill-mode: both;
+}
+
 .information-container { font-size: 1.5rem; }
 
 .info-message { font-size: 1rem; }

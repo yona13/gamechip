@@ -74,6 +74,8 @@ export default class SignButton {
         this._module.innerHTML = "";
         this._icon.src = src;
         this._module.appendChild(this._icon);
+        if (this._pointer)
+            this._module.appendChild(this._cursor);
     }
 
     /**

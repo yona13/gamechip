@@ -175,14 +175,14 @@ export default class RPSGame extends GameInterface {
             if (this._sub_menu.acceptAction()) {
                 // Handle Game Set
                 if (this._sub_menu.selected.key === "Level") {
-                    this._tm.setLevel(this._sub_menu.selected.value);
+                    this._rm.setLevel(this._sub_menu.selected.value);
                     // this._km.setGame(this._sub_menu.selected.value);
                     this.#close();
                 }
                 
                 // Handle Theme Set
                 if (this._sub_menu.selected.key === "Theme") {
-                    this._tm.setTheme(this._sub_menu.selected.value);
+                    this._rm.setTheme(this._sub_menu.selected.value);
                     this.#close();
                 }
 

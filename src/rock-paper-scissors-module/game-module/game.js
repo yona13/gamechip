@@ -39,6 +39,17 @@ export default class Game {
     setLevel (level) { this._algorithm = this.#LEVELS[level]; }
 
     /**
+     * Algorithm Select Method
+     * 
+     * Algorithm must make a blind selection of it's next move.
+     * 
+     * @returns Alogrithms' Selected Sign
+     */
+    algorithmSelect () { 
+        console.log(this._algorithm);
+        return this._algorithm.play(this._signs); }
+
+    /**
      * Play Method
      * 
      * TODO: Write Description

@@ -77,6 +77,9 @@ export default class RPSManager {
 
         // Set the Default Theme
         this.setTheme(this._theme);
+
+        // Set Cursor on Rock
+        this._buttons[0].placeCursor();
     }
 
     get module () { return this._module; }
@@ -110,7 +113,7 @@ export default class RPSManager {
         this._display.setDimensions(dWidth, dHeight);
 
         // Set Button Dimensions
-        const dim = Math.floor(height * 0.45);
+        const dim = Math.floor(width * 0.25);
         const cHeight = Math.floor(height * 0.5);
         this._container.style.width = `${dWidth}px`;
         this._container.style.height = `${cHeight}px`;
@@ -124,7 +127,7 @@ export default class RPSManager {
      * 
      * @param {string} level Selected Level
      */
-    setLevel (level) { this._game.setLevel(level); }
+    setLevel (level) { this._game.setLevel(level.toLowerCase()); }
 
     /**
      * Set Theme Method
@@ -135,7 +138,7 @@ export default class RPSManager {
      */
     setTheme (theme) {
         // Update Theme Variable
-        this._theme = theme; 
+        this._theme = theme.toLowerCase(); 
 
         // Get Root Element
         const root = document.documentElement;
@@ -145,13 +148,13 @@ export default class RPSManager {
         this._buttons.forEach(btn => {
             // Handle Rock Button
             if (btn.sign === "rock")
-                btn.setIcon(this.#THEMES[theme].rock);
+                btn.setIcon(this.#THEMES[theme.toLowerCase()].rock);
             // Handle Paper Button
             if (btn.sign === "paper")
-                btn.setIcon(this.#THEMES[theme].paper);
+                btn.setIcon(this.#THEMES[theme.toLowerCase()].paper);
             // Handle Scissors Button
             if (btn.sign === "scissors")
-                btn.setIcon(this.#THEMES[theme].scissors);
+                btn.setIcon(this.#THEMES[theme.toLowerCase()].scissors);
         });
     }
 
@@ -191,7 +194,7 @@ export default class RPSManager {
         const hMove = this._buttons[this._current].sign;
 
         // Get Algorithm move
-        const aMove = this._game.algorithm.play(this._game.signs);
+        const aMove = this._game.algorithmSelect();
 
         // Update the Display
         this._display.setIcons(
@@ -201,6 +204,7 @@ export default class RPSManager {
 
         // Update Scores
         const results = this._game.play(hMove, aMove);
+        console.log(results);
 
         // TODO: in the following conditions, update algorithm with results
 

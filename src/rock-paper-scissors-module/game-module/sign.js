@@ -24,6 +24,7 @@ export default class Sign {
      * @returns 1 for a Win, 0 for a Draw, -1 for a Loss
      */
     matchup (sign) {
+        console.log(`My Sign: ${this._name}; Opposing Sign: ${sign.name};`);
         // This is Rock
         if (this._name === "rock") {
             // Opposing Rock
@@ -33,7 +34,7 @@ export default class Sign {
             if (sign.name === "paper") return -1;
 
             // Opposing Scissors
-            if (sign.name === "scissosrs") return 1;
+            if (sign.name === "scissors") return 1;
         }
 
         // This is Paper
@@ -45,7 +46,7 @@ export default class Sign {
             if (sign.name === "paper") return 0;
 
             // Opposing Scissors
-            if (sign.name === "scissosrs") return -1;
+            if (sign.name === "scissors") return -1;
         }
 
         // This is Scissors
@@ -57,7 +58,7 @@ export default class Sign {
             if (sign.name === "paper") return 1;
 
             // Opposing Scissors
-            if (sign.name === "scissosrs") return 0;
+            if (sign.name === "scissors") return 0;
         }
     }
 }
