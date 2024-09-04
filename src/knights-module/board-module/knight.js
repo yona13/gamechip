@@ -88,13 +88,13 @@ export default class Knight {
     set steps (num) { this._steps = num; }
 
     /**
-     * Change Icon Method
+     * Set Icon Method
      * 
      * Set the New Icon for the given Theme.
      * 
      * @param {string} theme New Theme
      */
-    changeIcon (theme) {
+    setIcon (theme) {
         // Ensure Theme Exists
         if (Object.keys(this.#THEMES).includes(theme)) {
             // Replace Icon

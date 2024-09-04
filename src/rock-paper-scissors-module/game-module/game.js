@@ -1,10 +1,7 @@
-import Rock from "./signs/rock.js";
-import Paper from "./signs/paper.js";
-import Scissors from "./signs/scissors.js";
 import Easy from "./levels/easy.js";
 import Medium from "./levels/medium.js";
 import Hard from "./levels/hard.js";
-import Sign from "./signs/sign.js";
+import Sign from "./sign.js";
 
 export default class Game {
     #LEVELS = {easy: null, medium: null, hard: null};
@@ -12,9 +9,9 @@ export default class Game {
     constructor () {
         // Initialise Variables
         this._signs = [
-            new Rock(),
-            new Paper(),
-            new Scissors()
+            new Sign("rock"),
+            new Sign("paper"),
+            new Sign("scissors")
         ];
         this.#LEVELS.easy = new Easy();
         this.#LEVELS.medium = new Medium();
@@ -46,8 +43,22 @@ export default class Game {
      * 
      * TODO: Write Description
      * 
-     * @param {Sign} sign Sign to Play
+     * @param {string} hStr String representation for Human Sign Selection
+     * @param {string} aStr String representation for Algorithm Sign Selection
      * @returns 1 for a Win, 0 for a Draw, -1 for a Loss
      */
-    play (sign) { /* TODO: Implement */ return 0; }
+    play (hStr, aStr) { 
+        // Find the Signs that Represent Signs Selected
+        let hSign;
+        let aSign;
+        this._signs.forEach(sign => {
+            if (sign.name === hStr)
+                hSign = sign;
+            if (sign.name === aStr)
+                aSign = sign;
+        });
+
+        // Return Matchup Results
+        return hSign.matchup(aSign);
+    }
 }

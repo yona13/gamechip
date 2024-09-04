@@ -1,0 +1,14 @@
+{
+    difficulty: {
+        description: "Please choose a difficulty level.",
+        categories: [
+            {
+                key: "Easy"
+            }, {
+                key: "Medium"
+            }, {
+                key: "Hard"
+            }
+        ]
+    }
+}

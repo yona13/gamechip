@@ -1,4 +1,4 @@
-import Sign from "../signs/sign.js";
+import Sign from "../sign.js";
 
 export default class Level {
     /**
@@ -21,7 +21,7 @@ export default class Level {
      * The Method will choose a Sign to Play.
      * 
      * @param {Sign[]} signs Available Signs
-     * @returns Sign to Play
+     * @returns String Representation of Sign to Play
      */
-    play (signs) { return signs[0]; }
+    play (signs) { return signs[0].sign; }
 }

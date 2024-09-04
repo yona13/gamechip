@@ -12,6 +12,14 @@ export default class TTTManager {
         "Scruffy"
     ];
 
+    /**
+     * Tic-Tac-Toe Manager Class
+     * 
+     * For the Tic-Tac-Toe Game, this Manager Class will Handle UI Components
+     * such as the Scores for either Player, and of course the Grid upon which
+     * the game is played. It will also manage the Actions on the Grid with the
+     * parent Game Interface.
+     */
     constructor () {
         // Build Game DOM Element
         this._module = document.createElement("div");

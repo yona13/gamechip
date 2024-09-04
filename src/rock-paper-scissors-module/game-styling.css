@@ -1,0 +1,108 @@
+@font-face {
+    font-family: "Merom Sans";
+    src: url("../fonts/MeromSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Gothica";
+    src: url("../fonts/Gothica-Book.ttf");
+}
+
+@font-face {
+    font-family: "Dogica";
+    src: url("../fonts/dogica.ttf");
+}
+
+@font-face {
+    font-family: "Beon";
+    src: url("../fonts/Beon-Regular.otf");
+}
+
+:root {
+    --white: #fdfffc;
+    --black: #020100;
+}
+
+:root.normal {
+    --font: "Merom Sans";
+    --screen: #e7e6f7;
+    --error-screen: #e3d0d8;
+    --border-colour: #827081;
+    --background-colour: #c6d2ed;
+    --cursor: #aea3b0;
+    --text-colour: #020100;
+}
+
+:root.monotone {
+    --font: "Gothica";
+    --screen: #9f9e9d;
+    --error-screen: #565655;
+    --border-colour: #020100;
+    --background-colour: #dad9d9;
+    --cursor: #7d7c7b;
+    --text-colour: #020100;
+}
+
+:root.neon {
+    --font: "Beon";
+    --screen: #091833;
+    --error-screen: #f23ca6;
+    --border-colour: #711c91;
+    --background-colour: #711c91;
+    --cursor: #0abdc6;
+    --text-colour: #fbff36;
+}
+
+:root.terminal {
+    --font: "Dogica";
+    --screen: black;
+    --error-screen: red;
+    --border-colour: black;
+    --background-colour: black;
+    --cursor: green;
+    --text-colour: green;
+}
+
+.rock-paper-scissors-game-module {
+    position: absolute;
+    color: var(--text-colour);
+    background-color: var(--screen);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.rps-display {
+    background-color: var(--background-colour);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rps-human-move,
+.rps-algorithm-move {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rps-button-container {
+    background-color: var(--background-colour);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.information-container { font-size: 1.5rem; }
+
+.info-message { font-size: 1rem; }
+
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}

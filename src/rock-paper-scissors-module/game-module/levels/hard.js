@@ -14,7 +14,7 @@ export default class Hard extends Level {
      * TODO: Write Description
      * 
      * @param {Sign[]} signs Available Signs
-     * @returns Sign to Play
+     * @returns String Representation of Sign to Play
      */
-    play (signs) { return signs[0]; }
+    play (signs) { return signs[0].sign; }
 }

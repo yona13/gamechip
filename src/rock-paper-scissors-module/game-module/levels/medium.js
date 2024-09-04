@@ -15,7 +15,7 @@ export default class Medium extends Level {
      * The Method will choose a random Sign to Play.
      * 
      * @param {Sign[]} signs Available Signs
-     * @returns Sign to Play
+     * @returns String Representation of Sign to Play
      */
-    play (signs) { return signs[Math.floor(Math.random() * signs.length)]; }
+    play (signs) { return signs[Math.floor(Math.random() * signs.length)].sign; }
 }

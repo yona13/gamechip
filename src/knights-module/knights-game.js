@@ -18,6 +18,8 @@ export default class KnightsGame extends GameInterface {
      * Used for Controlling the Menu and Chessboard Modules with the GameChip's
      * Controllers, and also for Updating the Display with the relevant Error 
      * and Information Messages.
+     * 
+     * @param {string} title Title of the Game
      */
     constructor (title) {
         super(title);

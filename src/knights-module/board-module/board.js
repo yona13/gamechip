@@ -154,7 +154,7 @@ export default class Board {
      * 
      * @param {string} theme Theme Name
      */
-    setTheme (theme) { this._knight.changeIcon(theme); }
+    setTheme (theme) { this._knight.setIcon(theme); }
 
     /**
      * Set Goal Method

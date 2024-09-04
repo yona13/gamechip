@@ -12,6 +12,15 @@ export default class TTTGame extends GameInterface {
     #showCallback;
     #takeDownCallback;
 
+    /**
+     * Tic-Tac-Toe Interface Class
+     * 
+     * Used for Controlling the Menu and the Grid Modules with the GameChip's
+     * Controllers, and also for Updating the Display with the relevant Error
+     * and Information Messages.
+     * 
+     * @param {string} title Title of the Game
+     */
     constructor (title) {
         super(title);
 
