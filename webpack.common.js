@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: "./src/index.js",
+        index: "./src/index.js",
         gamechip: "./src/game-chip-module/game-chip.js",
         knights: "./src/knights-module/knights-game.js",
         tictactoe: "./src/tic-tac-toe-module/ttt-game.js",
