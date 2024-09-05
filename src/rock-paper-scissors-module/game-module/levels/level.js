@@ -7,9 +7,15 @@ export default class Level {
      * Base Class for the Difficulty Level of the Computer for the Rock, Paper, 
      * Scissors Game.
      * 
+     * @param {Sign[]} signs Available Signs
      * @param {string} level Difficulty Level
      */
-    constructor (level) { this._level = level; }
+    constructor (signs, level) {
+        // Intialise Variables
+        this._signs = [];
+        signs.forEach(sign => { this._signs.push(sign.name); });
+        this._level = level; 
+    }
 
     get level () { return this._level; }
 
@@ -20,8 +26,17 @@ export default class Level {
      * 
      * The Method will choose a Sign to Play.
      * 
-     * @param {Sign[]} signs Available Signs
      * @returns String Representation of Sign to Play
      */
-    play (signs) { return signs[0].name; }
+    play () { return this._signs[0]; }
+
+    /**
+     * Update Method
+     * 
+     * Algorithm Learning Method.
+     * 
+     * @param {Sign} hMove Human Move
+     * @param {number} result Result of Matchup
+     */
+    update (hMove, result) {}
 }

@@ -19,6 +19,8 @@ export default class TTTGame extends GameInterface {
      * Controllers, and also for Updating the Display with the relevant Error
      * and Information Messages.
      * 
+     * TODO: Add a feature for enlarging the grid
+     * 
      * @param {string} title Title of the Game
      */
     constructor (title) {

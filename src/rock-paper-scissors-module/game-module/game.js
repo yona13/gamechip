@@ -13,9 +13,9 @@ export default class Game {
             new Sign("paper"),
             new Sign("scissors")
         ];
-        this.#LEVELS.easy = new Easy();
-        this.#LEVELS.medium = new Medium();
-        this.#LEVELS.hard = new Hard();
+        this.#LEVELS.easy = new Easy(this._signs);
+        this.#LEVELS.medium = new Medium(this._signs);
+        this.#LEVELS.hard = new Hard(this._signs);
         
         // Set Default Algorithm to be Easy
         this._algorithm = this.#LEVELS.easy;
@@ -47,7 +47,7 @@ export default class Game {
      */
     algorithmSelect () { 
         console.log(this._algorithm);
-        return this._algorithm.play(this._signs); }
+        return this._algorithm.play(); }
 
     /**
      * Play Method
@@ -59,6 +59,7 @@ export default class Game {
      * @returns 1 for a Win, 0 for a Draw, -1 for a Loss
      */
     play (hStr, aStr) { 
+        console.log(`My Sign: ${hStr}; AI Sign: ${aStr};`);
         // Find the Signs that Represent Signs Selected
         let hSign;
         let aSign;
@@ -69,7 +70,10 @@ export default class Game {
                 aSign = sign;
         });
 
-        // Return Matchup Results
-        return hSign.matchup(aSign);
+        // Get Matchup Results and Update Algorithm
+        const result = hSign.matchup(aSign);
+        this._algorithm.update(hSign, result);
+
+        return result;
     }
 }
