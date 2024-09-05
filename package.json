@@ -4,6 +4,8 @@
   "description": "GameChip and its Associated Games",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "webpack serve --open --config webpack.dev.js",
     "server": "node server.js",
     "build": "webpack --config webpack.prod.js"
@@ -14,6 +16,7 @@
   "devDependencies": {
     "css-loader": "^7.1.2",
     "express": "^4.19.2",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",
     "json5": "^2.2.3",
     "style-loader": "^4.0.0",
